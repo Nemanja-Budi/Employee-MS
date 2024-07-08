@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'employe-detail/:id', component: EmployeDetailComponent},
   { path: 'salarys', component: EmployeSalaryComponent },
   { path: 'create-salary', component: EmployeSalaryAddComponent},
+  { path: 'create-salary/:id', component: EmployeSalaryAddComponent},
   { path: 'detail-salary/:id', component: EmployeSalaryDetailComponent},
   // { path: 'tickets-buy/:id', component: TicketFormComponent},
   // { path: "person/:personal_number", component: PersionDetailComponent },

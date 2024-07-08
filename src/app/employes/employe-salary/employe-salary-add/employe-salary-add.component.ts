@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EmployeService } from 'src/app/employe.service';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
@@ -16,7 +17,7 @@ export class EmployeSalaryAddComponent {
   employeService: EmployeService = inject(EmployeService);
   employes: Observable<Employe[]> = this.employeService.getEmployes();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
     this.employeSalaryForm = this.fb.group({
       employeId: ['', Validators.required],
       totalNumberOfHours: [null, [Validators.required, Validators.min(0)]],
@@ -31,7 +32,22 @@ export class EmployeSalaryAddComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params: any) => {
+      const employeId = params.get('id');
+      if (employeId) {
+        this.employeSalaryForm.patchValue({ employeId: employeId });
+        this.employeService.getEmploye(employeId).subscribe(employe => {
+          // Ako želiš da popuniš i ostale vrednosti u formi na osnovu podataka zaposlenog, dodaj ovde
+          // Primer:
+          // this.employeSalaryForm.patchValue({
+          //   totalNumberOfHours: employe.someValue,
+          //   ...
+          // });
+        });
+      }
+    });
+  }
 
   onSubmit(): void {
     if (this.employeSalaryForm.valid) {
@@ -50,7 +66,7 @@ export class EmployeSalaryAddComponent {
       console.log(employeSalary);
       this.employeService.createEmployeSalary(employeSalary).subscribe({
         next: (employe) => console.log(employe),
-        error: () => console.log("Erorr") 
+        error: () => console.log("Error")
       })
     } else {
       console.error('Form is invalid');
