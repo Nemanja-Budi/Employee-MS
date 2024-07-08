@@ -1,0 +1,27 @@
+<div class="grid grid-cols-5">
+  <div class="col-span-2" *ngIf="employe | async as employeData">
+    <div *ngFor="let key of keys(employeData)">
+      <strong>{{ formatKey(key) }}:</strong> {{ employeData[key] }}
+    </div>
+    <div *ngFor="let c of employeData['employeChild']">
+        {{ c.name }}
+        {{ c.jmbg }}
+        {{ c.gender }}
+    </div>
+    <div>
+        <button routerLink="/employe-edit/{{employeData.id}}">Edit Employe</button>
+      </div>
+  </div>
+
+  <div>
+    <button>Izracunaj platu</button>
+  </div>
+
+  <div>
+    <button>Delete Employe</button>
+  </div>
+
+  <div>
+    <button routerLink="/employe-edit/">Edit Employe</button>
+  </div>
+</div>

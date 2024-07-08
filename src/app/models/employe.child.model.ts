@@ -1,5 +1,5 @@
 export interface EmployeChild {
-    id: string;
+    id?: string;
     name: string;
     jmbg: string;
     gender: 'M' | 'F';

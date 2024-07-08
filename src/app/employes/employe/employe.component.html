@@ -6,40 +6,41 @@
       <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
         <thead class="bg-gray-800 text-white">
           <tr>
-            <th class="w-[60ch]">First Name</th>
-            <th class="py-2 px-4 border-b">Last Name</th>
-            <th class="py-2 px-4 border-b">Parent's Name</th>
-            <th class="py-2 px-4 border-b">Date of Birth</th>
-            <th class="py-2 px-4 border-b">JMBG</th>
-            <th class="py-2 px-4 border-b">Hourly Rate</th>
-            <th class="py-2 px-4 border-b">Gender</th>
-            <th class="py-2 px-4 border-b">Identity Card Number</th>
-            <th class="py-2 px-4 border-b">Phone</th>
-            <th class="py-2 px-4 border-b">Address</th>
-            <th class="py-2 px-4 border-b">Email</th>
-            <th class="py-2 px-4 border-b">Place of Birth</th>
-            <th class="py-2 px-4 border-b">Date of Employment</th>
-            <th class="py-2 px-4 border-b">PIO</th>
-            <th class="py-2 px-4 border-b">School</th>
-            <th class="py-2 px-4 border-b">College</th>
-            <th class="py-2 px-4 border-b">Position</th>
-            <th class="py-2 px-4 border-b">Employment Contract</th>
-            <th class="py-2 px-4 border-b">Amendment Contract</th>
-            <th class="py-2 px-4 border-b">Bank Name</th>
-            <th class="py-2 px-4 border-b">Current Account</th>
-            <th class="py-2 px-4 border-b" colspan="2">Gross Salary</th>
-            <th></th>
+            <th class="w-[11ch] border">First Name</th>
+            <th class="p-2 border-b">Last Name</th>
+            <th class="p-2 border-b">Parent's Name</th>
+            <th class="p-2 border-b">Date of Birth</th>
+            <th class="p-2 border-b">JMBG</th>
+            <!-- <th class="p-2 border-b">Hourly Rate</th>
+            <th class="p-2 border-b">Gender</th>
+            <th class="p-2 border-b">Identity Card Number</th>
+            <th class="p-2 border-b">Phone</th>
+            <th class="p-2 border-b">Address</th>
+            <th class="p-2 border-b">Email</th>
+            <th class="p-2 border-b">Place of Birth</th>
+            <th class="p-2 border-b">Date of Employment</th>
+            <th class="p-2 border-b">PIO</th>
+            <th class="p-2 border-b">School</th>
+            <th class="p-2 border-b">College</th>
+            <th class="p-2 border-b">Position</th>
+            <th class="p-2 border-b">Employment Contract</th>
+            <th class="p-2 border-b">Amendment Contract</th>
+            <th class="p-2 border-b">Bank Name</th>
+            <th class="p-2 border-b">Current Account</th>
+            <th class="p-2 border-b" colspan="2">Gross Salary</th>
+            <th></th> -->
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngIf="employes">
           <tr *ngFor="let employe of employes | async" class="even:bg-gray-100">
-            <td class="py-2 px-4 border-b">{{ employe.firstName }}</td>
+            <td routerLink="/employe-detail/{{employe.id}}" class="py-2 px-4 border-b">{{ employe.firstName }}</td>
             <td class="py-2 px-4 border-b">{{ employe.lastName }}</td>
             <td class="py-2 px-4 border-b">{{ employe.nameOfParent }}</td>
             <td class="py-2 px-4 border-b">{{ employe.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
             <td class="py-2 px-4 border-b">{{ employe.jmbg }}</td>
-            <td class="py-2 px-4 border-b">{{ employe.hourlyRate }}</td>
+            <!-- <td class="py-2 px-4 border-b">{{ employe.hourlyRate }}</td>
             <td class="py-2 px-4 border-b">{{ employe.gender }}</td>
             <td class="py-2 px-4 border-b">{{ employe.identityCardNumber }}</td>
             <td class="py-2 px-4 border-b">{{ employe.phone }}</td>
@@ -60,7 +61,10 @@
                 <li>{{child.jmbg}}</li>
                 <li>{{child.gender}}</li>
             </td>
-            <td></td>
+            <td></td> -->
+            <td *ngIf="employe.id">
+              <button (click)="onDeleteEmploye(employe.id)">Delete</button>
+            </td>
           </tr>
         </ng-container>
         </tbody>
@@ -68,8 +72,9 @@
     </div>
     
     <div>
-      <app-employe-child></app-employe-child>
+      <ng-container *ngIf="employeChilds">
+        <app-employe-child [employeChild]="employeChilds"></app-employe-child>
+      </ng-container>
   </div>
-  
   
 </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EmployeChild } from 'src/app/models/employe.child.model';
 
 @Component({
   selector: 'app-employe-child',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class EmployeChildComponent {
 
+  @Input() employeChild: EmployeChild[] = [];
 }

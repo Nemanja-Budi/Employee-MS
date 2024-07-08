@@ -12,6 +12,8 @@ import { FooterComponent } from './core/footer/footer.component';
 import { EmployeSalaryAddComponent } from './employes/employe-salary/employe-salary-add/employe-salary-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeAddComponent } from './employes/employe/employe-add/employe-add.component';
+import { EmployeSalaryDetailComponent } from './employes/employe-salary/employe-salary-detail/employe-salary-detail.component';
+import { EmployeDetailComponent } from './employes/employe/employe-detail/employe-detail.component';
 
 
 @NgModule({
@@ -24,6 +26,8 @@ import { EmployeAddComponent } from './employes/employe/employe-add/employe-add.
     FooterComponent,
     EmployeSalaryAddComponent,
     EmployeAddComponent,
+    EmployeSalaryDetailComponent,
+    EmployeDetailComponent,
   ],
   imports: [
     BrowserModule,

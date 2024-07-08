@@ -15,13 +15,32 @@ export class EmployeService {
     return this.http.get<Employe[]>(`http://localhost:5000/api/employe/get-employes`);
   }
 
+  addEmploye(employe: Employe): Observable<Employe> {
+    return this.http.post<Employe>(`http://localhost:5000/api/employe/create-employe`, employe);
+  }
+
+  deleteEmploye(employeId: string): Observable<Employe> {
+    return this.http.delete<Employe>(`http://localhost:5000/api/employe/delete-employe/${employeId}`);
+  }
+
+  getEmploye(employeId: string): Observable<Employe> {
+    return this.http.get<Employe>(`http://localhost:5000/api/employe/get-employe/${employeId}`);
+  }
+
   getEmployeSalarys(): Observable<EmployeSalary[]> {
-    return this.http.get<EmployeSalary[]>(`http://localhost:5000/api/employesalary/employe-salarys/3d509c1f-aaa1-4de6-12ae-08dc9d3e99b6`);
+    return this.http.get<EmployeSalary[]>(`http://localhost:5000/api/employesalary/employe-salarys`);
+  }
+
+  getEmployeSalarysByEmployeId(employeId: string): Observable<EmployeSalary[]> {
+    return this.http.get<EmployeSalary[]>(`http://localhost:5000/api/employesalary/employe-salarys/${employeId}`);
   }
 
   createEmployeSalary(employeSalary: EmployeSalary): Observable<EmployeSalary> {
     return this.http.post<EmployeSalary>(`http://localhost:5000/api/employesalary/create-employe-salary`, employeSalary);
   }
 
+  getEmployeSalaryById(employeSalaryId: string): Observable<EmployeSalary> {
+    return this.http.get<EmployeSalary>(`http://localhost:5000/api/employesalary/employe-salary/${employeSalaryId}`);
+  }
  
 }

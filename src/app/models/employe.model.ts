@@ -2,7 +2,7 @@ import { EmployeChild } from "./employe.child.model";
 import { EmployeSalary } from "./employe-salary/employe.salary.model";
 
 export interface Employe {
-    id: string;
+    id?: string;
     firstName: string;
     lastName: string;
     nameOfParent: string;
@@ -24,5 +24,6 @@ export interface Employe {
     amendmentContract: string;
     bankName: string;
     currentAccount: number;
-    employeChild: EmployeChild[];
+    employeChild?: EmployeChild[];
+    [key: string]: any;
 }

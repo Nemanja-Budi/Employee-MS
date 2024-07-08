@@ -1,1 +1,8 @@
-<p>employe-child works!</p>
+<ng-container *ngIf="employeChild">
+
+<td  *ngFor="let child of employeChild" class="py-2 px-4 border-b">
+    <li>{{child.name}}</li>
+    <li>{{child.jmbg}}</li>
+    <li>{{child.gender}}</li>
+</td>
+</ng-container>
