@@ -13,7 +13,7 @@ export class EmployeDetailComponent {
 
   employeService: EmployeService = inject(EmployeService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-
+  
   employe: Observable<Employe> = this.activatedRoute.paramMap.pipe(concatMap((param) => {
     const id = param.get('id');
     return this.employeService.getEmploye(String(id));
