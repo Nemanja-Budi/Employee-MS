@@ -1,0 +1,43 @@
+<div class="grid grid-rows-[0.15fr,1fr] h-full">
+    <h2 class="text-[#BB4430] text-4xl flex justify-center items-center font-bold">Login Page</h2>
+    <div class="flex flex-col justify-center items-center h-full text-[#fff8]">
+        <div class="bg-transparent/20 rounded-md shadow shadow-black text-[#fff8] p-6 w-[90%] md:w-[60%] lg:w-[40%] xl:w-[30%] mx-auto ">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2">
+                    <label for="userName">Username</label>
+                    <input 
+                        type="text" 
+                        placeholder="Username (email address)" 
+                        class="bg-transparent/20 outline-none shadow shadow-black rounded-md p-3 placeholder:text-[#fff8]" 
+                        formControlName="userName"
+                        [class.is-invalid]="submited && loginForm.get('userName')?.errors">
+                    <span 
+                        class="text-red-600"  
+                        *ngIf="submited && loginForm.get('userName')?.hasError('required')">
+                            Username is required
+                    </span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        placeholder="Password" 
+                        class="bg-transparent/20 outline-none shadow shadow-black rounded-md p-3 placeholder:text-[#fff8]" 
+                        formControlName="password"
+                        [class.is-invalid]="submited && loginForm.get('password')?.errors">
+                    <span 
+                        class="text-red-600" 
+                        *ngIf="submited && loginForm.get('password')?.hasError('required')">
+                            Password is required
+                    </span>
+                </div>
+                <div class="form-floating" *ngIf="errorMessages.length > 0">
+                    <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+                </div>
+                <div class="flex justify-center items-center mt-2">
+                    <button class="px-7 py-2.5 bg-transparent/20 shadow shadow-black text-[#fff8] rounded-md" type="submit">Log in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

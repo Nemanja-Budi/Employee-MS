@@ -1,0 +1,23 @@
+<div class="p-5 flex flex-col gap-5">
+    <div class="grid md:grid md:grid-cols-2 gap-5">
+        <div class="grid grid-cols-2 gap-3">
+            <button routerLink="/admin" class="flex items-center  bg-transparent/20 shadow shadow-black gap-2 px-3 py-2 rounded-md text-[#fff8]"><span class="flex items-center"><i class="fa-solid fa-arrow-left"></i></span>Contacts</button>
+            <button routerLink="/admin/add-new-user" class="bg-transparent/20 shadow shadow-black gap-2 px-3 py-2 rounded-md text-[#fff8]"><span class="font-bold">+</span> Add User</button>
+        </div>
+        <div>
+            <app-admin-show-items-per-page [isUser]="false"></app-admin-show-items-per-page>
+        </div>
+    </div>
+    <div class="flex flex-col gap-5">
+        <div>
+            <app-admin-user-search></app-admin-user-search>
+        </div>
+        <div class="flex flex-col w-full  rounded-2xl">
+            <app-admin-user-table></app-admin-user-table>
+        </div>
+    </div>
+    <div>
+        <app-admin-user-paganation></app-admin-user-paganation>
+    </div>
+</div>
+

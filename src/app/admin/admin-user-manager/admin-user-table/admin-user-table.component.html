@@ -1,0 +1,65 @@
+<table class="w-full md:bg-transparent/20 md:shadow md:shadow-black rounded-xl text-[#fff8]">
+    <thead class="text-[#BB4430] rounded-2xl md:border-b-2 md:border-b-[#BB4430]">
+      <tr class="">
+        <th class="th-custom2 p-3 text-left ">Br.</th>
+        <th class="th-custom2 px-0 py-1 text-left ">Ime</th>
+        <th class="th-custom2 px-0 py-1 text-left">Prezime</th>
+        <th class="th-custom2 px-0 py-1 text-center">Username</th>
+        <th class="th-custom2 px-0 py-1 text-left break-words">Datum kreiranja</th>
+        <th class="th-custom2 px-0 py-1 text-center">Uloge</th>
+        <th class="th-custom2 px-0 py-1 text-center"></th>
+        <th class="th-custom2 px-0 py-1 text-center"></th>
+        <th class="th-custom2 px-0 py-1 text-center"></th>
+      </tr>
+    </thead>
+    <tbody class=" ">
+      <td colspan="8" *ngIf="membersLength == 0"><p class="text-center text-[#BB4430] font-bold p-2">Nema rezultata za zadatu pretragu</p></td>
+      <ng-container
+        *ngFor="let member of members | async; let i = index">
+        <tr class="group  md:hover:bg-[#BB4430]/10 shadow shadow-black ">
+            <td data-cell="br" class="td-custom2 md:text-[#BB4430] font-bold p-3 text-start md:text-center w-9">{{ (adminService.memberQuearyParamsSubject.value.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.pageSize + i + 1 }}.</td>
+            <td data-cell="ime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.firstName| titlecase }}</td>
+            <td data-cell="prezime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.lastName | titlecase }}</td>
+            <td data-cell="username" class="td-custom2 px-1 py-1 break-words break-letters">{{ member.userName }}</td>
+            <td data-cell="date created" class="td-custom2 px-1 py-1 items-center break-words">{{ member.dateCreated | date }}</td>
+            <td data-cell="uloge" class="td-custom2 px-1 py-1 ">
+                <div class="block">
+                    <span *ngFor="let role of member.roles; let i = index">
+                        {{role}}<span *ngIf="i+1 < member.roles.length">, </span>
+                    </span>
+                </div>
+            </td>
+            <td data-cell="lock / unlock" class="td-custom2 px-1 py-1 items-center">
+                <button 
+                    *ngIf="!member.isLocked" 
+                    class="flex py-1 bg-blue-600 text-white font-bold rounded-md justify-center items-center lg:text-blue-600 lg:bg-transparent lg:py-0"
+                    (click)="onLockMember(member.id)">
+                    Lock
+                </button>
+                <button 
+                    *ngIf="member.isLocked" 
+                    class="flex py-1 bg-yellow-500 text-white font-bold rounded-md justify-center items-center lg:text-yellow-600 lg:bg-transparent lg:py-0"
+                    (click)="onUnlockMember(member.id)">
+                    Unlock
+                </button>
+            </td>
+            <td data-cell="edit" class="td-custom2 px-1 py-1">
+                <button routerLink="/admin/edit-user/{{member.id}}" class="flex py-1 bg-green-600 text-white font-bold rounded-md justify-center items-center lg:text-green-600 lg:bg-transparent lg:py-0">Edit</button>
+              </td>
+            <td data-cell="delete" class="td-custom2 px-1 py-1">
+              <button (click)="onDeleteUser(deleteUser, member.id)" class="flex py-1 bg-red-600 text-white font-bold rounded-md justify-center items-center lg:text-red-600 lg:bg-transparent lg:py-0">Delete</button>
+            </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <dialog #deleteUser class="modal">
+    <div class="flex flex-col gap-3">
+        <h2>Are you sure you want to delete this user?</h2>
+        <div class="grid grid-cols-2 gap-2">
+            <button class="bg-[#4BB543] rounded-md text-white" (click)="onConfirm()">Yes</button>
+            <button class="bg-red-600 rounded-md text-white" (click)="onCloseModal()">Close</button>
+        </div>
+    </div>
+</dialog>

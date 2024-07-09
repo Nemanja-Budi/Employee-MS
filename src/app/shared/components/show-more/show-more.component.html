@@ -1,0 +1,14 @@
+<div class="text-[#EFE6DD] font-bold about-me-text">
+    <p class="hidden md:block">{{showText}}</p>
+    <div class="block md:hidden">
+        <p *ngIf="showText.length < 230">{{showText}}</p>
+        <p *ngIf="showText.length > 230 && !isShowen">
+            {{showText.slice(0,showTextLength)}}...
+            <button class="text-[#BB4430]" (click)="onChangeShow()"> (Show more) </button>
+        </p>
+        <p *ngIf="showText.length > showTextLength && isShowen">
+            {{showText}}
+            <button class="text-[#BB4430]" (click)="onChangeShow()"> (Show less) </button>
+        </p>
+    </div>
+</div>
