@@ -10,6 +10,7 @@ import { EmployeChildComponent } from './employe/employe-list/employe-child/empl
 import { EmployeListComponent } from './employe/employe-list/employe-list.component';
 import { EmployeComponent } from './employe/employe.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AnnualLeaveComponent } from './annual-leaves/annual-leave/annual-leave.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EmployeSalaryDetailComponent,
     EmployeDetailComponent,
     EmployeListComponent,
+    AnnualLeaveComponent,
   ],
   imports: [
     CommonModule,

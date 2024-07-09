@@ -1,6 +1,6 @@
 <div class="container mx-auto py-8">
   <div>
-    <button routerLink="/create-salary">Dodaj plate</button>
+    <button routerLink="/employes/employe-create-salary">Dodaj plate</button>
     <div class="mb-6">
       <label for="employeId" class="block text-sm font-medium text-gray-700">Select Employee</label>
       <select (change)="onChangeSelect(changeSelect.value)" #changeSelect id="employeId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -33,7 +33,7 @@
       <tbody>
         <tr *ngFor="let salary of employeSalary | async" class="even:bg-gray-100">
           <!-- <td class="py-2 px-4 border-b">{{ salary.id }}</td> -->
-          <td routerLink="/detail-salary/{{salary.id}}" class="py-2 px-4 border-b">{{ salary.totalNumberOfHours }}</td>
+          <td routerLink="/employes/employe-detail-salary/{{salary.id}}" class="py-2 px-4 border-b">{{ salary.totalNumberOfHours }}</td>
           <td class="py-2 px-4 border-b">{{ salary.totalNumberOfWorkingHours }}</td>
           <td class="py-2 px-4 border-b">{{ salary.sickness100 }}</td>
           <td class="py-2 px-4 border-b">{{ salary.sickness60 }}</td>

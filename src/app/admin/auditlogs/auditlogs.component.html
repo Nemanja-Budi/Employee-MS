@@ -1,0 +1,21 @@
+<div class="col-span-2" *ngIf="employeAuditLogs | async as auditlogData">
+    <div *ngFor="let auditLog of auditlogData">
+      <div *ngFor="let key of keys(auditLog)">
+        <strong>{{ formatKey(key) }}:</strong>
+        <ng-container *ngIf="auditLog[key] !== undefined; else noValue">
+          <ng-container *ngIf="isObject(auditLog[key]); else simpleValue">
+            <div class="ml-4">
+              <ng-container *ngIf="auditLog[key] && isObject(auditLog[key])">
+                <ng-container *ngFor="let nestedKey of keys(auditLog[key])">
+                  <strong>{{ formatKey(nestedKey) }}:</strong> {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-container>
+          <ng-template #simpleValue>{{ auditLog[key] }}</ng-template>
+        </ng-container>
+        <ng-template #noValue>Not available</ng-template>
+      </div>
+    </div>
+  </div>
+  

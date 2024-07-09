@@ -12,6 +12,7 @@ import { AdminUserPaganationComponent } from './admin-user-manager/admin-user-pa
 import { AdminShowItemsPerPageComponent } from './admin-show-items-per-page/admin-show-items-per-page.component';
 import { SharedModule } from "../shared/shared.module";
 import { AdminUserTableComponent } from './admin-user-manager/admin-user-table/admin-user-table.component';
+import { AuditlogsComponent } from './auditlogs/auditlogs.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AdminUserTableComponent } from './admin-user-manager/admin-user-table/a
         AdminUserPaganationComponent,
         AdminShowItemsPerPageComponent,
         AdminUserTableComponent,
+        AuditlogsComponent,
     ],
     exports: [UserHasRoleDirective],
     imports: [
