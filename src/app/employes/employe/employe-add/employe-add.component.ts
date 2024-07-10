@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, of } from 'rxjs';
 import { EmployeService } from 'src/app/employe.service';
 import { Employe } from 'src/app/models/employe.model';
 
@@ -8,78 +10,102 @@ import { Employe } from 'src/app/models/employe.model';
   templateUrl: './employe-add.component.html',
   styleUrls: ['./employe-add.component.css']
 })
-export class EmployeAddComponent {
+export class EmployeAddComponent implements OnInit {
 
   employeForm: FormGroup;
-  employeService: EmployeService = inject(EmployeService);
+  employe: Employe | null = null;
 
-  constructor(private fb: FormBuilder) {
-    this.employeForm = this.fb.group({
-      id: [undefined],
-      firstName: ['Pera', Validators.required],
-      lastName: ['Peric', Validators.required],
-      nameOfParent: ['Jova', Validators.required],
-      dateOfBirth: ['2010-02-11', Validators.required],
-      jmbg: ['1234567890111', [Validators.required, Validators.pattern(/^\d{13}$/)]],
-      hourlyRate: [454.20, [Validators.required, Validators.min(0)]],
-      gender: ['M', [Validators.required, Validators.pattern(/^[MF]$/)]],
-      identityCardNumber: ['1234567890', Validators.required],
-      phone: ['123456789', Validators.required],
-      address: ['123 Main St, City', Validators.required],
-      email: ['john.doe@example.com', [Validators.required, Validators.email]],
-      placeOfBirth: ['City', Validators.required],
-      dateOfEmployment: ['2020-01-01', Validators.required],
-      pio: [1234567890, [Validators.required, Validators.pattern(/^\d+$/)]],
+  constructor(
+    private fb: FormBuilder,
+    private employeService: EmployeService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.employeForm = this.createEmployeForm();
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.pipe(
+      switchMap(paramMap => {
+        const id = paramMap.get('id');
+        if (id) {
+          return this.employeService.getEmploye(id);
+        }
+        return of(null);
+      })
+    ).subscribe((employe: Employe | null) => {
+      if (employe) {
+        this.employe = employe;
+        this.populateEmployeForm(employe);
+      }
+    });
+  }
+
+  createEmployeForm(): FormGroup {
+    return this.fb.group({
+      //id: [undefined],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      nameOfParent: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      jmbg: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
+      hourlyRate: [0, [Validators.required, Validators.min(0)]],
+      gender: ['', [Validators.required, Validators.pattern(/^[MF]$/)]],
+      identityCardNumber: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      placeOfBirth: ['', Validators.required],
+      dateOfEmployment: ['', Validators.required],
+      pio: [0, [Validators.required, Validators.pattern(/^\d+$/)]],
       school: [undefined],
       college: [undefined],
-      position: ['Developer', Validators.required],
-      employmentContract: ['Contract1', Validators.required],
-      amendmentContract: ['Amendment1', Validators.required],
-      bankName: ['Bank Name', Validators.required],
-      currentAccount: [345343211, [Validators.required]],
+      position: ['', Validators.required],
+      employmentContract: ['', Validators.required],
+      amendmentContract: ['', Validators.required],
+      bankName: ['', Validators.required],
+      currentAccount: [0, [Validators.required]],
       employeChild: this.fb.array([])
     });
   }
 
+  populateEmployeForm(employe: Employe): void {
+    this.employeForm.patchValue(employe);
+    const employeChildArray = this.employeForm.get('employeChild') as FormArray;
+    employeChildArray.clear();
+    if (employe.employeChild && employe.employeChild.length) {
+      employe.employeChild.forEach(child => {
+        employeChildArray.push(this.fb.group({
+          name: [child.name, Validators.required],
+          jmbg: [child.jmbg, [Validators.required, Validators.pattern(/^\d{13}$/)]],
+          gender: [child.gender, [Validators.required, Validators.pattern(/^[MF]$/)]]
+        }));
+      });
+    }
+  }
+  
+
   onSubmit(): void {
-    if (this.employeForm.valid) {
-      console.log(this.employeForm.value);
-      const employeToAdd: Employe = {
-        //id: undefined,
-        firstName: this.employeForm.value['firstName'],
-        lastName: this.employeForm.value['lastName'],
-        nameOfParent: this.employeForm.value['nameOfParent'],
-        dateOfBirth: this.employeForm.value['dateOfBirth'],
-        jmbg: this.employeForm.value['jmbg'],
-        hourlyRate: this.employeForm.value['hourlyRate'],
-        gender: this.employeForm.value['gender'],
-        identityCardNumber: this.employeForm.value['identityCardNumber'],
-        phone: this.employeForm.value['phone'],
-        address: this.employeForm.value['address'],
-        email: this.employeForm.value['email'],
-        placeOfBirth: this.employeForm.value['placeOfBirth'],
-        dateOfEmployment: this.employeForm.value['dateOfEmployment'],
-        pio: this.employeForm.value['pio'],
-        school: this.employeForm.value['school'],
-        college: this.employeForm.value['college'],
-        position: this.employeForm.value['position'],
-        employmentContract: this.employeForm.value['employmentContract'],
-        amendmentContract: this.employeForm.value['amendmentContract'],
-        bankName: this.employeForm.value['bankName'],
-        currentAccount: this.employeForm.value['currentAccount'],
-        employeChild: this.employeForm.value['employeChild']
-      }
-      this.employeService.addEmploye(employeToAdd).subscribe({
-        next: (employe) => console.log(employe),
+    if (!this.employeForm.valid) return;
+    const employeToSave: Employe = this.employeForm.value;
+
+    if (this.employe) {
+      const employeToEdit: Employe = {
+        ...employeToSave,
+        id: this.employe.id
+      };
+      console.log(employeToEdit);
+      this.employeService.updateEmploye(this.employe.id!, employeToEdit).subscribe({
+        next: () => this.router.navigate(['/employes/employe/all-employes']),
         error: () => console.log("Error")
       });
     } else {
-      console.log('Forma nije validna');
+      console.log(employeToSave);
+      this.employeService.addEmploye(employeToSave).subscribe({
+        next: () => this.router.navigate(['/employes/employe/all-employes']),
+        error: () => console.log("Error")
+      });
     }
-  }
-
-  ngOnInit(): void {
-    // Inicijalizacija ili učitavanje podataka ako je potrebno
   }
 
   get employeChild(): FormArray {
@@ -88,16 +114,13 @@ export class EmployeAddComponent {
 
   addEmployeChild(): void {
     this.employeChild.push(this.fb.group({
-      //id: [undefined],
-      name: ['Mika', Validators.required],
-      jmbg: ['1234567890123', [Validators.required, Validators.pattern(/^\d{13}$/)]],
-      gender: ['F', [Validators.required, Validators.pattern(/^[MF]$/)]]
+      name: ['', Validators.required],
+      jmbg: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
+      gender: ['', [Validators.required, Validators.pattern(/^[MF]$/)]]
     }));
   }
 
   removeEmployeChild(index: number): void {
     this.employeChild.removeAt(index);
   }
-
-  
 }

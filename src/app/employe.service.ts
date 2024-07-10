@@ -29,6 +29,10 @@ export class EmployeService {
     return this.http.get<Employe>(`http://localhost:5000/api/employe/get-employe/${employeId}`);
   }
 
+  updateEmploye(employeId: string, employe: Employe): Observable<Employe> {
+    return this. http.put<Employe>(`http://localhost:5000/api/employe/update-employe/${employeId}`, employe);
+  }
+
   getEmployeSalarys(): Observable<EmployeSalary[]> {
     return this.http.get<EmployeSalary[]>(`http://localhost:5000/api/employesalary/employe-salarys`);
   }
@@ -43,6 +47,10 @@ export class EmployeService {
 
   getEmployeSalaryById(employeSalaryId: string): Observable<EmployeSalary> {
     return this.http.get<EmployeSalary>(`http://localhost:5000/api/employesalary/employe-salary/${employeSalaryId}`);
+  }
+
+  updateEmployeSalary(employeSalary: EmployeSalary): Observable<EmployeSalary> {
+    return this.http.put<EmployeSalary>(`http://localhost:5000/api/employesalary/update-employe-salary`, employeSalary);
   }
  
   getAllAnnualLeave(): Observable<AnnualLeave[]> {

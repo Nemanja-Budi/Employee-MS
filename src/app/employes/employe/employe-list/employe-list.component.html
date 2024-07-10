@@ -31,7 +31,7 @@
       <tbody>
         <ng-container *ngIf="employes">
         <tr *ngFor="let employe of employes | async" class="even:bg-gray-100">
-          <td routerLink="/employes/employe-detail/{{employe.id}}" class="py-2 px-4 border-b">{{ employe.firstName }}</td>
+          <td routerLink="/employes/employe/detail-employe/{{employe.id}}" class="py-2 px-4 border-b">{{ employe.firstName }}</td>
           <td class="py-2 px-4 border-b">{{ employe.lastName }}</td>
           <td class="py-2 px-4 border-b">{{ employe.nameOfParent }}</td>
           <td class="py-2 px-4 border-b">{{ employe.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
