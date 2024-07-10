@@ -96,13 +96,13 @@ export class EmployeAddComponent implements OnInit {
       };
       console.log(employeToEdit);
       this.employeService.updateEmploye(this.employe.id!, employeToEdit).subscribe({
-        next: () => this.router.navigate(['/employes/employe/all-employes']),
+        next: (employe) => this.router.navigate([`/employes/employe/detail-employe/${employe.id}`]),
         error: () => console.log("Error")
       });
     } else {
       console.log(employeToSave);
       this.employeService.addEmploye(employeToSave).subscribe({
-        next: () => this.router.navigate(['/employes/employe/all-employes']),
+        next: (employe) => this.router.navigate([`/employes/employe/detail-employe/${employe.id}`]),
         error: () => console.log("Error")
       });
     }

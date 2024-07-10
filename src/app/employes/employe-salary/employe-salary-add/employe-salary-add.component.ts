@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EmployeService } from 'src/app/employe.service';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
@@ -15,6 +15,7 @@ export class EmployeSalaryAddComponent {
 
   employeSalaryForm: FormGroup;
   employeService: EmployeService = inject(EmployeService);
+  router: Router = inject(Router);
   employes: Observable<Employe[]> = this.employeService.getEmployes();
   isEditing: boolean = false;
   employeSalaryID: string | undefined = undefined;
@@ -74,7 +75,7 @@ export class EmployeSalaryAddComponent {
           employeId: this.currentEmployeIdValue
         };
         this.employeService.updateEmployeSalary(employeSalary).subscribe({
-          next: (salary) => console.log(salary),
+          next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
           error: () => console.log("Error")
         });
       }
@@ -90,7 +91,7 @@ export class EmployeSalaryAddComponent {
         }
 
         this.employeService.createEmployeSalary(employeSalary).subscribe({
-          next: (employe) => console.log(employe),
+          next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
           error: () => console.log("Error")
         });
       }
