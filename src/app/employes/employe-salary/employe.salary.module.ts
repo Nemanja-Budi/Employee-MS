@@ -5,6 +5,7 @@ import { EmployeSalaryDetailComponent } from './employe-salary-detail/employe-sa
 import { EmployeSalaryComponent } from './employe-salary.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
+import { EmployeSalarySelectComponent } from './employe-salary-select/employe-salary-select.component';
 
 
 
@@ -12,7 +13,8 @@ import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
   declarations: [
     EmployeSalaryComponent,
     EmployeSalaryAddComponent,
-    EmployeSalaryDetailComponent
+    EmployeSalaryDetailComponent,
+    EmployeSalarySelectComponent
   ],
   imports: [
     CommonModule,
