@@ -1,25 +1,32 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
+
+import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
-import { Employe } from 'src/app/models/employe.model';
+import { EmployeSalaryService } from '../employe-salary.service';
+import { Employe } from 'src/app/models/employe/employe.model';
 
 @Component({
   selector: 'app-employe-salary-add',
   templateUrl: './employe-salary-add.component.html',
   styleUrls: ['./employe-salary-add.component.css']
 })
-export class EmployeSalaryAddComponent {
+export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
 
-  employeSalaryForm: FormGroup;
   employeService: EmployeService = inject(EmployeService);
+  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   router: Router = inject(Router);
-  employes: Observable<Employe[]> = this.employeService.getEmployes();
+  
+  employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employe) => employe.employes));
+  
+  employeSalaryForm: FormGroup;
   isEditing: boolean = false;
   employeSalaryID: string | undefined = undefined;
   currentEmployeIdValue: string = '';
+  
+  private destroy = new Subject<void>();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute) {
     this.employeSalaryForm = this.fb.group({
@@ -36,14 +43,45 @@ export class EmployeSalaryAddComponent {
     });
   }
 
+  onSubmit(): void {
+    if (!this.employeSalaryForm.valid) return;
+    let employeSalary: EmployeSalary = this.employeSalaryForm.value;
+
+    if(this.isEditing == true) {
+      console.log("edit mode");
+      employeSalary = {
+        ...employeSalary,
+        id: this.employeSalaryID,
+        employeId: this.currentEmployeIdValue
+      };
+      this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
+        next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
+        error: () => console.log("Error")
+      });
+    } else if(this.isEditing == false) {
+      console.log("add mode");
+      if(this.currentEmployeIdValue !== "") {
+        employeSalary = {
+          ...employeSalary,
+          employeId: this.currentEmployeIdValue
+        };
+      }
+      this.employeSalaryService.createEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
+        next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
+        error: () => console.log("Error")
+      });
+    }
+  }
+
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: any) => {
+    this.route.paramMap.pipe(takeUntil(this.destroy)).subscribe((params) => {
       const employeId = params.get('employeId');
       const salaryId = params.get('id');
       if (employeId) {
         this.employeSalaryForm.patchValue({ employeId: employeId });
-        this.employeService.getEmploye(employeId).subscribe(employe => {
+        this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
           this.currentEmployeIdValue = employeId;
+          console.log(employe);
           this.employeSalaryForm.get('employeId')?.disable();
           this.isEditing = false;
         });
@@ -51,49 +89,19 @@ export class EmployeSalaryAddComponent {
       else if (salaryId) {
         this.isEditing = true;
         this.employeSalaryID = salaryId;
-        this.employeService.getEmployeSalaryById(salaryId).subscribe(salary => {
+        this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
           this.employeSalaryForm.patchValue(salary);
           this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
           this.employeSalaryForm.get('employeId')?.disable();
-          //this.employeSalaryForm.get('employeId')?.setValue(currentEmployeIdValue);
           console.log(this.currentEmployeIdValue);
         });
       }
     });
   }
 
-  onSubmit(): void {
-    if (!this.employeSalaryForm.valid) return;
-
-      let employeSalary: EmployeSalary = this.employeSalaryForm.value;
-
-      if(this.isEditing == true) {
-        console.log("edit mode");
-        employeSalary = {
-          ...employeSalary,
-          id: this.employeSalaryID,
-          employeId: this.currentEmployeIdValue
-        };
-        this.employeService.updateEmployeSalary(employeSalary).subscribe({
-          next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
-          error: () => console.log("Error")
-        });
-      }
-      else if(this.isEditing == false) {
-        
-        console.log("add mode");
-        
-        if(this.currentEmployeIdValue !== "") {
-          employeSalary = {
-            ...employeSalary,
-            employeId: this.currentEmployeIdValue
-          };
-        }
-
-        this.employeService.createEmployeSalary(employeSalary).subscribe({
-          next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
-          error: () => console.log("Error")
-        });
-      }
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
   }
+ 
 }

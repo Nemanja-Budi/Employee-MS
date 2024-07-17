@@ -4,10 +4,9 @@ import { AnnualLeaveComponent } from './annual-leaves/annual-leave/annual-leave.
 
 const routes: Routes = [
   { path: '', redirectTo: 'employe', pathMatch: 'full' },
-  { path: 'employe', loadChildren: () => import('./employe/employe.module').then(m => m.EmployeModule) },
-  { path: 'salary', loadChildren: () => import('./employe-salary/employe.salary.module').then(m => m.EmployeSalaryModule) },
+  { path: 'employe', loadChildren: () => import('./employe/modules/employe.module').then(m => m.EmployeModule) },
+  { path: 'salary', loadChildren: () => import('./employe-salary/modules/employe.salary.module').then(m => m.EmployeSalaryModule) },
   { path: 'annual-leaves', component: AnnualLeaveComponent},
-
 ];
 
 @NgModule({

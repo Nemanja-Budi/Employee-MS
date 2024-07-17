@@ -1,65 +1,60 @@
 <div class="container mx-auto py-8">
     <form [formGroup]="employeSalaryForm" (ngSubmit)="onSubmit()" class="space-y-6">
       <div class="mb-6">
-        <app-employe-salary-select></app-employe-salary-select>
+        <label for="employeId" class="block text-sm font-medium text-gray-700">Select Employee</label>
+        <select id="employeId" formControlName="employeId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+          <option value="">-- Select an Employee --</option>
+          <option *ngFor="let employee of employes | async" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
+        </select>
+        <div *ngIf="employeSalaryForm.get('selectedEmployee')?.invalid && employeSalaryForm.get('selectedEmployee')?.touched" class="text-red-600">Please select an employee</div>
       </div>
-  
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label for="totalNumberOfHours" class="block text-sm font-medium text-gray-700">Total Number of Hours</label>
           <input id="totalNumberOfHours" type="number" formControlName="totalNumberOfHours" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('totalNumberOfHours')?.invalid && employeSalaryForm.get('totalNumberOfHours')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="totalNumberOfWorkingHours" class="block text-sm font-medium text-gray-700">Total Number of Working Hours</label>
           <input id="totalNumberOfWorkingHours" type="number" formControlName="totalNumberOfWorkingHours" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('totalNumberOfWorkingHours')?.invalid && employeSalaryForm.get('totalNumberOfWorkingHours')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="sickness100" class="block text-sm font-medium text-gray-700">Sickness 100%</label>
           <input id="sickness100" type="number" formControlName="sickness100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('sickness100')?.invalid && employeSalaryForm.get('sickness100')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="sickness60" class="block text-sm font-medium text-gray-700">Sickness 60%</label>
           <input id="sickness60" type="number" formControlName="sickness60" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('sickness60')?.invalid && employeSalaryForm.get('sickness60')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="hoursOfAnnualVacation" class="block text-sm font-medium text-gray-700">Hours of Annual Vacation</label>
           <input id="hoursOfAnnualVacation" type="number" formControlName="hoursOfAnnualVacation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('hoursOfAnnualVacation')?.invalid && employeSalaryForm.get('hoursOfAnnualVacation')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="workingHoursForTheHoliday" class="block text-sm font-medium text-gray-700">Working Hours For The Holiday</label>
           <input id="workingHoursForTheHoliday" type="number" formControlName="workingHoursForTheHoliday" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('workingHoursForTheHoliday')?.invalid && employeSalaryForm.get('workingHoursForTheHoliday')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="overtimeHours" class="block text-sm font-medium text-gray-700">Overtime Hours</label>
           <input id="overtimeHours" type="number" formControlName="overtimeHours" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('overtimeHours')?.invalid && employeSalaryForm.get('overtimeHours')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="credits" class="block text-sm font-medium text-gray-700">Credits</label>
           <input id="credits" type="number" formControlName="credits" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('credits')?.invalid && employeSalaryForm.get('credits')?.touched" class="text-red-600">Invalid input</div>
         </div>
-  
         <div>
           <label for="damageCompensation" class="block text-sm font-medium text-gray-700">Damage Compensation</label>
           <input id="damageCompensation" type="number" formControlName="damageCompensation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('damageCompensation')?.invalid && employeSalaryForm.get('damageCompensation')?.touched" class="text-red-600">Invalid input</div>
         </div>
       </div>
-  
       <div class="flex justify-end">
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
       </div>

@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, concatMap } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
-import { Employe } from 'src/app/models/employe.model';
+
+import { EmployeService } from 'src/app/employes/employe/employe.service';
+import { Employe } from 'src/app/models/employe/employe.model';
 
 @Component({
   selector: 'app-employe-detail',

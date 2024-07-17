@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, concatMap } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
+
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
+import { EmployeSalaryService } from '../employe-salary.service';
 
 @Component({
   selector: 'app-employe-salary-detail',
@@ -11,11 +12,11 @@ import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.mode
 })
 export class EmployeSalaryDetailComponent {
 
-  employeService: EmployeService = inject(EmployeService);
+  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   employeSalary: Observable<EmployeSalary> = this.activatedRoute.paramMap.pipe(concatMap((param) => {
     const id = param.get('id');
-    return this.employeService.getEmployeSalaryById(String(id));
+    return this.employeSalaryService.getEmployeSalaryById(String(id));
   }));
 }

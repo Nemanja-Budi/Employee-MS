@@ -1,4 +1,4 @@
-import { Employe } from "src/app/models/employe.model";
+import { Employe } from "src/app/models/employe/employe.model";
 
 export interface EmployeList {
     totalCount: number;

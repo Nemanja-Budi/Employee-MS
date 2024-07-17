@@ -1,11 +1,6 @@
 <div class="container mx-auto py-8">
     <form [formGroup]="employeForm" (ngSubmit)="onSubmit()" class="space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- <div>
-          <label for="id" class="block text-sm font-medium text-gray-700">ID</label>
-          <input id="id" type="text" formControlName="id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('id')?.invalid && employeForm.get('id')?.touched" class="text-red-600">Invalid input</div>
-        </div> -->
         <div>
           <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
           <input id="firstName" type="text" formControlName="firstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -116,37 +111,26 @@
       <div formArrayName="employeChild" class="mt-6 space-y-6">
         <div *ngFor="let child of employeChild.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- <div>
-              <label for="child-id-{{i}}" class="block text-sm font-medium text-gray-700">Child ID</label>
-              <input id="child-id-{{i}}" type="text" formControlName="id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-              <div *ngIf="child.get('id')?.invalid && child.get('id')?.touched" class="text-red-600">Invalid input</div>
-            </div> -->
-  
             <div>
               <label for="child-name-{{i}}" class="block text-sm font-medium text-gray-700">Child Name</label>
               <input id="child-name-{{i}}" type="text" formControlName="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
               <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-red-600">Invalid input</div>
             </div>
-  
             <div>
               <label for="child-jmbg-{{i}}" class="block text-sm font-medium text-gray-700">Child JMBG</label>
               <input id="child-jmbg-{{i}}" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
               <div *ngIf="child.get('jmbg')?.invalid && child.get('jmbg')?.touched" class="text-red-600">Invalid input</div>
             </div>
-  
             <div>
               <label for="child-gender-{{i}}" class="block text-sm font-medium text-gray-700">Child Gender</label>
               <input id="child-gender-{{i}}" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
               <div *ngIf="child.get('gender')?.invalid && child.get('gender')?.touched" class="text-red-600">Invalid input</div>
             </div>
           </div>
-  
           <button type="button" (click)="removeEmployeChild(i)" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Remove Child</button>
         </div>
-  
         <button type="button" (click)="addEmployeChild()" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add Child</button>
       </div>
-  
       <div class="flex justify-end mt-6">
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
       </div>

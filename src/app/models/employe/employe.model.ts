@@ -1,5 +1,4 @@
 import { EmployeChild } from "./employe.child.model";
-import { EmployeSalary } from "./employe-salary/employe.salary.model";
 
 export interface Employe {
     id?: string;

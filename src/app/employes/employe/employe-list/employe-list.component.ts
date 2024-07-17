@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
-import { EmployeChild } from 'src/app/models/employe.child.model';
-import { Employe } from 'src/app/models/employe.model';
-import { Employe2Service } from '../employe2.service';
+
+import { EmployeChild } from 'src/app/models/employe/employe.child.model';
+import { Employe } from 'src/app/models/employe/employe.model';
+import { EmployeService } from 'src/app/employes/employe/employe.service';
 
 @Component({
   selector: 'app-employe-list',
@@ -12,7 +12,7 @@ import { Employe2Service } from '../employe2.service';
 })
 export class EmployeListComponent {
 
-  employeService: Employe2Service = inject(Employe2Service);
+  employeService: EmployeService = inject(EmployeService);
   employeChilds: EmployeChild[] | undefined = undefined;  
   employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employes) => {
     employes.employes.map((e) => {

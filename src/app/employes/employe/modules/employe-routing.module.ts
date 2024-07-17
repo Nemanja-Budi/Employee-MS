@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmployeDetailComponent } from './employe-detail/employe-detail.component';
-import { EmployeAddComponent } from './employe-add/employe-add.component';
-import { EmployeComponent } from './employe.component';
 
+import { EmployeAddComponent } from '../employe-add/employe-add.component';
+import { EmployeDetailComponent } from '../employe-detail/employe-detail.component';
+import { EmployeComponent } from '../employe.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'all-employes', pathMatch: 'full' },

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
+import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { AuditLog } from 'src/app/models/auditlog.model';
 
 @Component({

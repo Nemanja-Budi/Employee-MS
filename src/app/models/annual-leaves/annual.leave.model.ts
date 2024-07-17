@@ -1,5 +1,6 @@
 import { User } from "src/app/account/models/user.model";
-import { Employe } from "../employe.model";
+import { Employe } from "../employe/employe.model";
+
 
 export interface AnnualLeave {
     annualLeaveId: string; // Guid is represented as string in TypeScript

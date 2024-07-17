@@ -1,49 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, of } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
-import { Employe } from 'src/app/models/employe.model';
+import { switchMap, of, Subscription, Subject, takeUntil } from 'rxjs';
+import { EmployeService } from 'src/app/employes/employe/employe.service';
+import { Employe } from 'src/app/models/employe/employe.model'; 
 
 @Component({
   selector: 'app-employe-add',
   templateUrl: './employe-add.component.html',
   styleUrls: ['./employe-add.component.css']
 })
-export class EmployeAddComponent implements OnInit {
+export class EmployeAddComponent implements OnInit, OnDestroy {
+
+  employeService: EmployeService = inject(EmployeService);
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
 
   employeForm: FormGroup;
   employe: Employe | null = null;
+  private destroy = new Subject<void>();
 
-  constructor(
-    private fb: FormBuilder,
-    private employeService: EmployeService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder) {
     this.employeForm = this.createEmployeForm();
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(
-      switchMap(paramMap => {
-        const id = paramMap.get('id');
-        if (id) {
-          return this.employeService.getEmploye(id);
-        }
-        return of(null);
-      })
-    ).subscribe((employe: Employe | null) => {
-      if (employe) {
-        this.employe = employe;
-        this.populateEmployeForm(employe);
-      }
-    });
   }
 
   createEmployeForm(): FormGroup {
     return this.fb.group({
-      //id: [undefined],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nameOfParent: ['', Validators.required],
@@ -84,9 +66,9 @@ export class EmployeAddComponent implements OnInit {
     }
   }
   
-
   onSubmit(): void {
     if (!this.employeForm.valid) return;
+    
     const employeToSave: Employe = this.employeForm.value;
 
     if (this.employe) {
@@ -95,13 +77,19 @@ export class EmployeAddComponent implements OnInit {
         id: this.employe.id
       };
       console.log(employeToEdit);
-      this.employeService.updateEmploye(this.employe.id!, employeToEdit).subscribe({
+      this.employeService.updateEmploye(this.employe.id!, employeToEdit)
+      .pipe(
+        takeUntil(this.destroy))
+      .subscribe({
         next: (employe) => this.router.navigate([`/employes/employe/detail-employe/${employe.id}`]),
         error: () => console.log("Error")
       });
     } else {
       console.log(employeToSave);
-      this.employeService.addEmploye(employeToSave).subscribe({
+      this.employeService.addEmploye(employeToSave)
+      .pipe(
+        takeUntil(this.destroy))
+      .subscribe({
         next: (employe) => this.router.navigate([`/employes/employe/detail-employe/${employe.id}`]),
         error: () => console.log("Error")
       });
@@ -122,5 +110,29 @@ export class EmployeAddComponent implements OnInit {
 
   removeEmployeChild(index: number): void {
     this.employeChild.removeAt(index);
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap
+    .pipe(
+      switchMap(paramMap => {
+        const id = paramMap.get('id');
+        if (id) {
+          return this.employeService.getEmploye(id);
+        }
+        return of(null);
+      }),
+      takeUntil(this.destroy))
+    .subscribe((employe: Employe | null) => {
+      if (employe) {
+        this.employe = employe;
+        this.populateEmployeForm(employe);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
   }
 }

@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeService } from 'src/app/employe.service';
+
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
+import { AnnualleaveService } from '../annualleave.service';
 
 @Component({
   selector: 'app-annual-leave',
@@ -10,6 +11,6 @@ import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 })
 export class AnnualLeaveComponent {
 
-  employeService: EmployeService = inject(EmployeService);
-  annualleaves: Observable<AnnualLeave[]> = this.employeService.getAllAnnualLeave();
+  annualLeavesService: AnnualleaveService = inject(AnnualleaveService);
+  annualleaves: Observable<AnnualLeave[]> = this.annualLeavesService.getAllAnnualLeave();
 }
