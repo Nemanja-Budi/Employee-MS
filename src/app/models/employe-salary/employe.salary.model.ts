@@ -19,4 +19,5 @@ export interface EmployeSalary {
     employeSalarySO?: EmployeSalarySO;
     employeSalarySOE?: EmployeSalarySOE;
     incomeFromWork?: IncomeFromWork;
+    [key: string]: any;
 }

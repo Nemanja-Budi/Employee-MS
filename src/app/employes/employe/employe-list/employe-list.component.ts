@@ -24,10 +24,10 @@ export class EmployeListComponent {
   }));
 
   onDeleteEmploye(employeId: string): void {
-    // this.employeService.deleteEmploye(employeId).subscribe({ 
-    //   next: (employe) => console.log(employe),
-    //   error: () => console.log("Error")
-    // });
+    this.employeService.deleteEmploye(employeId).subscribe({ 
+      next: (employe) => console.log(employe),
+      error: () => console.log("Error")
+    });
   }
 
   onChange(): void {

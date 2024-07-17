@@ -8,6 +8,7 @@ import { EmployeSalaryComponent } from '../employe-salary.component';
 import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
 import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salary-list.component';
 import { EmployeSalaryListSelectComponent } from '../employe-salary-list/employe-salary-list-select/employe-salary-list-select.component';
+import { EmployeSalaryListEmployesComponent } from '../employe-salary-list/employe-salary-list-employes/employe-salary-list-employes.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { EmployeSalaryListSelectComponent } from '../employe-salary-list/employe
     EmployeSalaryDetailComponent,
     EmployeSalaryListComponent,
     EmployeSalaryListSelectComponent,
+    EmployeSalaryListEmployesComponent,
   ],
   imports: [
     CommonModule,

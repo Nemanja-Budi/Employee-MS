@@ -1,0 +1,7 @@
+<div *ngIf="employe$ | async as employe">
+    <p>{{ employe.firstName}} </p>
+    <p>{{ employe.lastName}} </p>
+    <div *ngIf="isDetail">
+        u detaljima je
+    </div>
+  </div>

@@ -5,6 +5,7 @@ export class EmployeSalarySO {
         deductionHealth: number;
         expenseOfTheEmployer: number;
         employeSalaryId: string;
+         [key: string]: any;
     
         constructor(obj?: any) {
             this.id = obj && obj.id || "";

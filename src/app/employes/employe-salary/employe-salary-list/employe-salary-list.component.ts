@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { EmployeSalaryService } from '../employe-salary.service';
-import { Employe } from 'src/app/models/employe/employe.model';
-import { EmployeService } from '../../employe/employe.service';
+
 
 @Component({
   selector: 'app-employe-salary-list',

@@ -1,7 +1,14 @@
 <div *ngIf="employeSalary | async as employeSalaryData">
-    <div>
-        {{employeSalaryData | json}}
+    <div class="grid grid-cols-4" *ngFor="let key of keys(employeSalaryData)">
+        <strong >{{ formatKey(key) }}:</strong> {{ employeSalaryData[key] }}
+        <div  *ngFor="let k of keys(employeSalaryData.employeSalarySO)">
+            <ng-container *ngIf="employeSalaryData.employeSalarySO">
+                <strong>{{ formatKey(k) }}:</strong> {{ employeSalaryData.employeSalarySO[k] }}
+            </ng-container>
+        </div>
+          **********
     </div>
+
 
     <div class="flex gap-3 py-4 px-2">
         <div>
@@ -10,5 +17,9 @@
         <div>
             <button class="p-2 rounded-md bg-rose-500 text-white">Delete Salary</button>
         </div>
+    </div>
+
+    <div>
+        <app-employe-salary-list-employes [employeId]="employeSalaryData.employeId" [isDetail]="true"></app-employe-salary-list-employes>
     </div>
 </div>

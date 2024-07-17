@@ -25,6 +25,9 @@
         <tr *ngFor="let salary of employeSalary | async" class="even:bg-gray-100">
           <!-- <td class="py-2 px-4 border-b">{{ salary.id }}</td> -->
           <td routerLink="/employes/salary/detail-salary/{{salary.id}}" class="py-2 px-4 border-b">{{ salary.totalNumberOfHours }}</td>
+          <td *ngIf="salary.employeId">
+            <app-employe-salary-list-employes [employeId]="salary.employeId"></app-employe-salary-list-employes>
+          </td>
           <td class="py-2 px-4 border-b">{{ salary.totalNumberOfWorkingHours }}</td>
           <td class="py-2 px-4 border-b">{{ salary.sickness100 }}</td>
           <td class="py-2 px-4 border-b">{{ salary.sickness60 }}</td>
@@ -53,3 +56,5 @@
       </tbody>
     </table>
   </div>
+
+  

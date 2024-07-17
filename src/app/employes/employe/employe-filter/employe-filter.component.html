@@ -1,4 +1,4 @@
-<div class="flex w-full bg-red-300 gap-3">
+<div class="flex flex-wrap bg-red-300 gap-3">
     <div *ngFor="let cb of employeParams; let i = index;">
         <label>
             <input (change)="onChangeInput(cb)" [checked]="cb.chacked" type="checkbox"/>

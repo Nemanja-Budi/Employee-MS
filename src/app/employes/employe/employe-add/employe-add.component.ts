@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of, Subscription, Subject, takeUntil } from 'rxjs';
 import { EmployeService } from 'src/app/employes/employe/employe.service';
+import { EmployeChild } from 'src/app/models/employe/employe.child.model';
 import { Employe } from 'src/app/models/employe/employe.model'; 
 
 @Component({
@@ -74,7 +75,11 @@ export class EmployeAddComponent implements OnInit, OnDestroy {
     if (this.employe) {
       const employeToEdit: Employe = {
         ...employeToSave,
-        id: this.employe.id
+        id: this.employe.id,
+        employeChild: this.employeForm.value.employeChild.map((child: EmployeChild, index: number) => ({
+          ...child,
+          id: this.employe!.employeChild && this.employe!.employeChild[index] ? this.employe!.employeChild[index].id || undefined : undefined
+        }))
       };
       console.log(employeToEdit);
       this.employeService.updateEmploye(this.employe.id!, employeToEdit)
