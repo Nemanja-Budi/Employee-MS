@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { environment } from 'src/environments/environment.development.ts';
 
@@ -32,8 +32,8 @@ export class EmployeService {
     },
     sortBy: '',
     isAscending: false,
-    pageNumber: 0,
-    pageSize: 0
+    pageNumber: 1,
+    pageSize: 1
   }
 
   cbSubject: EmployeCBFilter = {
@@ -58,6 +58,8 @@ export class EmployeService {
   ];
 
   employeQuearyParamsSubject: BehaviorSubject<GetEmploye> = new BehaviorSubject<GetEmploye>(this.employeFilterSubject);
+  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   employeSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   employeCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
@@ -78,7 +80,15 @@ export class EmployeService {
         if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
         if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
         else httpParams = httpParams.append('pageSize', '50');
-        return this.http.get<EmployeList>(`${environment.appUrl}/employe/get-employes`, { params: httpParams });
+        return this.http.get<EmployeList>(`${environment.appUrl}/employe/get-employes`, { params: httpParams }).pipe(map((employelist) => {
+          this.currentSize.next(Math.ceil(employelist.totalCount/params.pageSize));
+          if(employelist.totalCount == 0) {
+            this.isNula.next(true);
+          } else {
+            this.isNula.next(false);
+          }
+          return employelist;
+        }));
       })
     );
   }
@@ -136,8 +146,8 @@ export class EmployeService {
       },
       sortBy: '',
       isAscending: false,
-      pageNumber: 0,
-      pageSize: 50
+      pageNumber: 1,
+      pageSize: 1
     });
   }
 }

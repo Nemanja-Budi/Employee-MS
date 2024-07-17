@@ -8,6 +8,7 @@ import { EmployesRoutingModule } from './employes-routing.module';
 @NgModule({
   declarations: [
     AnnualLeaveComponent,
+    
   ],
   imports: [
     CommonModule,

@@ -10,6 +10,7 @@ import { EmployeComponent } from '../employe.component';
 import { EmployeFilterComponent } from '../employe-filter/employe-filter.component';
 import { EmployeSearchComponent } from '../employe-search/employe-search.component';
 import { EmployeRoutingModule } from './employe-routing.module';
+import { EmployePaganationComponent } from '../employe-paganation/employe-paganation.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EmployeRoutingModule } from './employe-routing.module';
     EmployeListComponent,
     EmployeFilterComponent,
     EmployeSearchComponent,
+    EmployePaganationComponent,
   ],
   imports: [
     CommonModule,
