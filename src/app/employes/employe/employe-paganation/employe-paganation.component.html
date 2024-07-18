@@ -4,14 +4,14 @@
             <button 
                 (click)="goToFirstPage()"
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !==1 && this.employeService.employeQuearyParamsSubject.value.pageNumber !==2"
-                class="text-[#fff8] aspect-square w-10 bg-transparent/20 rounded shadow shadow-black">
+                class="text-white aspect-square w-10 bg-rose-600 rounded shadow shadow-black">
                 《
             </button>
         </div>
         <div  class="flex justify-end items-center">
             <button 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !==1"   
-                class="text-[#fff8] aspect-square w-10  bg-transparent/20 rounded shadow shadow-black" 
+                class="text-white aspect-square w-10  bg-rose-600 rounded shadow shadow-black" 
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === 1 "
                 (click)="goToPreviousPage()">
                 〈
@@ -21,8 +21,8 @@
     <div class="flex justify-center items-center flex-wrap rounded gap-3">
         <ng-container *ngFor="let page of visiblePages()">
             <button
-                class="p-2 text-[#fff8] w-10 aspect-square flex justify-center items-center bg-transparent/20 rounded shadow shadow-black"  
-                [ngClass]="{'border-[#BB4430]': this.employeService.employeQuearyParamsSubject.value.pageNumber === page, 'border': this.employeService.employeQuearyParamsSubject.value.pageNumber === page}" 
+                class="p-2 text-white w-10 aspect-square flex justify-center items-center bg-rose-600 rounded shadow shadow-black"  
+                [ngClass]="{'border-black': this.employeService.employeQuearyParamsSubject.value.pageNumber === page, 'border': this.employeService.employeQuearyParamsSubject.value.pageNumber === page}" 
                 (click)="goToPage(page)"
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === page">
                 {{ page }}
@@ -33,7 +33,7 @@
         <div class="flex justify-start items-center">
             <button 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value && employeService.isNula.value == false" 
-                class="aspect-square w-10 bg-transparent/20 text-[#fff8]  rounded shadow shadow-black" 
+                class="aspect-square w-10 bg-rose-600 text-white  rounded shadow shadow-black" 
                 (click)="goToNextPage()"
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === employeService.currentSize.value">
                 〉
@@ -43,7 +43,7 @@
             <button  
                 (click)="goToLastPage()" 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value &&this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value-1 && employeService.isNula.value == false"
-                class="aspect-square w-10 bg-transparent/20 rounded font-bold flex justify-center items-center shadow shadow-black text-[#fff8]">
+                class="aspect-square w-10 bg-rose-600 rounded font-bold flex justify-center items-center shadow shadow-black text-white]">
                 》
             </button>
         </div>

@@ -33,7 +33,7 @@ export class EmployeService {
     sortBy: '',
     isAscending: false,
     pageNumber: 1,
-    pageSize: 1
+    pageSize: 5
   }
 
   cbSubject: EmployeCBFilter = {
@@ -151,7 +151,7 @@ export class EmployeService {
       sortBy: '',
       isAscending: false,
       pageNumber: 1,
-      pageSize: 1
+      pageSize: 5
     });
   }
 }
