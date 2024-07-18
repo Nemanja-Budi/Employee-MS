@@ -51,7 +51,7 @@ export class AnnualLeaveComponent {
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroy)).subscribe((params) => {
       const employeId = params.get('employeId');
-      const salaryId = params.get('id');
+      const annualLeaveId = params.get('id');
       if (employeId) {
         this.annualLeaveForm.patchValue({ employeId: employeId });
         this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
@@ -61,16 +61,17 @@ export class AnnualLeaveComponent {
           // this.isEditing = false;
         });
       }
-      // else if (salaryId) {
-      //   this.isEditing = true;
-      //   this.employeSalaryID = salaryId;
-      //   this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
-      //     this.employeSalaryForm.patchValue(salary);
-      //     this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
-      //     this.employeSalaryForm.get('employeId')?.disable();
-      //     console.log(this.currentEmployeIdValue);
-      //   });
-      // }
+      else if (annualLeaveId) {
+        //this.isEditing = true;
+        //this.employeSalaryID = salaryId;
+        this.annualLeavesService.getAnnualLeaveById(annualLeaveId).pipe(takeUntil(this.destroy)).subscribe(salary => {
+          console.log(salary);
+          this.annualLeaveForm.patchValue(salary);
+          this.currentEmployeIdValue = this.annualLeaveForm.get('employeId')?.value;
+          this.annualLeaveForm.get('employeId')?.disable();
+          console.log(this.currentEmployeIdValue);
+        });
+      }
     });
   }
 

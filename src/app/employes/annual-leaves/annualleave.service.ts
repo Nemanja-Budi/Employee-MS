@@ -14,6 +14,10 @@ export class AnnualleaveService {
     return this.http.get<AnnualLeave[]>(`http://localhost:5000/api/annualleave/get-annualleaves`);
   }
 
+  getAnnualLeaveById(id: string): Observable<AnnualLeave> {
+    return this.http.get<AnnualLeave>(`http://localhost:5000/api/AnnualLeave/get-annualleave/${id}`);
+  }
+
   addAnnualLeave(annualleave: AnnualLeave): Observable<AnnualLeave> {
     return this.http.post<AnnualLeave>(`http://localhost:5000/api/annualleave/create-annualleave`, annualleave);
   }
