@@ -5,7 +5,7 @@ import { Employe } from "../employe/employe.model";
 export interface AnnualLeave {
     annualLeaveId: string; // Guid is represented as string in TypeScript
     employeId: string; // Guid is represented as string in TypeScript
-    employe: Employe;
+    // employe: Employe;
     startDate: Date;
     endDate: Date;
     reason: string;

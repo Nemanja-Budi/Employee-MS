@@ -10,16 +10,15 @@ import { EmployeService } from 'src/app/employes/employe/employe.service';
   styleUrls: ['./employe-search.component.css']
 })
 export class EmployeSearchComponent implements OnDestroy {
+
   employeService: EmployeService = inject(EmployeService);
   employeParams: EmployeCBFilter[] = this.employeService.getEmployeParams();
-  isChange: string = '';
+  currentPage: number = 1;
+  
   onChangeSearch(changeSearch: string): void {
     this.employeService.employeSearchSubject.next(changeSearch);
-    this.isChange = changeSearch;
-
     const currentEmploye = this.employeService.employeCurrentSubject.value;
     const employeFilterDto = { ...this.employeService.employeQuearyParamsSubject.value.employeFilterDto };
-    let currentPage: number = 1;
   
     if(currentEmploye.name == '') {
       employeFilterDto[this.employeParams[0].name] = changeSearch;
@@ -27,15 +26,24 @@ export class EmployeSearchComponent implements OnDestroy {
       employeFilterDto[currentEmploye.name] = changeSearch;
     }
 
-    if(this.isChange != "") {
-      currentPage = this.employeService.employeQuearyParamsSubject.value.pageNumber;
-      console.log(currentPage);
+    if(this.employeService.employeQuearyParamsSubject.value.pageNumber > 1) {
+      this.currentPage = this.employeService.employeQuearyParamsSubject.value.pageNumber;
     }
-    this.employeService.employeQuearyParamsSubject.next({
-      ...this.employeService.employeQuearyParamsSubject.value,
-      employeFilterDto: employeFilterDto,
-      pageNumber: currentPage
-    });
+    
+    if(changeSearch == "") {
+      this.employeService.employeQuearyParamsSubject.next({
+        ...this.employeService.employeQuearyParamsSubject.value,
+        employeFilterDto: employeFilterDto,
+        pageNumber: this.currentPage
+      });
+      console.log(this.currentPage)
+    } else {
+      this.employeService.employeQuearyParamsSubject.next({
+        ...this.employeService.employeQuearyParamsSubject.value,
+        employeFilterDto: employeFilterDto,
+        pageNumber: 1
+      });
+    }
   }
 
   ngOnDestroy(): void {

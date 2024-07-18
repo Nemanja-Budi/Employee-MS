@@ -93,6 +93,10 @@ export class EmployeService {
     );
   }
 
+  getEmployesForSelect(): Observable<Employe[]> {
+    return this.http.get<EmployeList>(`${environment.appUrl}/employe/get-employes`).pipe(map((employe) => employe.employes));
+  }
+
   addEmploye(employe: Employe): Observable<Employe> {
     return this.http.post<Employe>(`http://localhost:5000/api/employe/create-employe`, employe);
   }

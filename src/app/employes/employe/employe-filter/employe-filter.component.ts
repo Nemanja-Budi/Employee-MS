@@ -13,9 +13,12 @@ export class EmployeFilterComponent implements OnDestroy {
 
   employeService: EmployeService = inject(EmployeService);
   employeParams: EmployeCBFilter[] = this.employeService.getEmployeParams();
+  currentPage: number = 1;
 
   onChangeInput(changeInput: EmployeCBFilter): void {
     const employeFilterDto = { ...this.employeService.employeQuearyParamsSubject.value.employeFilterDto };
+
+    let changeSearch = this.employeService.employeSearchSubject.value;
 
     this.employeParams.forEach((employe) => {
       if (employe.name === changeInput.name) {
@@ -35,10 +38,28 @@ export class EmployeFilterComponent implements OnDestroy {
       }
     });
 
-    this.employeService.employeQuearyParamsSubject.next({
-      ...this.employeService.employeQuearyParamsSubject.value,
-      employeFilterDto: employeFilterDto,
-    });
+    if(this.employeService.employeQuearyParamsSubject.value.pageNumber > 1) {
+      this.currentPage = this.employeService.employeQuearyParamsSubject.value.pageNumber;
+    }
+
+    if(changeSearch == "") {
+      this.employeService.employeQuearyParamsSubject.next({
+        ...this.employeService.employeQuearyParamsSubject.value,
+        employeFilterDto: employeFilterDto,
+        pageNumber: this.currentPage
+      });
+      console.log(this.currentPage)
+    } else {
+      this.employeService.employeQuearyParamsSubject.next({
+        ...this.employeService.employeQuearyParamsSubject.value,
+        employeFilterDto: employeFilterDto,
+        pageNumber: 1
+      });
+    }
+    // this.employeService.employeQuearyParamsSubject.next({
+    //   ...this.employeService.employeQuearyParamsSubject.value,
+    //   employeFilterDto: employeFilterDto,
+    // });
   }
 
   ngOnDestroy(): void {

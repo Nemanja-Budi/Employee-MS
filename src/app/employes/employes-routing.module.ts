@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'employe', loadChildren: () => import('./employe/modules/employe.module').then(m => m.EmployeModule) },
   { path: 'salary', loadChildren: () => import('./employe-salary/modules/employe.salary.module').then(m => m.EmployeSalaryModule) },
   { path: 'annual-leaves', component: AnnualLeaveComponent},
+  { path: 'annual-leaves/:employeId', component: AnnualLeaveComponent},
 ];
 
 @NgModule({
