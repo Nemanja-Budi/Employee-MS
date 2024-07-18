@@ -12,7 +12,7 @@ import { EmployeService } from 'src/app/employes/employe/employe.service';
 export class EmployeSalaryListSelectComponent {
 
   employeService: EmployeService = inject(EmployeService);
-  employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employe) => employe.employes));
+  employes: Observable<Employe[]> = this.employeService.getEmployesForSelect();
 
   @Output() changeEnployeEvent: EventEmitter<string> = new EventEmitter<string>();
 

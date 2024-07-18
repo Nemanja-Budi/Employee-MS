@@ -51,7 +51,9 @@ export class AnnualLeaveComponent {
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroy)).subscribe((params) => {
       const employeId = params.get('employeId');
-      const annualLeaveId = params.get('id');
+      const annualLeaveId = params.get('annualleaveId');
+      console.log(`OVO JE EMPLOYE ID ${employeId}`);
+      console.log(annualLeaveId);
       if (employeId) {
         this.annualLeaveForm.patchValue({ employeId: employeId });
         this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {

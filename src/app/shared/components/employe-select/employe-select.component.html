@@ -1,0 +1,9 @@
+<div [formGroup]="parentFormGroup">
+    <label [for]="controlName" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+    <select [id]="controlName" [formControlName]="controlName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+      <option value="">-- Select an Employee --</option>
+      <option *ngFor="let employee of employes | async" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
+    </select>
+    <div *ngIf="parentFormGroup.get(controlName)?.invalid && parentFormGroup.get(controlName)?.touched" class="text-red-600">Please select an employee</div>
+</div>
+  

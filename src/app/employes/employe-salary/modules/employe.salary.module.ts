@@ -9,6 +9,8 @@ import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
 import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salary-list.component';
 import { EmployeSalaryListSelectComponent } from '../employe-salary-list/employe-salary-list-select/employe-salary-list-select.component';
 import { EmployeSalaryListEmployesComponent } from '../employe-salary-list/employe-salary-list-employes/employe-salary-list-employes.component';
+import { EmployesModule } from '../../employes.module';
+import { SharedModule } from "../../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,8 +23,8 @@ import { EmployeSalaryListEmployesComponent } from '../employe-salary-list/emplo
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    EmployeSalaryRoutingModule
-  ]
+    EmployeSalaryRoutingModule,
+    SharedModule
+]
 })
 export class EmployeSalaryModule { }
