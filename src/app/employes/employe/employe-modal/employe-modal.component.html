@@ -1,0 +1,12 @@
+<dialog #customModal class="modal">
+  <div class="grid grid-rows-[auto,1fr] gap-5 relative p-5">
+    <button class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" (click)="closeModal()"><span class=" font-bold">X</span></button>
+    <h2 class="text-center text-3xl text-indigo-600 font-bold">Action</h2>
+    <div class="grid md:grid md:grid-cols-2 xl:grid xl:grid-cols-4 gap-4">
+      <button (click)="onGoToEmployeDetail()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Detalji</button>
+      <button (click)="onGoToEmployeEdit()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Edit</button>
+      <button (click)="onGoToEmployeSalary()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Plata</button>
+      <button (click)="onGoToEmployeVacation()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Godisnji odmor</button>
+    </div>
+  </div>
+</dialog>

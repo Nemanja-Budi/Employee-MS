@@ -5,7 +5,12 @@
             <button routerLink="/admin/add-new-user" class="bg-transparent/20 shadow shadow-black gap-2 px-3 py-2 rounded-md text-[#fff8]"><span class="font-bold">+</span> Add User</button>
         </div>
         <div>
-            <app-admin-show-items-per-page [isUser]="false"></app-admin-show-items-per-page>
+            <app-show-items-per-page 
+                [itemsPerPage]="[5,10,15]" 
+                [textColor]="'white'" 
+                [bgButton]="'indigo-600'"
+                [queryParamsSubject]="this.adminService.memberQuearyParamsSubject">
+            </app-show-items-per-page>
         </div>
     </div>
     <div class="flex flex-col gap-5">

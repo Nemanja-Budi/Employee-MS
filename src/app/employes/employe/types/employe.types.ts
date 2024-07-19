@@ -24,6 +24,7 @@ export type GetEmploye = {
 }
 
 export type EmployeCBFilter = {
+    showName: string;
     name: string;
     chacked: boolean;
   }

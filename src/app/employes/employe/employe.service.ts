@@ -8,6 +8,7 @@ import { AuditLog } from '../../models/auditlog.model';
 import { Employe } from '../../models/employe/employe.model';
 import { GetEmploye, EmployeCBFilter } from './types/employe.types';
 import { EmployeList } from '../../models/employe/employe.list.model';
+import { EmployeModalComponent } from './employe-modal/employe-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,31 +31,32 @@ export class EmployeService {
       bankName: '',
       currentAccount: 0
     },
-    sortBy: '',
-    isAscending: false,
+    sortBy: 'firstName',
+    isAscending: true,
     pageNumber: 1,
     pageSize: 8
   }
 
   cbSubject: EmployeCBFilter = {
+    showName: '',
     name: '', 
     chacked: false
   }
 
   employeParams: EmployeCBFilter[] = [
-    { name: 'firstName', chacked: true },
-    { name: 'lastName', chacked: false },
-    { name: 'jmbg', chacked: false },
-    { name: 'identityCardNumber', chacked: false },
-    { name: 'phone', chacked: false },
-    { name: 'address', chacked: false },
-    { name: 'email', chacked: false },
-    { name: 'pio', chacked: false },
-    { name: 'position', chacked: false },
-    { name: 'employmentContract', chacked: false },
-    { name: 'amendmentContract', chacked: false },
-    { name: 'bankName', chacked: false },
-    { name: 'currentAccount', chacked: false },
+    { showName: 'Ime', name: 'firstName', chacked: true },
+    { showName: 'Prezime', name: 'lastName', chacked: false },
+    { showName: 'Jmbg', name: 'jmbg', chacked: false },
+    { showName: 'Br. Lk', name: 'identityCardNumber', chacked: false },
+    { showName: 'Telefon', name: 'phone', chacked: false },
+    { showName: 'Adresa', name: 'address', chacked: false },
+    { showName: 'Email', name: 'email', chacked: false },
+    { showName: 'Pio', name: 'pio', chacked: false },
+    { showName: 'Pozicija', name: 'position', chacked: false },
+    { showName: 'Ugovor o radu', name: 'employmentContract', chacked: false },
+    { showName: 'Aneks ugovora', name: 'amendmentContract', chacked: false },
+    { showName: 'Banka', name: 'bankName', chacked: false },
+    { showName: 'Bankovni racun', name: 'currentAccount', chacked: false },
   ];
 
   employeQuearyParamsSubject: BehaviorSubject<GetEmploye> = new BehaviorSubject<GetEmploye>(this.employeFilterSubject);
@@ -148,10 +150,21 @@ export class EmployeService {
         bankName: '',
         currentAccount: 0
       },
-      sortBy: '',
-      isAscending: false,
+      sortBy: 'firstName',
+      isAscending: true,
       pageNumber: 1,
       pageSize: 8
     });
+  }
+
+  private employeSubject = new BehaviorSubject<Employe | null>(null);
+  employe$ = this.employeSubject.asObservable();
+
+  openModal(employe: Employe): void {
+    this.employeSubject.next(employe);
+  }
+
+  closeModal(): void {
+    this.employeSubject.next(null);
   }
 }

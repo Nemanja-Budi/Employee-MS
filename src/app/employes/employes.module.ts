@@ -5,8 +5,11 @@ import { EmployesRoutingModule } from './employes-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 
+
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
     EmployesRoutingModule,

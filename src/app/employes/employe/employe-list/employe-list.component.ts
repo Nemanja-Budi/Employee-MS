@@ -13,33 +13,11 @@ import { EmployeService } from 'src/app/employes/employe/employe.service';
 export class EmployeListComponent {
 
   employeService: EmployeService = inject(EmployeService);
-  employeChilds: EmployeChild[] | undefined = undefined;  
-  employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employes) => {
-    employes.employes.map((e) => {
-      if(e.employeChild) {
-        this.employeChilds = e.employeChild
-      }
-    });
-    return employes.employes;
-  }));
+  employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employes) => employes.employes));
 
-  onDeleteEmploye(employeId: string): void {
-    this.employeService.deleteEmploye(employeId).subscribe({ 
-      next: (employe) => console.log(employe),
-      error: () => console.log("Error")
-    });
+  openDialog(employe: Employe): void {
+    this.employeService.openModal(employe);
   }
 
-  onChange(): void {
-    const currentValue = this.employeService.employeQuearyParamsSubject.value;
-    const updatedValue = {
-      ...currentValue,
-      employeFilterDto: {
-        ...currentValue.employeFilterDto,
-        firstName: 'peri'
-      }
-    };
-    this.employeService.employeQuearyParamsSubject.next(updatedValue);
-  }
 }
 

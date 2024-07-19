@@ -17,13 +17,14 @@ export class EmployeFilterComponent implements OnDestroy {
 
   onChangeInput(changeInput: EmployeCBFilter): void {
     const employeFilterDto = { ...this.employeService.employeQuearyParamsSubject.value.employeFilterDto };
-
+    let sortBy: string = '';
     let changeSearch = this.employeService.employeSearchSubject.value;
 
     this.employeParams.forEach((employe) => {
       if (employe.name === changeInput.name) {
         employe.chacked = !employe.chacked;
         if (employe.chacked) {
+          sortBy = employe.name;
           employeFilterDto[employe.name] = this.employeService.employeSearchSubject.value;
           this.employeService.employeCurrentSubject.next(employe);
         } 
@@ -46,13 +47,16 @@ export class EmployeFilterComponent implements OnDestroy {
       this.employeService.employeQuearyParamsSubject.next({
         ...this.employeService.employeQuearyParamsSubject.value,
         employeFilterDto: employeFilterDto,
+        sortBy: sortBy,
         pageNumber: this.currentPage
+        
       });
       console.log(this.currentPage)
     } else {
       this.employeService.employeQuearyParamsSubject.next({
         ...this.employeService.employeQuearyParamsSubject.value,
         employeFilterDto: employeFilterDto,
+        sortBy: sortBy,
         pageNumber: 1
       });
     }

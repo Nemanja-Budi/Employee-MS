@@ -1,8 +1,8 @@
-<div class="flex justify-between flex-wrap bg-rose-600 text-white rounded-md p-2 gap-3">
+<div class="flex justify-between flex-wrap bg-indigo-600 text-white font-bold rounded-md p-2 gap-3">
     <div *ngFor="let cb of employeParams; let i = index;">
         <label>
             <input (change)="onChangeInput(cb)" [checked]="cb.chacked" type="checkbox"/>
-            {{ cb.name }}
+            {{ cb.showName }}
         </label>
     </div>
 </div>

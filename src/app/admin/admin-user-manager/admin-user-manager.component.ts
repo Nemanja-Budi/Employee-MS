@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin-user-manager',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AdminUserManagerComponent {
 
+  adminService: AdminService = inject(AdminService);
 }
