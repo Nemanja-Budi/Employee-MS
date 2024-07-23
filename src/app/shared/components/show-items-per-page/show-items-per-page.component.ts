@@ -13,6 +13,7 @@ export class ShowItemsPerPageComponent {
   @Input() itemsPerPage: number[] = [];
   @Input() textColor: string = '';
   @Input() bgButton: string = '';
+  @Input() hbutton: number = 0;
   @Input() queryParamsSubject!: BehaviorSubject<any>;
 
   isAscending: boolean = true;

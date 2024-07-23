@@ -8,10 +8,12 @@ import { EmployeSalaryComponent } from '../employe-salary.component';
 const routes: Routes = [
   { path: '', redirectTo: 'all-salarys', pathMatch: 'full' },
   { path: 'all-salarys', component: EmployeSalaryComponent },
+  { path: 'all-salarys/:employeId', component: EmployeSalaryComponent },
   { path: 'create-salary', component: EmployeSalaryAddComponent},
   { path: 'update-salary/:id', component: EmployeSalaryAddComponent},
   { path: 'create-salary/:employeId', component: EmployeSalaryAddComponent},
   { path: 'detail-salary/:id', component: EmployeSalaryDetailComponent},
+  //{ path: 'employe-salarys/:employeId', component: EmployeSalaryDetailComponent},
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { EmployeChild } from 'src/app/models/employe/employe.child.model';
@@ -14,10 +14,6 @@ export class EmployeListComponent {
 
   employeService: EmployeService = inject(EmployeService);
   employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employes) => employes.employes));
-
-  openDialog(employe: Employe): void {
-    this.employeService.openModal(employe);
-  }
-
+  
 }
 

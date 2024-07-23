@@ -1,7 +1,23 @@
-<div *ngIf="employe$ | async as employe">
-    <p>{{ employe.firstName}} </p>
-    <p>{{ employe.lastName}} </p>
+<ng-container *ngIf="isPdf === false">
+  <div *ngIf="employe$ | async as employe">
+    <p>{{ employe.firstName}} {{ employe.lastName}}</p>
     <div *ngIf="isDetail">
-        u detaljima je
+      <p>{{employe.jmbg}}</p>
+      <p>{{employe.bankName}}</p>
+      <p>{{employe.currentAccount}}</p>
+      <p>{{employe.email}}</p>
     </div>
   </div>
+</ng-container>
+
+<ng-container *ngIf="isPdf === true">
+  <div *ngIf="this.employeSalaryService.employeSubject.value as employe">
+    <p>{{ employe.firstName}} {{ employe.lastName}}</p>
+    <div *ngIf="isDetail">
+      <p>{{employe.jmbg}}</p>
+      <p>{{employe.bankName}}</p>
+      <p>{{employe.currentAccount}}</p>
+      <p>{{employe.email}}</p>
+    </div>
+  </div>
+</ng-container>

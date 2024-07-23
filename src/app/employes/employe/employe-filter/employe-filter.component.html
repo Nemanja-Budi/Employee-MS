@@ -1,6 +1,6 @@
-<div class="flex justify-between flex-wrap bg-indigo-600 text-white font-bold rounded-md p-2 gap-3">
+<div class="flex justify-between flex-wrap bg-indigo-600 text-black text-sm rounded-md p-2 gap-3">
     <div *ngFor="let cb of employeParams; let i = index;">
-        <label>
+        <label class="flex gap-2" [ngClass]="{'text-white' : cb.chacked,}">
             <input (change)="onChangeInput(cb)" [checked]="cb.chacked" type="checkbox"/>
             {{ cb.showName }}
         </label>

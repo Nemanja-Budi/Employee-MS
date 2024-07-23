@@ -4,14 +4,14 @@
             <button 
                 (click)="goToFirstPage()"
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !==1 && this.employeService.employeQuearyParamsSubject.value.pageNumber !==2"
-                class="text-white aspect-square w-10 bg-indigo-600 rounded shadow shadow-black">
-                《
+                class="text-white aspect-square w-8 bg-indigo-600 rounded shadow shadow-black">
+                1
             </button>
         </div>
         <div  class="flex justify-end items-center">
             <button 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !==1"   
-                class="text-white aspect-square w-10  bg-indigo-600 rounded shadow shadow-black" 
+                class="text-white aspect-square w-8  bg-indigo-600 rounded shadow shadow-black" 
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === 1 "
                 (click)="goToPreviousPage()">
                 〈
@@ -21,7 +21,7 @@
     <div class="flex justify-center items-center flex-wrap rounded gap-3">
         <ng-container *ngFor="let page of visiblePages()">
             <button
-                class="p-2 text-white w-10 aspect-square flex justify-center items-center bg-indigo-600 rounded shadow shadow-black"  
+                class="p-2 text-white h-8 aspect-square flex justify-center items-center bg-indigo-600 rounded shadow shadow-black"  
                 [ngClass]="{'border-black': this.employeService.employeQuearyParamsSubject.value.pageNumber === page, 'border': this.employeService.employeQuearyParamsSubject.value.pageNumber === page}" 
                 (click)="goToPage(page)"
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === page">
@@ -33,7 +33,7 @@
         <div class="flex justify-start items-center">
             <button 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value && employeService.isNula.value == false" 
-                class="aspect-square w-10 bg-indigo-600 text-white  rounded shadow shadow-black" 
+                class="aspect-square h-8 bg-indigo-600 text-white  rounded shadow shadow-black" 
                 (click)="goToNextPage()"
                 [disabled]="this.employeService.employeQuearyParamsSubject.value.pageNumber === employeService.currentSize.value">
                 〉
@@ -43,8 +43,8 @@
             <button  
                 (click)="goToLastPage()" 
                 *ngIf="this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value &&this.employeService.employeQuearyParamsSubject.value.pageNumber !== employeService.currentSize.value-1 && employeService.isNula.value == false"
-                class="aspect-square w-10 bg-indigo-600 rounded font-bold flex justify-center items-center shadow shadow-black text-white]">
-                》
+                class="aspect-square h-8 bg-indigo-600 rounded font-bold flex justify-center items-center shadow shadow-black text-white]">
+                {{employeService.currentSize.value}}
             </button>
         </div>
     </div>

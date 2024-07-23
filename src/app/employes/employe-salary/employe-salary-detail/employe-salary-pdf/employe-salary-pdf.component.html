@@ -1,0 +1,92 @@
+<ng-template #pdfTemplate *ngIf="employeSalaryData">
+  
+<div style="display: flex; flex-direction: column; gap: 1rem;" >
+  <div style="display: flex; justify-content: space-between;">
+    <div>
+      <h3>Podaci o poslodavcu</h3>
+      <p>MITROSREM</p>
+      <p>SREM.MITROVICA</p>
+      <p>TRG VOJVODJANSKIH BRIGADA 3</p>
+      <p>PIB : 10091677</p>
+      <p>MB : 91064225</p>
+      <p>BANKA INTESA : 890-361442-11</p>
+    </div>
+    <div >
+      <h3 class="bg-red-600">Employe Details</h3>
+      <app-employe-salary-list-employes [isDetail]="true" [isPdf]="true"></app-employe-salary-list-employes>
+    </div>
+  </div>
+  <h2 style="text-align: center;">OBRACUN ZARADE I NAKNADE ZARADE (procenat za isplatu 100.00%)</h2>
+  <div style="display: flex; justify-content: space-between;">
+    <p>Obracun za : MAJ 2024.</p>
+    <p>Radjen dana: 28.06.2024</p>
+    <p>Sati u mesecu: {{employeSalaryData.totalNumberOfHours}}</p>
+    <p>Vrednost sata: <span style="font-weight: bold;">{{hourlyRate}}</span></p>
+  </div>
+  
+  <div style="display:flex; justify-content: space-between;">
+    <div>
+      <h3>Employee Salary Details</h3>
+      <p>Total Number Of Hours: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}</span></p>
+      <p>Total Number Of Working Hours: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfWorkingHours}}</span> </p>
+      <p>Sickness100: <span style="font-weight: bold;">{{employeSalaryData.sickness100}}</span></p>
+      <p>Sickness60: <span style="font-weight: bold;"> {{employeSalaryData.sickness60}}</span></p>
+      <p>Hours Of Annual Vacation: <span style="font-weight: bold;"> {{employeSalaryData.hoursOfAnnualVacation}}</span></p>
+      <p>Working Hours For The Holiday: <span style="font-weight: bold;">{{employeSalaryData.workingHoursForTheHoliday}}</span></p>
+      <p>Over Time Hours: <span style="font-weight: bold;">{{employeSalaryData.overtimeHours}}</span></p>
+      <p>Credits: <span style="font-weight: bold;">{{employeSalaryData.credits}}</span></p>
+      <p>Damage Compensation: <span style="font-weight: bold;">{{employeSalaryData.damageCompensation}}</span></p>
+      <p>Holiday Bonus: <span style="font-weight: bold;">{{employeSalaryData.holidayBonus}}</span></p>
+      <p>Meal Allowance: <span style="font-weight: bold;">{{employeSalaryData.mealAllowance}}</span></p>
+    </div>
+    <div>
+      <h3>Income From Work</h3>
+      <div *ngIf="employeSalaryData.incomeFromWork">
+        <p>Working Hours: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.workinHours}}</span></p>
+        <p>Sickness60: <span style="font-weight: bold;"> {{employeSalaryData.incomeFromWork.sickness60}}</span></p>
+        <p>Sickness100: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.sickness100}}</span> </p>
+        <p>Annual Vacation: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.annualVacation}}</span></p>
+        <p>Holiday Hours: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.holidayHours}}</span></p>
+        <p>Over Time Hours: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.overtimeHours}}</span></p>
+        <p>Credit: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.credit}}</span></p>
+        <p>Demage: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.demage}}</span></p>
+        <p>Gross Salary: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.grossSalary}}</span></p>
+        <p>Hot Meal: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.hotMeal}}</span></p>
+        <p>Regres: <span style="font-weight: bold;">{{employeSalaryData.incomeFromWork.regres}}</span></p>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="display: flex; justify-content: space-between;">    
+    <div>
+      <h3>Employee Salary SO</h3>
+      <div *ngIf="employeSalaryData.employeSalarySO">
+        <p>Gross Salary: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySO.grossSalary}}</span></p>
+        <p>Deduction Pension: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySO.deductionPension}}</span></p>
+        <p>Deduction Health: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySO.deductionHealth}}</span></p>
+        <p>expenseOfTheEmployer: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySO.expenseOfTheEmployer}}</span></p>
+      </div>
+    </div>
+    <div>
+      <h3>Employee Salary SOE</h3>
+      <div *ngIf="employeSalaryData.employeSalarySOE">
+        <p>Gross Salary: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.grossSalary}}</span> </p>
+        <p>Deduction Pension: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.deductionPension}}</span> </p>
+        <p>Deduction Health: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.deductionHealth}}</span></p>
+        <p>Deduction Unemployment: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.deductionUnemployment}}</span></p>
+        <p>Deduction Tax Relief: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.deductionTaxRelief}}</span></p>
+        <p>Net Salary: <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.netoSalary}}</span></p>
+        <p>Expense Of The Employe <span style="font-weight: bold;">{{employeSalaryData.employeSalarySOE.expenseOfTheEmploye}}</span></p>
+      </div>
+    </div>
+    </div>
+
+</div>
+
+</ng-template>
+
+
+<div>
+  <button (click)="generatePdf()">Generate PDF</button>
+</div>

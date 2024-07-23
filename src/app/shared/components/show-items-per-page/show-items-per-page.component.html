@@ -1,6 +1,6 @@
 <div class="grid grid-cols-2 gap-3 text-{{textColor}}">
     <div class="flex w-full justify-around">
-        <div class="flex items-center justify-center shadow shadow-black bg-{{bgButton}} w-10 aspect-square p-1 rounded-md">
+        <div class="flex items-center justify-center shadow shadow-black bg-{{bgButton}} h-{{hbutton}} aspect-square p-1 rounded-md">
             <svg
                 (click)="onChangeSortDirection()" 
                 *ngIf="!isAscending" 
@@ -31,9 +31,8 @@
             </svg>  
         </div>
         <ng-container *ngFor="let item of itemsPerPage">
-            <button 
-                *ngIf="item !== getCurrentPageSize()" 
-                class="shadow shadow-black bg-{{bgButton}} w-10 aspect-square p-1 rounded-md"  
+            <button  
+                class="shadow shadow-black bg-{{bgButton}} h-{{hbutton}}  aspect-square p-1 rounded-md"  
                 (click)="onChangeItemPerPage(item)">
                 {{item}} 
             </button>
@@ -45,6 +44,6 @@
             placeholder="Per page"
             #itemsPerPageInput
             (input)="showItemsPerPage(itemsPerPageInput.value)"
-            class="bg-{{bgButton}} outline-none shadow shadow-black rounded-md p-2 placeholder:text-{{textColor}} placeholder:p-1 w-full">
+            class=" w-full p-0.5 border-2 border-indigo-600 rounded-md placeholder:px-2 px-2 text-black">
     </div>
 </div>

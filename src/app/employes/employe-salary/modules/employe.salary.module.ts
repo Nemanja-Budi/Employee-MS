@@ -11,6 +11,7 @@ import { EmployeSalaryListSelectComponent } from '../employe-salary-list/employe
 import { EmployeSalaryListEmployesComponent } from '../employe-salary-list/employe-salary-list-employes/employe-salary-list-employes.component';
 import { EmployesModule } from '../../employes.module';
 import { SharedModule } from "../../../shared/shared.module";
+import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SharedModule } from "../../../shared/shared.module";
     EmployeSalaryListComponent,
     EmployeSalaryListSelectComponent,
     EmployeSalaryListEmployesComponent,
+    EmployeSalaryPdfComponent
   ],
   imports: [
     CommonModule,

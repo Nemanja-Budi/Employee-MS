@@ -25,7 +25,7 @@ import { EmployeModalComponent } from '../employe-modal/employe-modal.component'
     EmployeFilterComponent,
     EmployeSearchComponent,
     EmployePaganationComponent,
-    EmployeModalComponent
+    EmployeModalComponent,
   ],
   imports: [
     CommonModule,

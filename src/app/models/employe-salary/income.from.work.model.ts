@@ -12,7 +12,8 @@ export class IncomeFromWork {
     regres: number;
     grossSalary: number;
     employeSalaryId: string;
-
+    [key: string]: any;
+    
     constructor(obj?: any) {
         this.id = obj && obj.id || "";
         this.workinHours = obj && obj.workinHours || 0;

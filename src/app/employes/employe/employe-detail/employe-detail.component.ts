@@ -21,9 +21,10 @@ export class EmployeDetailComponent {
   }));
 
   keys(obj: any): Array<string> {
-    return Object.keys(obj);
+    const keys = Object.keys(obj);
+    return keys.slice(1, -1); // Izostavlja prvi i poslednji ključ
   }
-
+  
   formatKey(key: string): string {
     return key.replace(/([A-Z])/g, ' $1') // Razdvoji reči
               .replace(/^./, (str) => str.toUpperCase()) // Prvo slovo veliko

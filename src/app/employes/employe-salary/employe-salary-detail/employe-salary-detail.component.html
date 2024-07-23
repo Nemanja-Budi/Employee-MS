@@ -1,25 +1,87 @@
-<div *ngIf="employeSalary | async as employeSalaryData">
-    <div class="grid grid-cols-4" *ngFor="let key of keys(employeSalaryData)">
-        <strong >{{ formatKey(key) }}:</strong> {{ employeSalaryData[key] }}
-        <div  *ngFor="let k of keys(employeSalaryData.employeSalarySO)">
-            <ng-container *ngIf="employeSalaryData.employeSalarySO">
-                <strong>{{ formatKey(k) }}:</strong> {{ employeSalaryData.employeSalarySO[k] }}
-            </ng-container>
-        </div>
-          **********
-    </div>
+<div *ngIf="employeSalary | async as employeSalaryData" class="h-fullgrid grid-rows-[auto,1fr]">
+  <h3 class="text-center text-xl p-5">Employee Salary Details</h3>
 
-
-    <div class="flex gap-3 py-4 px-2">
-        <div>
-            <button routerLink="/employes/salary/update-salary/{{employeSalaryData.id}}" class="p-2 rounded-md bg-teal-500 text-white">Edit Salary</button>
-        </div>
-        <div>
-            <button class="p-2 rounded-md bg-rose-500 text-white">Delete Salary</button>
-        </div>
+  <div id="pdf-content" class="grid grid-cols-[0.5fr,1fr] gap-5 h-full px-5">
+    <div class="h-full self-center">
+      <app-employe-item [employe]="employe" [hEmployePicture]="'50dvh'"></app-employe-item>
     </div>
+    <div class="grid grid-rows-[auto,1fr,auto]">
 
-    <div>
-        <app-employe-salary-list-employes [employeId]="employeSalaryData.employeId" [isDetail]="true"></app-employe-salary-list-employes>
+        <div *ngIf="employeSalarys | async as employeSalary">
+          <div class="mb-6">
+            <label for="employeSalaryId" class="block text-sm font-medium text-gray-700">Select Employe Salary</label>
+            <select [disabled]="" (change)="onChangeSelect(changeSelectSalary.value)" #changeSelectSalary id="employeSalaryId" class="mt-1 block w-full rounded-md shadow-sm p-1 border-2 border-indigo-600 bg-transparent sm:text-sm">
+              <option>{{employeSalaryId}}</option>
+              <ng-container *ngFor="let es of employeSalary">
+                <option *ngIf="es.id !== employeSalaryId" [value]="es.id">{{ es.id }}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+
+      <div class="grid grid-rows-2 gap-5 h-full">
+        <div class="grid grid-cols-2 gap-5">
+          <div class="border border-indigo-600 rounded-md">
+            <h3 class="text-center text-lg bg-indigo-600 text-white">Hours</h3>
+            <div class="p-1.5">
+              <p class="flex justify-between">Total Number Of Hours: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}h</span></p>
+              <p class="flex justify-between">Total Number Of Working Hours: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfWorkingHours}}h</span> </p>
+              <p class="flex justify-between">Sickness100: <span style="font-weight: bold;">{{employeSalaryData.sickness100}}h</span></p>
+              <p class="flex justify-between">Sickness60: <span style="font-weight: bold;"> {{employeSalaryData.sickness60}}h</span></p>
+              <p class="flex justify-between">Hours Of Annual Vacation: <span style="font-weight: bold;"> {{employeSalaryData.hoursOfAnnualVacation}}h</span></p>
+              <p class="flex justify-between">Working Hours For The Holiday: <span style="font-weight: bold;">{{employeSalaryData.workingHoursForTheHoliday}}h</span></p>
+              <p class="flex justify-between">Over Time Hours: <span style="font-weight: bold;">{{employeSalaryData.overtimeHours}}h</span></p>
+              <p class="flex justify-between">Credits: <span style="font-weight: bold;">{{employeSalaryData.credits}}h</span></p>
+              <p class="flex justify-between">Damage Compensation: <span style="font-weight: bold;">{{employeSalaryData.damageCompensation}}h</span></p>
+              <p class="flex justify-between">Holiday Bonus: <span style="font-weight: bold;">{{employeSalaryData.holidayBonus}}din</span></p>
+              <p class="flex justify-between">Meal Allowance: <span style="font-weight: bold;">{{employeSalaryData.mealAllowance}}din</span></p>
+            </div>
+          </div>
+          <div class="border border-indigo-600 rounded-md">
+            <h3 class="text-center text-lg bg-indigo-600 text-white">Income From Work</h3>
+            <div *ngIf="employeSalaryData.incomeFromWork" class="p-1.5">
+              <div *ngFor="let key of getKeysWithoutFirstAndLast(employeSalaryData.incomeFromWork)">
+                <p class="flex justify-between">{{ formatKey(key) }}: <span style="font-weight: bold;">{{ employeSalaryData.incomeFromWork[key] }}din</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+          <div class="border border-indigo-600 h-fit rounded-md">
+            <h3 class="text-center text-lg bg-indigo-600 text-white">Employee Salary SOE</h3>
+            <div *ngIf="employeSalaryData.employeSalarySOE" class="p-1.5">
+              <div *ngFor="let key of getKeysWithoutFirstAndLast(employeSalaryData.employeSalarySOE)">
+                <p class="flex justify-between">{{ formatKey(key) }}: <span style="font-weight: bold;">{{ employeSalaryData.employeSalarySOE[key] }}din</span></p>
+              </div>
+            </div>
+          </div>    
+          <div class="border border-indigo-600 h-fit rounded-md">
+            <h3 class="text-center text-lg bg-indigo-600 text-white">Employee Salary SO</h3>
+            <div class="p-1.5" *ngIf="employeSalaryData.employeSalarySO">
+              <div *ngFor="let key of getKeysWithoutFirstAndLast(employeSalaryData.employeSalarySO)">
+                <p class="flex justify-between">{{ formatKey(key) }}: <span style="font-weight: bold;">{{ employeSalaryData.employeSalarySO[key] }}din</span></p>
+              </div>
+            </div>
+          </div>
+         </div>
+      </div>
+      <div class="grid justify-center">
+        <div class=" bg-indigo-600 text-white p-2 rounded-md">
+          <app-employe-salary-pdf (pdf)="generatePdf($event)" [employeSalaryData]="employeSalaryData" [hourlyRate]="hourlyRate"></app-employe-salary-pdf>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- <div *ngIf="employeSalarys | async as employeSalary">
+  <div class="mb-6">
+    <label for="employeSalaryId" class="block text-sm font-medium text-gray-700">Select Employe Salary</label>
+    <select [disabled]="" (change)="onChangeSelect(changeSelectSalary.value)" #changeSelectSalary id="employeSalaryId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+      <option>{{employeSalaryId}}</option>
+      <ng-container *ngFor="let es of employeSalary">
+        <option *ngIf="es.id !== employeSalaryId" [value]="es.id">{{ es.id }}</option>
+      </ng-container>
+    </select>
+  </div>
+</div> -->

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
+import { EmployeSalaryService } from '../../employe-salary.service';
 
 @Component({
   selector: 'app-employe-salary-list-employes',
@@ -10,10 +11,13 @@ import { Employe } from 'src/app/models/employe/employe.model';
 })
 export class EmployeSalaryListEmployesComponent implements OnInit {
 
-  @Input({required: true}) employeId: string = '';
-  @Input() isDetail: boolean = false;
-  employe$: Observable<Employe> | undefined;
+  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService)
 
+  @Input() employeId: string = '';
+  @Input() isDetail: boolean = false;
+  @Input({required: true}) isPdf: boolean = false;
+
+  employe$!: Observable<Employe | null>;
   constructor(private employeService: EmployeService) {}
 
   ngOnInit(): void {

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class EmployeModalComponent {
   @ViewChild('customModal', { static: true }) customModal!: ElementRef<HTMLDialogElement>;
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   private subscription: Subscription = new Subscription();
   employeForAction: Employe | null = null;
 
@@ -31,6 +32,11 @@ export class EmployeModalComponent {
     this.subscription.unsubscribe();
   }
 
+  toggleDropdown(): void {
+    const menu = this.dropdownMenu.nativeElement;
+    menu.classList.toggle('hidden');
+  }
+
   onGoToEmployeDetail(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/employe/detail-employe/${this.employeForAction.id}`]);
@@ -46,6 +52,12 @@ export class EmployeModalComponent {
   onGoToEmployeSalary(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/salary/create-salary/${this.employeForAction.id}`]);
+    this.employeService.closeModal();
+  }
+
+  onGoToEmployeSalaryByEmployeId(): void {
+    if (!this.employeForAction) return;
+    this.router.navigate([`/employes/salary/all-salarys/${this.employeForAction.id}`]);
     this.employeService.closeModal();
   }
 
