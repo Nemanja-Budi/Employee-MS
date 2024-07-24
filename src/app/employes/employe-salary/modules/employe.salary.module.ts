@@ -9,6 +9,7 @@ import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salar
 import { SharedModule } from "../../../shared/shared.module";
 import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf.component';
 import { EmployeSalarySearchComponent } from '../employe-salary-search/employe-salary-search.component';
+import { EmployeSalaryPaginationComponent } from '../employe-salary-pagination/employe-salary-pagination.component';
 
 
 
@@ -19,7 +20,8 @@ import { EmployeSalarySearchComponent } from '../employe-salary-search/employe-s
     EmployeSalaryDetailComponent,
     EmployeSalaryListComponent,
     EmployeSalaryPdfComponent,
-    EmployeSalarySearchComponent
+    EmployeSalarySearchComponent,
+    EmployeSalaryPaginationComponent
   ],
   imports: [
     CommonModule,

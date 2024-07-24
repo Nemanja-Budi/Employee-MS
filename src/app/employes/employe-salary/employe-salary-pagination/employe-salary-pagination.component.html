@@ -1,0 +1,51 @@
+<div class="flex justify-center items-center gap-10 text-white font-bold ">
+    <div class="grid grid-cols-[1fr,0.1fr] justify-center gap-3">
+        <div class="flex justify-end items-center">
+            <button 
+                (click)="goToFirstPage()"
+                *ngIf="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !==1 && this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !==2"
+                class="text-white aspect-square w-8 bg-indigo-600 rounded shadow shadow-black">
+                1
+            </button>
+        </div>
+        <div  class="flex justify-end items-center">
+            <button 
+                *ngIf="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !==1"   
+                class="text-white aspect-square w-8  bg-indigo-600 rounded shadow shadow-black" 
+                [disabled]="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber === 1 "
+                (click)="goToPreviousPage()">
+                〈
+            </button>
+        </div>
+    </div>   
+    <div class="flex justify-center items-center flex-wrap rounded gap-3">
+        <ng-container *ngFor="let page of visiblePages()">
+            <button
+                class="p-2 text-white h-8 aspect-square flex justify-center items-center bg-indigo-600 rounded shadow shadow-black"  
+                [ngClass]="{'border-black': this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber === page, 'border': this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber === page}" 
+                (click)="goToPage(page)"
+                [disabled]="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber === page">
+                {{ page }}
+            </button>
+        </ng-container>
+    </div>
+    <div class="grid grid-cols-[0.1fr,1fr] gap-3">
+        <div class="flex justify-start items-center">
+            <button 
+                *ngIf="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !== employeSalaryService.currentSize.value && employeSalaryService.isNula.value == false" 
+                class="aspect-square h-8 bg-indigo-600 text-white  rounded shadow shadow-black" 
+                (click)="goToNextPage()"
+                [disabled]="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber === employeSalaryService.currentSize.value">
+                〉
+            </button>
+        </div>
+        <div class="flex justify-start items-center">
+            <button  
+                (click)="goToLastPage()" 
+                *ngIf="this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !== employeSalaryService.currentSize.value &&this.employeSalaryService.employeSalaryQuearyParamsSubject.value.pageNumber !== employeSalaryService.currentSize.value-1 && employeSalaryService.isNula.value == false"
+                class="aspect-square h-8 bg-indigo-600 rounded font-bold flex justify-center items-center shadow shadow-black text-white]">
+                {{employeSalaryService.currentSize.value}}
+            </button>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,7 @@ export class EmployeSalaryService {
     sortBy: 'firstName',
     isAscending: true,
     pageNumber: 1,
-    pageSize: 8
+    pageSize: 1
   }
 
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
