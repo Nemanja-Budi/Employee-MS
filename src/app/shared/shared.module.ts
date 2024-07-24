@@ -6,14 +6,30 @@ import { EmployeSelectComponent } from './components/employe-select/employe-sele
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShowItemsPerPageComponent } from './components/show-items-per-page/show-items-per-page.component';
 import { EmployeItemComponent } from './components/employe-item/employe-item.component';
+import { EmployeSalaryEmployeDetailComponent } from './components/employe-salary-employe-detail/employe-salary-employe-detail.component';
 
 
 @NgModule({
-  declarations: [ValidationMessagesComponent, ShowMoreComponent, EmployeSelectComponent, ShowItemsPerPageComponent, EmployeItemComponent],
+  declarations: [
+    ValidationMessagesComponent, 
+    ShowMoreComponent, 
+    EmployeSelectComponent, 
+    ShowItemsPerPageComponent, 
+    EmployeItemComponent, 
+    EmployeSalaryEmployeDetailComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule
   ],
-  exports: [ValidationMessagesComponent, ShowMoreComponent, EmployeSelectComponent, ReactiveFormsModule,ShowItemsPerPageComponent, EmployeItemComponent]
+  exports: [
+    ValidationMessagesComponent, 
+    ShowMoreComponent, 
+    EmployeSelectComponent, 
+    ReactiveFormsModule,
+    ShowItemsPerPageComponent,
+    EmployeItemComponent,
+    EmployeSalaryEmployeDetailComponent
+  ]
 })
 export class SharedModule { }

@@ -1,60 +1,32 @@
-<div>
-  <app-employe-salary-list-select [selectedEmployeId]="selectedEmployeId"  (changeEnployeEvent)="onChangeSelect($event)"></app-employe-salary-list-select>
-</div>
 <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
-      <thead class="bg-gray-800 text-white">
-        <tr>
-          <th class="py-2 px-4 border-b">ID</th>
-          <th class="py-2 px-4 border-b">Total Hours</th>
-          <th class="py-2 px-4 border-b">Working Hours</th>
-          <th class="py-2 px-4 border-b">Sickness 100%</th>
-          <th class="py-2 px-4 border-b">Sickness 60%</th>
-          <th class="py-2 px-4 border-b">Annual Vacation</th>
-          <th class="py-2 px-4 border-b">Holiday Hours</th>
-          <th class="py-2 px-4 border-b">Overtime Hours</th>
-          <th class="py-2 px-4 border-b">Credits</th>
-          <th class="py-2 px-4 border-b">Damage Compensation</th>
-          <th class="py-2 px-4 border-b">Holiday Bonus</th>
-          <th class="py-2 px-4 border-b">Meal Allowance</th>
-          <th class="py-2 px-4 border-b" colspan="2">Gross Salary</th>
-          <!-- <th class="py-2 px-4 border-b">Neto Salary</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let salary of employeSalarys | async" class="even:bg-gray-100">
-          <!-- <td class="py-2 px-4 border-b">{{ salary.id }}</td> -->
-          <td routerLink="/employes/salary/detail-salary/{{salary.id}}" class="py-2 px-4 border-b">{{ salary.totalNumberOfHours }}</td>
+  <table class="min-w-full  rounded-md border border-indigo-600">
+    <thead class="bg-indigo-600 text-white  rounded-md">
+      <tr>
+        <th class="py-2 px-4 rounded-tl-md">ID</th>
+        <th class="py-2 px-4">Prezime i ime zaposlenog</th>
+        <th class="py-2 px-4">Total Hours</th>
+        <th class="py-2 px-4">Gross salary</th>
+        <th class="py-2 px-4 rounded-tr-md">Neto salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let salary of employeSalarys | async; let i = index;">
+        <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="">
+          <td class="py-2 px-4">{{ i }}</td>
           <td *ngIf="salary.employeId">
-            <app-employe-salary-list-employes [employeId]="salary.employeId" [isPdf]="false"></app-employe-salary-list-employes>
+            <app-employe-salary-employe-detail [employeId]="salary.employeId" [isPdf]="false" [isDetail]="false"></app-employe-salary-employe-detail>
           </td>
-          <td class="py-2 px-4 border-b">{{ salary.totalNumberOfWorkingHours }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.sickness100 }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.sickness60 }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.hoursOfAnnualVacation }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.workingHoursForTheHoliday }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.overtimeHours }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.credits }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.damageCompensation }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.holidayBonus }}</td>
-          <td class="py-2 px-4 border-b">{{ salary.mealAllowance }}</td>
-          <td class="py-2 px-4 border-b">
-            <p class="flex">{{ 'DeductionHealth:' + salary.employeSalarySO?.deductionHealth }}</p>
-            <p>{{ 'DeductionPension:' + salary.employeSalarySO?.deductionPension }}</p>
-            <p>{{ 'ExpenseOfTheEmployer:' + salary.employeSalarySO?.expenseOfTheEmployer }}</p>
-            <p>{{ 'GrossSalary:' + salary.employeSalarySO?.grossSalary }}</p>
+          <td class="py-2 px-4">{{ salary.totalNumberOfHours }}</td>
+          <td class="py-2 px-4">
+            <p>{{ salary.employeSalarySO?.grossSalary }}din</p>
           </td>
-          <td class="py-2 px-4 border-b">
-            <p>DeductionHealth:<span class="font-bold">{{ salary.employeSalarySOE?.deductionHealth }}</span></p>
-            <p>DeductionPension:<span class="font-bold">{{ salary.employeSalarySOE?.deductionPension }}</span></p>
-            <p>DeductionTaxRelief:<span class="font-bold">{{ salary.employeSalarySOE?.deductionTaxRelief }}</span></p>
-            <p>DeductionUnemployment:<span class="font-bold">{{ salary.employeSalarySOE?.deductionUnemployment }}</span></p>
-            <p>ExpenseOfTheEmploye:<span class="font-bold">{{ salary.employeSalarySOE?.expenseOfTheEmploye }}</span></p>
-            <p>NetoSalary:<span class="font-bold">{{ salary.employeSalarySOE?.netoSalary }}</span></p>
+          <td class="py-2 px-4">
+            <p><span class="font-bold">{{ salary.employeSalarySOE?.netoSalary }}din</span></p>
           </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
 
   

@@ -25,10 +25,7 @@ export class EmployeSelectComponent {
   constructor(private employeService: EmployeService, private controlContainer: ControlContainer) {
     this.employes = this.employeService.getEmployesForSelect();
   }
-
-  ngOnInit(): void {
-  }
-
+  
   get parentFormGroup(): FormGroup {
     return this.controlContainer.control as FormGroup;
   }
