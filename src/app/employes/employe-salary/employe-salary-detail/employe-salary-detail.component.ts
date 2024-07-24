@@ -5,8 +5,8 @@ import { Observable, concatMap, forkJoin, from, map, of, switchMap } from 'rxjs'
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { EmployeSalaryService } from '../employe-salary.service';
 
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+// import { jsPDF } from 'jspdf';
+// import html2canvas from 'html2canvas';
 import { EmployeService } from '../../employe/employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
 
