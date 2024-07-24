@@ -1,10 +1,21 @@
 <div class="container mx-auto py-8">
   <div>
-    <div>
-      <button routerLink="/employes/salary/create-salary">Dodaj plate</button>
-    </div> 
-    <div>
-      <app-employe-salary-search></app-employe-salary-search>
+    <div class="grid grid-cols-4 gap-5">
+      <div class="w-full h-full">
+        <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+      </div>
+      <div class="col-span-2">
+        <app-employe-salary-search></app-employe-salary-search>
+      </div>
+      <div>
+        <app-show-items-per-page
+          [itemsPerPage]="[5,10,15]" 
+          [textColor]="'white'" 
+          [bgButton]="'indigo-600'"
+          [hbutton]="8"
+          [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject">
+        </app-show-items-per-page>
+      </div> 
     </div>
     <div class="container mx-auto py-8">
       <app-employe-salary-list></app-employe-salary-list>

@@ -12,7 +12,7 @@
     <tbody>
       <ng-container *ngFor="let salary of employeSalarys | async; let i = index;">
         <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="">
-          <td class="py-2 px-4">{{ i }}</td>
+          <td class="py-2 px-4">{{ i + 1 }}</td>
           <td *ngIf="salary.employeId">
             <app-employe-salary-employe-detail [employeId]="salary.employeId" [isPdf]="false" [isDetail]="false"></app-employe-salary-employe-detail>
           </td>

@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AdminService } from 'src/app/admin/admin.service';
+import { EmployeSalaryService } from 'src/app/employes/employe-salary/employe-salary.service';
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class ShowItemsPerPageComponent {
   isAscending: boolean = true;
   adminService: AdminService = inject(AdminService);
   employeService: EmployeService = inject(EmployeService);
-  // employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
+  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
 
   private updateQueryParams(params: any): void {
     if (this.queryParamsSubject) {
