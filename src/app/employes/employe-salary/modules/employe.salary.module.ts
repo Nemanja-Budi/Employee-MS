@@ -8,10 +8,6 @@ import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
 import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salary-list.component';
 import { SharedModule } from "../../../shared/shared.module";
 import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf.component';
-import { EmployeSalarySearchComponent } from '../employe-salary-search/employe-salary-search.component';
-import { EmployeSalaryPaginationComponent } from '../employe-salary-pagination/employe-salary-pagination.component';
-
-
 
 @NgModule({
   declarations: [
@@ -20,13 +16,11 @@ import { EmployeSalaryPaginationComponent } from '../employe-salary-pagination/e
     EmployeSalaryDetailComponent,
     EmployeSalaryListComponent,
     EmployeSalaryPdfComponent,
-    EmployeSalarySearchComponent,
-    EmployeSalaryPaginationComponent
   ],
   imports: [
     CommonModule,
     EmployeSalaryRoutingModule,
-    SharedModule
+    SharedModule,
 ]
 })
 export class EmployeSalaryModule { }

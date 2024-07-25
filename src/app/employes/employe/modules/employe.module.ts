@@ -9,10 +9,7 @@ import { EmployeDetailComponent } from '../employe-detail/employe-detail.compone
 import { EmployeChildComponent } from '../employe-list/employe-child/employe-child.component';
 import { EmployeListComponent } from '../employe-list/employe-list.component';
 import { EmployeComponent } from '../employe.component';
-import { EmployeFilterComponent } from '../employe-filter/employe-filter.component';
-import { EmployeSearchComponent } from '../employe-search/employe-search.component';
 import { EmployeRoutingModule } from './employe-routing.module';
-import { EmployePaganationComponent } from '../employe-paganation/employe-paganation.component';
 import { EmployeModalComponent } from '../employe-modal/employe-modal.component';
 
 @NgModule({
@@ -22,9 +19,6 @@ import { EmployeModalComponent } from '../employe-modal/employe-modal.component'
     EmployeChildComponent,
     EmployeDetailComponent,
     EmployeListComponent,
-    EmployeFilterComponent,
-    EmployeSearchComponent,
-    EmployePaganationComponent,
     EmployeModalComponent,
   ],
   imports: [
@@ -32,6 +26,7 @@ import { EmployeModalComponent } from '../employe-modal/employe-modal.component'
     ReactiveFormsModule,
     EmployeRoutingModule,
     SharedModule
-  ]
+  ],
+
 })
 export class EmployeModule { }

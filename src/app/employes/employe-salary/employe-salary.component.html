@@ -1,27 +1,44 @@
-<div class="container mx-auto py-8">
-  <div>
-    <div class="grid grid-cols-4 gap-5">
+<div class="grid grid-rows-[auto,auto,1fr,auto] h-full p-5 gap-5">
+  <h2 class="text-center text-xl p-5">{{naslov}}</h2>
+  <div *ngIf="!selectedEmployeId" class="grid grid-cols-4 gap-3 items-center justify-center">
+    <div class="grid grid-cols-2 gap-3">
       <div class="w-full h-full">
         <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
       </div>
-      <div class="col-span-2">
-        <app-employe-salary-search></app-employe-salary-search>
-      </div>
       <div>
-        <app-show-items-per-page
-          [itemsPerPage]="[5,10,15]" 
-          [textColor]="'white'" 
-          [bgButton]="'indigo-600'"
-          [hbutton]="8"
-          [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject">
-        </app-show-items-per-page>
-      </div> 
+        <app-filter 
+          [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
+          [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
+          [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
+        </app-filter>
+      </div>
     </div>
-    <div class="container mx-auto py-8">
-      <app-employe-salary-list></app-employe-salary-list>
+    <div class="col-span-2">
+      <app-search 
+        [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
+        [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
+        [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
+      </app-search>
     </div>
     <div>
-      <app-employe-salary-pagination></app-employe-salary-pagination>
+      <app-show-items-per-page
+        [itemsPerPage]="[5,10,15]" 
+        [textColor]="'white'" 
+        [bgButton]="'indigo-600'"
+        [hbutton]="8"
+        [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
+        [valueAfterReset]="15">
+      </app-show-items-per-page>
     </div>
+  </div>
+  <div>
+    <app-employe-salary-list [selectedEmployeId]="selectedEmployeId"></app-employe-salary-list>
+  </div>
+  <div *ngIf="!selectedEmployeId">
+    <app-paganation 
+      [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
+      [currentSize]="this.employeSalaryService.currentSize"
+      [isNula]="employeSalaryService.isNula">
+    </app-paganation>
   </div>
 </div>

@@ -2,7 +2,7 @@
   <table class="min-w-full  rounded-md border border-indigo-600">
     <thead class="bg-indigo-600 text-white  rounded-md">
       <tr>
-        <th class="py-2 px-4 rounded-tl-md">ID</th>
+        <th class="py-2 px-4 rounded-tl-md">Br.</th>
         <th class="py-2 px-4">Prezime i ime zaposlenog</th>
         <th class="py-2 px-4">Total Hours</th>
         <th class="py-2 px-4">Gross salary</th>
@@ -11,16 +11,16 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let salary of employeSalarys | async; let i = index;">
-        <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="">
+        <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="even:bg-indigo-100">
           <td class="py-2 px-4">{{ i + 1 }}</td>
           <td *ngIf="salary.employeId">
             <app-employe-salary-employe-detail [employeId]="salary.employeId" [isPdf]="false" [isDetail]="false"></app-employe-salary-employe-detail>
           </td>
-          <td class="py-2 px-4">{{ salary.totalNumberOfHours }}</td>
-          <td class="py-2 px-4">
-            <p>{{ salary.employeSalarySO?.grossSalary }}din</p>
+          <td class="py-2 px-4  text-center">{{ salary.totalNumberOfHours }}</td>
+          <td class="py-2 px-4 text-center">
+            <p class="font-bold">{{ salary.employeSalarySO?.grossSalary }}din</p>
           </td>
-          <td class="py-2 px-4">
+          <td class="py-2 px-4 text-center">
             <p><span class="font-bold">{{ salary.employeSalarySOE?.netoSalary }}din</span></p>
           </td>
         </tr>

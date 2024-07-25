@@ -1,13 +1,21 @@
 <div class="grid grid-rows-[auto,auto,1fr,auto] h-full  p-5 gap-5">
   <div row>
-    <app-employe-filter></app-employe-filter>
+    <app-filter 
+      [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
+      [employeParams]="this.employeService.getEmployeParams()"
+      [searchSubject]="this.employeService.employeSearchSubject">
+    </app-filter>
   </div>
   <div class="grid grid-cols-4 gap-5">
     <div class="w-full h-full">
       <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/employe/add-employe">Add Employe</button>
     </div>
     <div class="col-span-2 gap-5">
-      <app-employe-search></app-employe-search>
+      <app-search 
+        [queryParamsSubject]="this.employeService.employeQuearyParamsSubject" 
+        [employeParams]="this.employeService.getEmployeParams()"
+        [searchSubject]="this.employeService.employeSearchSubject">
+      </app-search>
     </div>
     <div>
       <app-show-items-per-page
@@ -15,7 +23,8 @@
         [textColor]="'white'" 
         [bgButton]="'indigo-600'"
         [hbutton]="8"
-        [queryParamsSubject]="this.employeService.employeQuearyParamsSubject">
+        [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
+        [valueAfterReset]="8">
       </app-show-items-per-page>
     </div>
   </div>
@@ -23,7 +32,11 @@
     <app-employe-list></app-employe-list>
   </div>
   <div>
-    <app-employe-paganation></app-employe-paganation>
+    <app-paganation 
+      [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
+      [currentSize]="this.employeService.currentSize"
+      [isNula]="employeService.isNula">
+    </app-paganation>
   </div>
 </div>
 

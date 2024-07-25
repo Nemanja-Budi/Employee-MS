@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShowItemsPerPageComponent } from './components/show-items-per-page/show-items-per-page.component';
 import { EmployeItemComponent } from './components/employe-item/employe-item.component';
 import { EmployeSalaryEmployeDetailComponent } from './components/employe-salary-employe-detail/employe-salary-employe-detail.component';
+import { PaganationComponent } from './components/paganation/paganation.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { EmployeSalaryEmployeDetailComponent } from './components/employe-salary
     EmployeSelectComponent, 
     ShowItemsPerPageComponent, 
     EmployeItemComponent, 
-    EmployeSalaryEmployeDetailComponent
+    EmployeSalaryEmployeDetailComponent,
+    PaganationComponent,
+    FilterComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +35,10 @@ import { EmployeSalaryEmployeDetailComponent } from './components/employe-salary
     ReactiveFormsModule,
     ShowItemsPerPageComponent,
     EmployeItemComponent,
-    EmployeSalaryEmployeDetailComponent
+    EmployeSalaryEmployeDetailComponent,
+    FilterComponent,
+    SearchComponent,
+    PaganationComponent
   ]
 })
 export class SharedModule { }

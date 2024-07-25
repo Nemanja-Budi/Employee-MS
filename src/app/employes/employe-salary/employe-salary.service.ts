@@ -6,6 +6,7 @@ import { Employe } from 'src/app/models/employe/employe.model';
 import { GetEmployeSalary } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { environment } from 'src/environments/environment.development.ts';
+import { EmployeCBFilter } from '../employe/types/employe.types';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,26 @@ import { environment } from 'src/environments/environment.development.ts';
 export class EmployeSalaryService {
 
   employeSalaryFilterSubject: GetEmployeSalary = {
-    employeSalaryFilterDto: {
+    employeFilterDto: {
       firstName: '',
       lastName: '',
     },
     sortBy: 'firstName',
     isAscending: true,
     pageNumber: 1,
-    pageSize: 12
+    pageSize: 15
   }
+
+  cbSubject: EmployeCBFilter = {
+    showName: '',
+    name: '', 
+    chacked: false
+  }
+
+  employeSalaryParams: EmployeCBFilter[] = [
+    { showName: 'Ime', name: 'firstName', chacked: true },
+    { showName: 'Prezime', name: 'lastName', chacked: false },
+  ];
 
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
@@ -29,13 +41,20 @@ export class EmployeSalaryService {
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  employeSalarySearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+
   constructor(private http: HttpClient) { }
+
+  getEmployeSalaryParams(): EmployeCBFilter[] {
+    return this.employeSalaryParams.slice();
+  }
 
   getEmployeSalarys(): Observable<EmployeSalaryList> {
     return this.employeSalaryQuearyParamsSubject.pipe(
       switchMap(params => {
         let httpParams = new HttpParams();
-        const filterDto = params.employeSalaryFilterDto;
+        const filterDto = params.employeFilterDto;
         Object.keys(filterDto).forEach(key => {
           if (filterDto[key]) {
             httpParams = httpParams.append(key, filterDto[key]);
@@ -79,5 +98,28 @@ export class EmployeSalaryService {
 
   generatePdf(htmlContent: string): Observable<Blob> {
     return this.http.post(this.apiUrl, { HtmlContent: htmlContent }, { responseType: 'blob' });
+  }
+
+  resetFilters(): void {
+    this.employeSalaryParams.forEach((employe) => {
+      if(employe.name == "firstName") {
+        employe.chacked = true;
+      }
+      else {
+        employe.chacked = false;
+      }
+    });
+
+    this.employeSalarySearchSubject.next('');
+    this.employeSalaryQuearyParamsSubject.next({
+      employeFilterDto: {
+        firstName: '',
+        lastName: '',
+      },
+      sortBy: 'firstName',
+      isAscending: true,
+      pageNumber: 1,
+      pageSize: 15
+    });
   }
 }

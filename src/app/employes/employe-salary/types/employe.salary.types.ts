@@ -5,7 +5,7 @@ export type GetEmployeSalaryParams = {
 }
 
 export type GetEmployeSalary = {
-    employeSalaryFilterDto: GetEmployeSalaryParams;
+    employeFilterDto: GetEmployeSalaryParams;
       sortBy: string;
       isAscending: boolean;
       pageNumber: number;

@@ -15,12 +15,13 @@ export class ShowItemsPerPageComponent {
   @Input() textColor: string = '';
   @Input() bgButton: string = '';
   @Input() hbutton: number = 0;
-  @Input() queryParamsSubject!: BehaviorSubject<any>;
+  @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
+  @Input({required: true}) valueAfterReset: number = 0;
 
   isAscending: boolean = true;
-  adminService: AdminService = inject(AdminService);
-  employeService: EmployeService = inject(EmployeService);
-  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
+  // adminService: AdminService = inject(AdminService);
+  // employeService: EmployeService = inject(EmployeService);
+  // employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
 
   private updateQueryParams(params: any): void {
     if (this.queryParamsSubject) {
@@ -45,7 +46,7 @@ export class ShowItemsPerPageComponent {
   }
 
   showItemsPerPage(itemsPerPage: string): void {
-    const pageSize = itemsPerPage === '' ? this.itemsPerPage[0] : Number(itemsPerPage);
+    const pageSize = itemsPerPage === '' ? this.valueAfterReset : Number(itemsPerPage);
     this.updateQueryParams({ pageNumber: 1, pageSize: pageSize });
   }
 
