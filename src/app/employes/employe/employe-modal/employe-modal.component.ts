@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 export class EmployeModalComponent {
   @ViewChild('customModal', { static: true }) customModal!: ElementRef<HTMLDialogElement>;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+  @Input({required: true}) isDetail: boolean = false;
+
   private subscription: Subscription = new Subscription();
   employeForAction: Employe | null = null;
 

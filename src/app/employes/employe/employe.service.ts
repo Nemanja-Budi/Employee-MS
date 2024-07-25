@@ -155,6 +155,8 @@ export class EmployeService {
       pageNumber: 1,
       pageSize: 8
     });
+
+    this.closeModal();
   }
 
   private employeSubject = new BehaviorSubject<Employe | null>(null);

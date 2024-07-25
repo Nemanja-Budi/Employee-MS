@@ -13,3 +13,7 @@
     </div>
     <p class="flex justify-center items-center">{{ employe.email }}</p>
 </div>
+
+<ng-container *ngIf="isDetail">
+  <app-employe-modal [isDetail]="false"></app-employe-modal>
+</ng-container>

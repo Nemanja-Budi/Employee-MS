@@ -29,7 +29,14 @@
     </div>
   </div>
   <div class="w-full h-full">
-    <app-employe-list></app-employe-list>
+    <div>
+      <div class="h-full flex flex-col md:grid md:grid-cols-2 xl:grid xl:grid-cols-4 gap-4">
+        <ng-container *ngFor="let employe of employes | async">
+          <app-employe-item [employe]="employe" [hEmployePicture]="'25dvh'" [isDetail]="false"></app-employe-item>
+        </ng-container>
+        <app-employe-modal [isDetail]="true"></app-employe-modal>
+      </div>   
+    </div>
   </div>
   <div>
     <app-paganation 

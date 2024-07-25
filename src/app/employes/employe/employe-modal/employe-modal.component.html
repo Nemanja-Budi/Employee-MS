@@ -1,28 +1,30 @@
 <dialog #customModal class="modal">
-  <div class="grid grid-rows-[auto,1fr] gap-5 relative p-5">
+  <div class="grid grid-rows-[auto,1fr] gap-5 relative p-10">
     <button class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" (click)="closeModal()">
       <span class="font-bold">X</span>
     </button>
     <h2 class="text-center text-3xl text-indigo-600 font-bold">Action</h2>
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-      <button (click)="onGoToEmployeDetail()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Detalji</button>
+      <button *ngIf="isDetail" (click)="onGoToEmployeDetail()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Detalji</button>
+      <button *ngIf="!isDetail" (click)="onGoToEmployeDetail()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Delete</button>
       <button (click)="onGoToEmployeEdit()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Edit</button>
 
       <!-- Dropdown button -->
-      <div class="relative inline-block text-left">
-        <button type="button" (click)="toggleDropdown()" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="dropdownMenuButton" aria-expanded="false" aria-haspopup="true">
+      <div class="relative inline-block text-left h-full">
+        <button type="button" (click)="toggleDropdown()" class="h-full items-center inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="dropdownMenuButton" aria-expanded="false" aria-haspopup="true">
           Plata
           <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
         </button>
-        <div class="origin-bottom-right absolute right-0 bottom-full mb-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton" #dropdownMenu>
+        <div #dropdownMenu class="origin-bottom absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton">
           <div class="py-1" role="none">
             <a (click)="onGoToEmployeSalary()" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">Dodaj platu</a>
             <a (click)="onGoToEmployeSalaryByEmployeId()" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem">Plate zaposlenog</a>
           </div>
         </div>
       </div>
+      
 
       <button (click)="onGoToEmployeVacation()" class="bg-indigo-600 text-white rounded-md px-4 py-2">Godisnji odmor</button>
     </div>

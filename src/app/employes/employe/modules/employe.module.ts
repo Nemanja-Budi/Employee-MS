@@ -11,6 +11,7 @@ import { EmployeListComponent } from '../employe-list/employe-list.component';
 import { EmployeComponent } from '../employe.component';
 import { EmployeRoutingModule } from './employe-routing.module';
 import { EmployeModalComponent } from '../employe-modal/employe-modal.component';
+import { EmployeItemComponent } from '../employe-item/employe-item.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { EmployeModalComponent } from '../employe-modal/employe-modal.component'
     EmployeDetailComponent,
     EmployeListComponent,
     EmployeModalComponent,
+    EmployeItemComponent,
+
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ import { EmployeModalComponent } from '../employe-modal/employe-modal.component'
     EmployeRoutingModule,
     SharedModule
   ],
+  exports:[EmployeItemComponent]
 
 })
 export class EmployeModule { }

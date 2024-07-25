@@ -8,6 +8,7 @@ import { EmployeSalaryRoutingModule } from './employe-salary-routing.module';
 import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salary-list.component';
 import { SharedModule } from "../../../shared/shared.module";
 import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf.component';
+import { EmployeModule } from '../../employe/modules/employe.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-sala
     CommonModule,
     EmployeSalaryRoutingModule,
     SharedModule,
+    EmployeModule
 ]
 })
 export class EmployeSalaryModule { }

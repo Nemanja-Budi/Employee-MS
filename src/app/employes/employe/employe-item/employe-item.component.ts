@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { EmployeService } from '../../../employes/employe/employe.service';
+import { EmployeService } from '../employe.service';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-employe-item',
@@ -11,8 +12,8 @@ export class EmployeItemComponent {
   
   employeService: EmployeService = inject(EmployeService);
   @Input() employe!: Employe;
-  // @Input({required: true}) hEmploye: string = '';
   @Input({required: true}) hEmployePicture: string = '';
+  @Input({required: true}) isDetail: boolean = false;
   openDialog(employe: Employe): void {
     this.employeService.openModal(employe);
   }
