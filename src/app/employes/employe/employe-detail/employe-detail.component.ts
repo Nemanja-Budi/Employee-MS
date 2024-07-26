@@ -4,6 +4,7 @@ import { Observable, concatMap } from 'rxjs';
 
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-detail',
@@ -13,6 +14,7 @@ import { Employe } from 'src/app/models/employe/employe.model';
 export class EmployeDetailComponent {
 
   employeService: EmployeService = inject(EmployeService);
+  sharedService: SharedService = inject(SharedService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   
   employe: Observable<Employe> = this.activatedRoute.paramMap.pipe(concatMap((param) => {
@@ -20,16 +22,12 @@ export class EmployeDetailComponent {
     return this.employeService.getEmploye(String(id));
   }));
 
-  keys(obj: any): Array<string> {
-    const keys = Object.keys(obj);
-    return keys.slice(1, -1); // Izostavlja prvi i poslednji ključ
+  onGetKeysWithoutFirstAndLast(obj: any): Array<string> {
+    return this.sharedService.getKeysWithoutFirstAndLast(obj);
   }
   
-  formatKey(key: string): string {
-    return key.replace(/([A-Z])/g, ' $1') // Razdvoji reči
-              .replace(/^./, (str) => str.toUpperCase()) // Prvo slovo veliko
-              .replace(/\b\w+\b/g, (word, index) => index === 0 ? word : word.toLowerCase()) // Samo prva reč veliko slovo
-              .trim(); // Ukloni vodeće i prateće praznine
+  onFormatKey(key: string): string {
+    return this.sharedService.formatKey(key);
   }
 
 }

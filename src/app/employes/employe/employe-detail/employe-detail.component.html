@@ -1,6 +1,6 @@
 <div class="grid grid-rows-[auto,1fr] h-full">
   <h2 class="text-center text-xl p-5">Detalji o zaposlenom</h2>
-  <div class="grid grid-cols-[0.6fr,1fr] h-full justify-center items-center gap-5 px-5"  *ngIf="employe | async as employeData">
+  <div class="grid grid-cols-[0.6fr,1fr] h-full justify-center gap-5 px-5"  *ngIf="employe | async as employeData">
     <div>
       <app-employe-item 
         [employe]="employeData" 
@@ -9,14 +9,14 @@
         [showModalInDetail]="true">
       </app-employe-item>
     </div>
-    <div class="grid grid-cols-2 gap-5">
+    <div class="grid grid-cols-2 gap-5 h-fit">
       <div class="border border-indigo-600 rounded-md">
         <div>
           <h3 class="text-center bg-indigo-600 text-white text-lg">Details</h3>
         </div>
         <div class="">
-          <div class="flex justify-between p-1" *ngFor="let key of keys(employeData)">
-            <strong>{{ formatKey(key) }}:</strong> {{ employeData[key] }}
+          <div class="flex justify-between p-1" *ngFor="let key of onGetKeysWithoutFirstAndLast(employeData)">
+            <strong>{{ onFormatKey(key) }}:</strong> {{ employeData[key] }}
           </div>
         </div>
       </div>

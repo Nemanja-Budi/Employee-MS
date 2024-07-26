@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { EmployeSalarySO } from 'src/app/models/employe-salary/employe.salarySO.model';
-import { EmployeSalaryService } from '../../employe-salary.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-salary-detail-so',
@@ -9,15 +9,15 @@ import { EmployeSalaryService } from '../../employe-salary.service';
 })
 export class EmployeSalaryDetailSoComponent {
   
-  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
+  sharedService: SharedService = inject(SharedService);
 
   @Input({required: true}) employeSalarySO!: EmployeSalarySO;
 
   onGetKeysWithoutFirstAndLast(obj: any): string[] {
-    return this.employeSalaryService.getKeysWithoutFirstAndLast(obj);
+    return this.sharedService.getKeysWithoutFirstAndLast(obj);
   }
   
   onFormatKey(key: string): string {
-    return this.employeSalaryService.formatKey(key);
+    return this.sharedService.formatKey(key);
   }
 }

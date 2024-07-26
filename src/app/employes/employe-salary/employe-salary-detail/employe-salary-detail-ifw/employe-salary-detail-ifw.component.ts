@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { IncomeFromWork } from 'src/app/models/employe-salary/income.from.work.model';
-import { EmployeSalaryService } from '../../employe-salary.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-salary-detail-ifw',
@@ -8,14 +8,14 @@ import { EmployeSalaryService } from '../../employe-salary.service';
   styleUrls: ['./employe-salary-detail-ifw.component.css']
 })
 export class EmployeSalaryDetailIfwComponent {
-  employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
+  sharedService: SharedService = inject(SharedService);
   @Input({required: true}) incomeFromWork!: IncomeFromWork;
 
   onGetKeysWithoutFirstAndLast(obj: any): string[] {
-    return this.employeSalaryService.getKeysWithoutFirstAndLast(obj);
+    return this.sharedService.getKeysWithoutFirstAndLast(obj);
   }
   
   onFormatKey(key: string): string {
-    return this.employeSalaryService.formatKey(key);
+    return this.sharedService.formatKey(key);
   }
 }
