@@ -18,12 +18,12 @@ export class EmployeSalaryDetailComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   employeService: EmployeService = inject(EmployeService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-  router: Router = inject(Router);
-  htmlContent: string = '<h1>Sample HTML content</h1>';
+
   hourlyRate: number = 0;
   employeSalarys!: Observable<EmployeSalary[]>;
   employeSalaryId: string | undefined = '';
   employe!: Employe;
+
   employeSalary: Observable<EmployeSalary | null> = this.activatedRoute.paramMap.pipe(
     switchMap((param) => {
       const id = param.get('id');
@@ -50,21 +50,9 @@ export class EmployeSalaryDetailComponent {
     })
   );
 
-  constructor() {
-    
-  }
-
-  onChangeSelect(changeSelectSalary: string): void {
-    this.router.navigate([`/employes/salary/detail-salary/${changeSelectSalary}`])
-    console.log(this.employeSalaryId)
-  }
-
-
   generatePdf(pdfElement: HTMLElement) {
-    // const pdfElement = document.getElementById('pdf-content');
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
-
       this.employeSalaryService.generatePdf(htmlContent).subscribe(blob => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -79,6 +67,4 @@ export class EmployeSalaryDetailComponent {
       console.error('Element with id "pdf-content" not found.');
     }
   }
-
-
 }

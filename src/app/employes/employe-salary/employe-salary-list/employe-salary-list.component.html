@@ -14,7 +14,11 @@
         <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="even:bg-indigo-100">
           <td class="py-2 px-4">{{ i + 1 }}</td>
           <td *ngIf="salary.employeId">
-            <app-employe-salary-employe-detail [employeId]="salary.employeId" [isPdf]="false" [isDetail]="false"></app-employe-salary-employe-detail>
+            <app-employe-salary-employe-detail 
+              [employeId]="salary.employeId" 
+              [isPdf]="false" 
+              [isDetail]="false">
+            </app-employe-salary-employe-detail>
           </td>
           <td class="py-2 px-4  text-center">{{ salary.totalNumberOfHours }}</td>
           <td class="py-2 px-4 text-center">
