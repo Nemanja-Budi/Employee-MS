@@ -1,0 +1,15 @@
+<div class="grid grid-rows-[auto,1fr] h-fit border border-indigo-600 rounded-md">
+  <div>
+    <h3 class="text-center bg-indigo-600 text-white text-lg">Podaci o deci</h3>
+  </div>
+  <div *ngIf="employeChild && employeChild.length > 0; else childElse">
+    <div class="odd:border-b-indigo-600 odd:border-b p-1" *ngFor="let child of employeChild">
+      <p class="flex justify-between"><strong class="font-bold">Ime deteta: </strong>{{ child.name }}</p>
+      <p class="flex justify-between"><strong class="font-bold">JMBG deteta: </strong>{{ child.jmbg }}</p>
+      <p class="flex justify-between"><strong>Pol deteta: </strong>{{ child.gender }}</p>
+    </div>
+  </div>
+  <ng-template #childElse>
+    <p class="text-center p-1 font-bold">Zaposleni nema trenutno podataka o deci</p>
+  </ng-template>
+</div>

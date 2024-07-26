@@ -8,5 +8,5 @@ import { EmployeChild } from 'src/app/models/employe/employe.child.model';
 })
 export class EmployeChildComponent {
 
-  @Input() employeChild: EmployeChild[] = [];
+  @Input({required: true}) employeChild: EmployeChild[] = [];
 }
