@@ -5,8 +5,6 @@ import { Observable, concatMap, forkJoin, from, map, of, switchMap } from 'rxjs'
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { EmployeSalaryService } from '../employe-salary.service';
 
-// import { jsPDF } from 'jspdf';
-// import html2canvas from 'html2canvas';
 import { EmployeService } from '../../employe/employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
 
@@ -45,7 +43,7 @@ export class EmployeSalaryDetailComponent {
           this.hourlyRate = employe.hourlyRate;
           this.employeSalaryId = salary.id
           const salarys: Observable<EmployeSalary[]> = this.employeSalaryService.getEmployeSalarysByEmployeId(String(employe.id));
-         this.employeSalarys = from(salarys)
+          this.employeSalarys = from(salarys)
           return salary;
         })
       );
@@ -58,22 +56,13 @@ export class EmployeSalaryDetailComponent {
 
   onChangeSelect(changeSelectSalary: string): void {
     this.router.navigate([`/employes/salary/detail-salary/${changeSelectSalary}`])
-    console.log("**********************************************************************");
     console.log(this.employeSalaryId)
-    console.log("**********************************************************************");
-
-    // console.log(changeSelectSalary);
   }
 
-  getKeysWithoutFirstAndLast(obj: any): string[] {
-    const keys = Object.keys(obj);
-    return keys.slice(1, keys.length - 1);
-  }
-  
+
   generatePdf(pdfElement: HTMLElement) {
     // const pdfElement = document.getElementById('pdf-content');
     if (pdfElement) {
-      // Preuzmi HTML sadržaj iz elementa
       const htmlContent = pdfElement.innerHTML;
 
       this.employeSalaryService.generatePdf(htmlContent).subscribe(blob => {
@@ -92,10 +81,4 @@ export class EmployeSalaryDetailComponent {
   }
 
 
-  formatKey(key: string): string {
-    return key.replace(/([A-Z])/g, ' $1') // Razdvoji reči
-              .replace(/^./, (str) => str.toUpperCase()) // Prvo slovo veliko
-              .replace(/\b\w+\b/g, (word, index) => index === 0 ? word : word.toLowerCase()) // Samo prva reč veliko slovo
-              .trim(); // Ukloni vodeće i prateće praznine
-  }
 }

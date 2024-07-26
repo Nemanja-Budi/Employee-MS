@@ -9,6 +9,11 @@ import { EmployeSalaryListComponent } from '../employe-salary-list/employe-salar
 import { SharedModule } from "../../../shared/shared.module";
 import { EmployeSalaryPdfComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf.component';
 import { EmployeModule } from '../../employe/modules/employe.module';
+import { EmployeSalaryDetailIfwComponent } from '../employe-salary-detail/employe-salary-detail-ifw/employe-salary-detail-ifw.component';
+import { EmployeSalaryDetailSoeComponent } from '../employe-salary-detail/employe-salary-detail-soe/employe-salary-detail-soe.component';
+import { EmployeSalaryDetailSoComponent } from '../employe-salary-detail/employe-salary-detail-so/employe-salary-detail-so.component';
+import { EmployeSalaryDetailHoursComponent } from '../employe-salary-detail/employe-salary-detail-hours/employe-salary-detail-hours.component';
+import { EmployeSalarysSelectComponent } from '../employe-salarys-select/employe-salarys-select.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +22,11 @@ import { EmployeModule } from '../../employe/modules/employe.module';
     EmployeSalaryDetailComponent,
     EmployeSalaryListComponent,
     EmployeSalaryPdfComponent,
+    EmployeSalaryDetailIfwComponent,
+    EmployeSalaryDetailSoeComponent,
+    EmployeSalaryDetailSoComponent,
+    EmployeSalaryDetailHoursComponent,
+    EmployeSalarysSelectComponent
   ],
   imports: [
     CommonModule,

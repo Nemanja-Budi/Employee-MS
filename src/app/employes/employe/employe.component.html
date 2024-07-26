@@ -32,7 +32,7 @@
     <div>
       <div class="h-full flex flex-col md:grid md:grid-cols-2 xl:grid xl:grid-cols-4 gap-4">
         <ng-container *ngFor="let employe of employes | async">
-          <app-employe-item [employe]="employe" [hEmployePicture]="'25dvh'" [isDetail]="false"></app-employe-item>
+          <app-employe-item [employe]="employe" [hEmployePicture]="'25dvh'" [showModal]="false" [showModalInDetail]="true"></app-employe-item>
         </ng-container>
         <app-employe-modal [isDetail]="true"></app-employe-modal>
       </div>   
