@@ -1,13 +1,31 @@
 <div *ngIf="employeSalary | async as employeSalaryData" class="h-fullgrid grid-rows-[auto,1fr]">
   <h3 class="text-center text-xl p-5">Employee Salary Details</h3>
   <div id="pdf-content" class="grid grid-cols-[0.5fr,1fr] gap-5 h-full px-5">
-    <div class="h-full self-center">
-      <app-employe-item 
-        [employe]="employe" 
-        [hEmployePicture]="'50dvh'" 
-        [showModal]="true" 
-        [showModalInDetail]="false">
-      </app-employe-item>
+    <div class="grid grid-rows-[1fr,auto] gap-5 h-fit">
+      <div>
+        <app-employe-item 
+          [employe]="employe" 
+          [hEmployePicture]="'50dvh'" 
+          [showModal]="true" 
+          [showModalInDetail]="false">
+        </app-employe-item>
+      </div>
+      <div class="grid grid-cols-4 gap-5">
+        <div>
+          <button 
+            routerLink="/employes/salary/update-salary/{{employeSalaryId}}" 
+            class="w-full h-full border rounded-md px-3 py-2  bg-indigo-600 text-white">
+            Edit salary
+          </button>
+        </div>
+        <div>
+          <button routerLink="/employes/salary/create-salary/{{employe.id}}" class="w-full h-full border  rounded-md  bg-indigo-600 text-white">Create salary</button>
+        </div>
+        <div>
+          <button routerLink="/employes/salary/all-salarys/{{employe.id}}" class="w-full h-full border  rounded-md  bg-indigo-600 text-white">Employe salarys</button>
+        </div>
+        <div><button class="w-full h-full border  rounded-md  bg-rose-600 text-white">Delete salary</button></div>
+      </div>
     </div>
     <div class="grid grid-rows-[auto,1fr,auto]">
       <div *ngIf="employeSalarys | async as es">
