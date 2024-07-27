@@ -94,7 +94,11 @@ export class EmployeSalaryService {
     return this.http.put<EmployeSalary>(`http://localhost:5000/api/employesalary/update-employe-salary`, employeSalary);
   }
 
-  private apiUrl = 'http://localhost:5000/api/pdf/generate'; // URL vašeg API endpoint-a
+  deleteEmployeSalary(employeSalaryId: string): Observable<string> {
+    return this.http.delete<string>(`http://localhost:5000/api/employesalary/delete-employe-salary/${employeSalaryId}`);
+  }
+
+  private apiUrl = 'http://localhost:5000/api/pdf/generate';
 
   generatePdf(htmlContent: string): Observable<Blob> {
     return this.http.post(this.apiUrl, { HtmlContent: htmlContent }, { responseType: 'blob' });

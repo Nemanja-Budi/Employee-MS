@@ -12,5 +12,17 @@
     <div>
       <button routerLink="/employes/salary/all-salarys/{{employeId}}" class="w-full h-full border  rounded-md  bg-indigo-600 text-white">Employe salarys</button>
     </div>
-    <div><button class="w-full h-full border  rounded-md  bg-rose-600 text-white">Delete salary</button></div>
+    <div><button class="w-full h-full border  rounded-md  bg-rose-600 text-white" (click)="openDeleteModal(employeSalaryId)">Delete salary</button></div>
   </div>
+
+  <dialog #deleteSalaryModal class="modal">
+    <div  class="flex flex-col gap-3 p-5">
+        <h2 class="text-indigo-600">Are you sure you want to <span class="text-rose-600 font-bold">delete</span> this salary?</h2>
+        <div class="grid grid-cols-2 gap-2">
+            <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm()">Yes</button>
+            <button class="bg-rose-600 rounded-md text-white" (click)="onCloseModal()">No</button>
+        </div>
+    </div>
+  </dialog>
+  
+  
