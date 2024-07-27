@@ -65,6 +65,18 @@ export class EmployeService {
   employeSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   employeCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
+  employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
+
+  openModal(employe: Employe): void {
+    this.employeSubject.next(employe);
+  }
+
+  closeModal(): void {
+    this.employeSubject.next(null);
+  }
+
+
+
   constructor(private http: HttpClient ) { }
 
   getEmployes(): Observable<EmployeList> {
@@ -159,14 +171,5 @@ export class EmployeService {
     this.closeModal();
   }
 
-  private employeSubject = new BehaviorSubject<Employe | null>(null);
-  employe$ = this.employeSubject.asObservable();
-
-  openModal(employe: Employe): void {
-    this.employeSubject.next(employe);
-  }
-
-  closeModal(): void {
-    this.employeSubject.next(null);
-  }
+ 
 }

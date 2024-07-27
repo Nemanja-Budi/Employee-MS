@@ -14,6 +14,7 @@ import { EmployeSalaryDetailSoeComponent } from '../employe-salary-detail/employ
 import { EmployeSalaryDetailSoComponent } from '../employe-salary-detail/employe-salary-detail-so/employe-salary-detail-so.component';
 import { EmployeSalaryDetailHoursComponent } from '../employe-salary-detail/employe-salary-detail-hours/employe-salary-detail-hours.component';
 import { EmployeSalarysSelectComponent } from '../employe-salarys-select/employe-salarys-select.component';
+import { EmployeSalaryActionComponent } from '../employe-salary-action/employe-salary-action.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EmployeSalarysSelectComponent } from '../employe-salarys-select/employe
     EmployeSalaryDetailSoeComponent,
     EmployeSalaryDetailSoComponent,
     EmployeSalaryDetailHoursComponent,
-    EmployeSalarysSelectComponent
+    EmployeSalarysSelectComponent,
+    EmployeSalaryActionComponent
   ],
   imports: [
     CommonModule,

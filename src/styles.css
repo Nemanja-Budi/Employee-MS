@@ -25,7 +25,7 @@
     border-radius: 5px;
 }
 
-
+/* 
 .modalMessage::backdrop {
   background: hsla(0, 0%, 100%, 0.1);
       backdrop-filter: blur(0.1rem);
@@ -41,15 +41,10 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 80%;
-}
+} */
 
 @media only screen and (max-width: 768px) {
     .modal {
         width: 100%;
     }
   }
-
-.proba {
-    display:grid; 
-    grid-template-columns: repeat(2,1fr);
-}

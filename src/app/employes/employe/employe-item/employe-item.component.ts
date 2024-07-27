@@ -12,12 +12,12 @@ export class EmployeItemComponent {
   employeService: EmployeService = inject(EmployeService);
   
   @Input({required: true}) employe!: Employe;
-  @Input({required: true}) hEmployePicture: string = '';
-  @Input({required: true}) showModal: boolean = false;
   @Input({required: true}) showModalInDetail: boolean = false;
-  
+  @Input() forImageHeight: boolean = false;
+
   openDialog(employe: Employe): void {
-    this.employeService.openModal(employe);
+    this.employeService.employeSubject.next(employe);
   }
+
 
 }

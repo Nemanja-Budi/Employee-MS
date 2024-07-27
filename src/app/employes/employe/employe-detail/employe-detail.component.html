@@ -4,8 +4,6 @@
     <div>
       <app-employe-item 
         [employe]="employeData" 
-        [hEmployePicture]="'50dvh'" 
-        [showModal]="true" 
         [showModalInDetail]="true">
       </app-employe-item>
     </div>
@@ -26,3 +24,7 @@
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="this.employeService.employeSubject.value !== null">
+  <app-employe-modal [isDetail]="false"></app-employe-modal>
+</ng-container>

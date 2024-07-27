@@ -10,28 +10,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./employe-modal.component.css']
 })
 export class EmployeModalComponent {
+  
+  employeService: EmployeService = inject(EmployeService);
+  router: Router = inject(Router);
+
   @ViewChild('customModal', { static: true }) customModal!: ElementRef<HTMLDialogElement>;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   @Input({required: true}) isDetail: boolean = false;
 
-  private subscription: Subscription = new Subscription();
   employeForAction: Employe | null = null;
 
-  constructor(private employeService: EmployeService, private router: Router) {}
-
   ngOnInit(): void {
-    this.subscription = this.employeService.employe$.subscribe(employe => {
-      this.employeForAction = employe;
-      if (employe) {
-        this.customModal.nativeElement.showModal();
-      } else {
-        this.customModal.nativeElement.close();
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if(this.employeService.employeSubject.value !== null) {
+    this.employeForAction = this.employeService.employeSubject.value;
+    this.customModal.nativeElement.showModal();
+    } else {
+      this.customModal.nativeElement.close();
+    }
   }
 
   toggleDropdown(): void {
@@ -42,34 +37,34 @@ export class EmployeModalComponent {
   onGoToEmployeDetail(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/employe/detail-employe/${this.employeForAction.id}`]);
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 
   onGoToEmployeEdit(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/employe/edit-employe/${this.employeForAction.id}`]);
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 
   onGoToEmployeSalary(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/salary/create-salary/${this.employeForAction.id}`]);
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 
   onGoToEmployeSalaryByEmployeId(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/salary/all-salarys/${this.employeForAction.id}`]);
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 
   onGoToEmployeVacation(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/annual-leave/create-annual-leave/${this.employeForAction.id}`]);
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 
   closeModal(): void {
-    this.employeService.closeModal();
+    this.employeService.employeSubject.next(null);
   }
 }

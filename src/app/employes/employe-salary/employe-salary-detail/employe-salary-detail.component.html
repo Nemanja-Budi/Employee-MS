@@ -5,26 +5,14 @@
       <div>
         <app-employe-item 
           [employe]="employe" 
-          [hEmployePicture]="'50dvh'" 
-          [showModal]="true" 
           [showModalInDetail]="false">
         </app-employe-item>
       </div>
-      <div class="grid grid-cols-4 gap-5">
-        <div>
-          <button 
-            routerLink="/employes/salary/update-salary/{{employeSalaryId}}" 
-            class="w-full h-full border rounded-md px-3 py-2  bg-indigo-600 text-white">
-            Edit salary
-          </button>
-        </div>
-        <div>
-          <button routerLink="/employes/salary/create-salary/{{employe.id}}" class="w-full h-full border  rounded-md  bg-indigo-600 text-white">Create salary</button>
-        </div>
-        <div>
-          <button routerLink="/employes/salary/all-salarys/{{employe.id}}" class="w-full h-full border  rounded-md  bg-indigo-600 text-white">Employe salarys</button>
-        </div>
-        <div><button class="w-full h-full border  rounded-md  bg-rose-600 text-white">Delete salary</button></div>
+      <div *ngIf="employe.id && employeSalaryId">
+        <app-employe-salary-action 
+          [employeId]="employe.id" 
+          [employeSalaryId]="employeSalaryId">
+        </app-employe-salary-action>
       </div>
     </div>
     <div class="grid grid-rows-[auto,1fr,auto]">
