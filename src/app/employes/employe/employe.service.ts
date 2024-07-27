@@ -71,10 +71,6 @@ export class EmployeService {
     this.employeSubject.next(employe);
   }
 
-  closeModal(): void {
-    this.employeSubject.next(null);
-  }
-
 
 
   constructor(private http: HttpClient ) { }
@@ -168,7 +164,6 @@ export class EmployeService {
       pageSize: 8
     });
 
-    this.closeModal();
   }
 
  

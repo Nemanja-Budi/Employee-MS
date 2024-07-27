@@ -15,6 +15,7 @@ export class EmployeModalComponent {
   router: Router = inject(Router);
 
   @ViewChild('customModal', { static: true }) customModal!: ElementRef<HTMLDialogElement>;
+  @ViewChild('deleteModal', { static: true }) deleteModal!: ElementRef<HTMLDialogElement>;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   @Input({required: true}) isDetail: boolean = false;
 
@@ -37,6 +38,7 @@ export class EmployeModalComponent {
   onGoToEmployeDetail(): void {
     if (!this.employeForAction) return;
     this.router.navigate([`/employes/employe/detail-employe/${this.employeForAction.id}`]);
+    this.customModal.nativeElement.close();
     this.employeService.employeSubject.next(null);
   }
 
@@ -66,5 +68,29 @@ export class EmployeModalComponent {
 
   closeModal(): void {
     this.employeService.employeSubject.next(null);
+  }
+
+  onConfirm(): void {
+    if(this.employeForAction && this.employeForAction.id) {
+      this.employeService.deleteEmploye(this.employeForAction.id).subscribe({
+        next: () => {
+          this.customModal.nativeElement.close();
+          this.employeService.employeSubject.next(null);
+          this.router.navigate([`/employes/employe/all-employes`]);
+        },
+        error: (e) => console.log(e)
+      });
+    }
+  }
+
+  onCloseModal(): void {
+    this.deleteModal.nativeElement.close();
+    this.customModal.nativeElement.showModal();
+  }
+
+  openDeleteModal() {
+    this.customModal.nativeElement.close();
+    this.deleteModal.nativeElement.showModal();
+
   }
 }
