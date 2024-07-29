@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeService } from 'src/app/employes/employe/employe.service';
-import { AuditLog } from 'src/app/models/auditlog.model';
+import { AuditlogService } from './auditlog.service';
+import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
 
 @Component({
   selector: 'app-auditlogs',
@@ -10,8 +10,8 @@ import { AuditLog } from 'src/app/models/auditlog.model';
 })
 export class AuditlogsComponent {
 
-  employeService: EmployeService = inject(EmployeService);
-  employeAuditLogs: Observable<AuditLog[]> = this.employeService.getAuditLogs(); 
+  auditLogService: AuditlogService = inject(AuditlogService);
+  employeAuditLogs: Observable<AuditlogDto[]> = this.auditLogService.getAuditLogs(); 
 
   keys<T>(obj: T | undefined): Array<keyof T> {
     return obj ? (Object.keys(obj) as Array<keyof T>) : [];

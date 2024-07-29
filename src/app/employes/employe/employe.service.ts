@@ -123,10 +123,6 @@ export class EmployeService {
     return this. http.put<Employe>(`http://localhost:5000/api/employe/update-employe/${employeId}`, employe);
   }
 
-  getAuditLogs(): Observable<AuditLog[]> {
-    return this.http.get<AuditLog[]>(`http://localhost:5000/api/auditlogs/get-auditlogs`);
-  }
-
   getEmployeParams(): EmployeCBFilter[] {
     return this.employeParams.slice();
   }
