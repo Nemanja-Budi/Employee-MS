@@ -1,10 +1,10 @@
-<div class="col-span-2" *ngIf="employeAuditLogs | async as auditlogData">
-    <div *ngFor="let auditLog of auditlogData">
+<div class="col-span-2 flex flex-col gap-5" *ngIf="employeAuditLogs | async as auditlogData">
+    <div class=" border border-indigo-600" *ngFor="let auditLog of auditlogData">
       <div *ngFor="let key of keys(auditLog)">
         <strong>{{ formatKey(key) }}:</strong>
-        <ng-container *ngIf="auditLog[key] !== undefined; else noValue">
+        <ng-container  *ngIf="auditLog[key] !== undefined; else noValue">
           <ng-container *ngIf="isObject(auditLog[key]); else simpleValue">
-            <div class="ml-4">
+            <div class="ml-4 border border-rose-600 grid grid-cols-4" >
               <ng-container *ngIf="auditLog[key] && isObject(auditLog[key])">
                 <ng-container *ngFor="let nestedKey of keys(auditLog[key])">
                   <strong>{{ formatKey(nestedKey) }}:</strong> {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
