@@ -1,21 +1,87 @@
 <div class="col-span-2 flex flex-col gap-5" *ngIf="employeAuditLogs | async as auditlogData">
-    <div class=" border border-indigo-600" *ngFor="let auditLog of auditlogData">
-      <div *ngFor="let key of keys(auditLog)">
-        <strong>{{ formatKey(key) }}:</strong>
-        <ng-container  *ngIf="auditLog[key] !== undefined; else noValue">
-          <ng-container *ngIf="isObject(auditLog[key]); else simpleValue">
-            <div class="ml-4 border border-rose-600 grid grid-cols-4" >
-              <ng-container *ngIf="auditLog[key] && isObject(auditLog[key])">
-                <ng-container *ngFor="let nestedKey of keys(auditLog[key])">
-                  <strong>{{ formatKey(nestedKey) }}:</strong> {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+  <div *ngFor="let auditLog of auditlogData" class="border border-indigo-600 rounded-lg shadow-md overflow-hidden">
+    <details class="group">
+      <summary class="p-4 bg-indigo-600 hover:bg-indigo-800 cursor-pointer flex justify-between items-center">
+        <div>
+          <h2 class="text-lg font-semibold">{{ formatKey(auditLog.tableName) | titlecase }} ({{ auditLog.operationType }})</h2>
+          <p class="text-sm text-white">Changed at: {{ auditLog.changeDateTime | date: 'short' }}</p>
+          <p class="text-sm text-white">User: {{ auditLog.user.firstName }} {{ auditLog.user.lastName }}</p>
+        </div>
+        <svg class="w-6 h-6 text-white group-open:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </summary>
+      <div class="p-4">
+        <ng-container *ngFor="let key of keys(auditLog)">
+          <ng-container *ngIf="!isSpecialKey(key)">
+            <div class="mt-4">
+              <fieldset class="border border-gray-300 rounded p-2">
+                <legend class="text-sm font-medium">{{ formatKey(key) }}</legend>
+                <ng-container *ngIf="auditLog[key] !== undefined; else noValue">
+                  <ng-container *ngIf="isObject(auditLog[key]); else simpleValue">
+                    <div class="ml-4 border border-indigo-600  p-2 grid grid-cols-4 gap-2 bg-gray-50/20 rounded-md">
+                      <ng-container *ngIf="auditLog[key] && isObject(auditLog[key])">
+                        <ng-container *ngFor="let nestedKey of keys(auditLog[key])">
+                          <div class="col-span-1">
+                            <strong>{{ formatKey(nestedKey) }}:</strong>
+                          </div>
+                          <div class="col-span-3">
+                            {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                  <ng-template #simpleValue>
+                    <ng-container *ngIf="key === 'changeDateTime'; else defaultSimpleValue">
+                      {{ auditLog[key] | date: 'medium' }}
+                    </ng-container>
+                    <ng-template #defaultSimpleValue>
+                      {{ auditLog[key] }}
+                    </ng-template>
+                  </ng-template>
                 </ng-container>
-              </ng-container>
+                <ng-template #noValue>Not available</ng-template>
+              </fieldset>
             </div>
           </ng-container>
-          <ng-template #simpleValue>{{ auditLog[key] }}</ng-template>
         </ng-container>
-        <ng-template #noValue>Not available</ng-template>
+        <ng-container *ngFor="let key of keys(auditLog)">
+          <ng-container *ngIf="isSpecialKey(key)">
+            <details class="group border border-gray-300 rounded p-2 mt-4">
+              <summary class="p-4 bg-gray-100 hover:bg-gray-200 cursor-pointer flex justify-between items-center">
+                <h4 class="text-sm font-medium">{{ formatKey(key) }}</h4>
+                <svg class="w-6 h-6 text-gray-600 group-open:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </summary>
+              <div class="p-4">
+                <ng-container *ngIf="auditLog[key] !== undefined; else noValue">
+                  <ng-container *ngIf="isObject(auditLog[key]); else simpleValue">
+                    <div class="border border-indigo-600 p-2 grid grid-cols-4 gap-2 bg-gray-50/30 rounded-md">
+                      <ng-container *ngIf="auditLog[key] && isObject(auditLog[key])">
+                        <ng-container *ngFor="let nestedKey of keys(auditLog[key])">
+                          <div class="col-span-1">
+                            <strong>{{ formatKey(nestedKey) }}:</strong>
+                          </div>
+                          <div class="col-span-3">
+                            {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                  <ng-template #simpleValue>
+                    {{ formatValue(key, auditLog[key]) | date: key === 'changeDateTime' ? 'medium' : undefined }}
+                  </ng-template>
+                </ng-container>
+                <ng-template #noValue>Not available</ng-template>
+              </div>
+            </details>
+          </ng-container>
+        </ng-container>
       </div>
-    </div>
+    </details>
   </div>
+</div>
   

@@ -24,4 +24,5 @@ export interface AuditlogDto {
     newIncomeFromWork?: IncomeFromWorkDto;
     oldIncomeFromWork?: IncomeFromWorkDto;
     changeDateTime: Date;
+    [key: string]: any; 
 }

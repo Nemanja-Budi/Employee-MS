@@ -13,9 +13,25 @@ export class AuditlogsComponent {
   auditLogService: AuditlogService = inject(AuditlogService);
   employeAuditLogs: Observable<AuditlogDto[]> = this.auditLogService.getAuditLogs(); 
 
-  keys<T>(obj: T | undefined): Array<keyof T> {
-    return obj ? (Object.keys(obj) as Array<keyof T>) : [];
+  keys<T>(obj: T | undefined): Array<string> {
+    return obj ? Object.keys(obj) : [];
   }
+
+  isSpecialKey(key: string): boolean {
+    const specialKeys = [
+      'newEmployeDto', 'oldEmployeDto', 'newEmployeChild', 'oldEmployeChild',
+      'newEmployeSalary', 'oldEmployeSalary', 'newEmployeSalarySO', 'oldEmployeSalarySO',
+      'newEmployeSalarySOE', 'oldEmployeSalarySOE', 'newIncomeFromWork', 'oldIncomeFromWork'
+    ];
+    return specialKeys.includes(key);
+  }
+
+  formatValue(key: string, value: any): any {
+    if (key === 'changeDateTime') {
+        return new Date(value);
+    }
+    return value;
+}
 
   formatKey(key: string): string {
     return key
