@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuditlogService } from './auditlog.service';
 import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
 
@@ -11,7 +11,7 @@ import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
 export class AuditlogsComponent {
 
   auditLogService: AuditlogService = inject(AuditlogService);
-  employeAuditLogs: Observable<AuditlogDto[]> = this.auditLogService.getAuditLogs(); 
+  employeAuditLogs: Observable<AuditlogDto[]> = this.auditLogService.getAuditLogs().pipe(map((al) => al.auditLogs)); 
 
   keys<T>(obj: T | undefined): Array<string> {
     return obj ? Object.keys(obj) : [];
