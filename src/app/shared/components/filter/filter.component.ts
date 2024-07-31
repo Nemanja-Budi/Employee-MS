@@ -27,13 +27,24 @@ export class FilterComponent {
     let changeSearch = this.searchSubject.value;
     if(changeInput.name === 'changeDateTime') {
       this.sharedService.isDate.next(true);
+      // this.sharedService.isChange.next(true);
+      this.sharedService.witchType.next('date');
       this.searchSubject.next('');
     } else {
-      console.log(changeInput.name);
+      this.sharedService.witchType.next('text');
       this.sharedService.isDate.next(false);
-      this.searchSubject.next('');
+    
+      // this.sharedService.isChange.next(false);
+      // this.searchSubject.next('');
     }
 
+    console.log(this.sharedService.isChange.value);
+
+    if(this.sharedService.isChange.value == true) {
+      this.searchSubject.next('');
+      // this.sharedService.isChange.next(false);
+    }
+    
     this.employeParams.forEach((employe) => {
       if (employe.name === changeInput.name) {
         employe.chacked = !employe.chacked;
@@ -65,7 +76,7 @@ export class FilterComponent {
         pageNumber: this.currentPage
         
       });
-      console.log(this.currentPage)
+      // console.log(this.currentPage)
     } else {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,

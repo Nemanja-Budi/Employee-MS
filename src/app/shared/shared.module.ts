@@ -9,6 +9,7 @@ import { EmployeSalaryEmployeDetailComponent } from './components/employe-salary
 import { PaganationComponent } from './components/paganation/paganation.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { SearchComponent } from './components/search/search.component';
+import { ChangeInputTypeDirective } from './directives/change-input-type.directive';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SearchComponent } from './components/search/search.component';
     EmployeSalaryEmployeDetailComponent,
     PaganationComponent,
     FilterComponent,
-    SearchComponent
+    SearchComponent,
+    ChangeInputTypeDirective
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { SearchComponent } from './components/search/search.component';
     EmployeSalaryEmployeDetailComponent,
     FilterComponent,
     SearchComponent,
-    PaganationComponent
+    PaganationComponent,
+    ChangeInputTypeDirective
   ]
 })
 export class SharedModule { }
