@@ -31,15 +31,13 @@ export class AuditlogService {
     pageNumber: 1,
     pageSize: 5
   }
-  
-  auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
-  
-  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient) { }
+
+  auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
+  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   auditLogParams: EmployeCBFilter[] = [
     { showName: 'Operation Type', name: 'operationType', chacked: true },
@@ -49,88 +47,43 @@ export class AuditlogService {
   ];
 
   getAuditLogParamsParams(): EmployeCBFilter[] {
-    // if(at == true) {
-    //   return this.auditLogParams.slice(0,-1);
-    // } else {
-    //   return this.auditLogParams.slice();
-    // }
     return this.auditLogParams.slice();
   }
 
-  // getAuditLogs(): Observable<{ totalCount: number, auditLogs: AuditlogDto[] }> {
-  //   return this.auditLogQuearyParamsSubject.pipe(
-  //     switchMap(params => {
-  //       let httpParams = new HttpParams();
-  //       const filterDto = params.employeFilterDto;
-  
-  //       Object.keys(filterDto).forEach(key => {
-  //         if (filterDto[key]) {
-  //           if (key === 'changeDateTime') {
-  //             // Formatiranje changeDateTime
-  //             const date = new Date(filterDto[key]);
-  //             if (!isNaN(date.getTime())) {
-  //               // Formatiraj na osnovu tipa datuma
-  //               const formattedDate = this.formatChangeDateTime(date);
-  //               httpParams = httpParams.append(key, formattedDate);
-  //             }
-  //           } else {
-  //             // Ostali parametri
-  //             httpParams = httpParams.append(key, filterDto[key]);
-  //           }
-  //         }
-  //       });
-  
-  //       // Dodavanje ostalih parametara
-  //       if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
-  //       if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
-  //       if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
-  //       if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
-  //       else httpParams = httpParams.append('pageSize', '15'); // Default pageSize
-  
-  //       return this.http.get<{ totalCount: number, auditLogs: AuditLog[] }>(`http://localhost:5000/api/auditlogs/get-auditlogs`, { params: httpParams }).pipe(
-  //         map(response => {
-  //           // Map logs to DTOs
-  //           const mappedLogs = response.auditLogs.map(log => this.mapLogToDto(log));
-  
-  //           // Update size and null status
-  //           this.currentSize.next(Math.ceil(response.totalCount / params.pageSize));
-  //           this.isNula.next(response.totalCount === 0);
-  
-  //           // Return mapped logs and total count
-  //           return {
-  //             auditLogs: mappedLogs,
-  //             totalCount: response.totalCount
-  //           };
-  //         })
-  //       );
-  //     })
-  //   );
-  // }
+private formatDate(dateInput: string): string {
+  const dateParts = dateInput.split('-');
 
+  if (dateParts.length === 1) {
+      // Ako je samo godina
+      return `${dateParts[0]}`;
+  } else if (dateParts.length === 2) {
+      // Ako je godina i mesec
+      return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
+  } else if (dateParts.length === 3) {
+      // Ako je puni datum
+      const day = dateParts[2].padStart(2, '0');
+      return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
+  } else {
+      throw new Error('Invalid date input');
+  }
+}
+  
   getAuditLogs(): Observable<{ totalCount: number, auditLogs: AuditlogDto[] }> {
     return this.auditLogQuearyParamsSubject.pipe(
       switchMap(params => {
         let httpParams = new HttpParams();
         const filterDto = params.employeFilterDto;
-  
         Object.keys(filterDto).forEach(key => {
           if (filterDto[key]) {
             if (key === 'changeDateTime') {
-              // Formatiranje changeDateTime
-              const date = new Date(filterDto[key]);
-              if (!isNaN(date.getTime())) {
-                // Formatiraj na osnovu tipa datuma
-                const formattedDate = this.formatChangeDateTime(date);
-                httpParams = httpParams.append(key, formattedDate);
-              }
+              console.log('pozivam se svaki put');
+              const formattedDate = this.formatDate(filterDto[key]);
+              httpParams = httpParams.append(key, formattedDate);
             } else {
-              // Ostali parametri
               httpParams = httpParams.append(key, filterDto[key]);
             }
           }
         });
-  
-        // Dodavanje ostalih parametara
         if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
         if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
         if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
@@ -139,14 +92,9 @@ export class AuditlogService {
   
         return this.http.get<{ totalCount: number, auditLogs: AuditLog[] }>(`http://localhost:5000/api/auditlogs/get-auditlogs`, { params: httpParams }).pipe(
           map(response => {
-            // Map logs to DTOs
             const mappedLogs = response.auditLogs.map(log => this.mapLogToDto(log));
-  
-            // Update size and null status
             this.currentSize.next(Math.ceil(response.totalCount / params.pageSize));
             this.isNula.next(response.totalCount === 0);
-  
-            // Return mapped logs and total count
             return {
               auditLogs: mappedLogs,
               totalCount: response.totalCount
@@ -157,42 +105,6 @@ export class AuditlogService {
     );
   }
   
-  
-
-  private formatChangeDateTime(date: Date): string {
-    if (date.getFullYear() === 1 && date.getMonth() === 0 && date.getDate() === 1) {
-      // Ako je samo godina
-      return `${date.getFullYear()}`;
-    } else if (date.getDate() === 1) {
-      // Ako je godina i mesec
-      return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-    } else {
-      // Ako je puni datum
-      return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-    }
-  }
-  
-  // // Funkcija za formatiranje changeDateTime
-  // private formatChangeDateTime(date: Date): string {
-  //   if (date.getFullYear() === 1 && date.getMonth() === 0 && date.getDate() === 1) {
-  //     // Ako je samo godina
-  //     return `${date.getFullYear()}`;
-  //   } else if (date.getDate() === 1) {
-  //     // Ako je godina i mesec
-  //     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-  //   } else {
-  //     // Ako je puni datum
-  //     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-  //   }
-  // }
-  
-
-  // getAuditLogs(): Observable<AuditlogDto[]> {
-  //   return this.http.get<AuditLog[]>(`http://localhost:5000/api/auditlogs/get-auditlogs`).pipe(
-  //     map((logs) => logs.map((log) => this.mapLogToDto(log)))
-  //   );
-  // }
-
   private mapLogToDto(log: AuditLog): AuditlogDto {
     const user = new UserDTO(log.user);
     const tableToDtoMap: { [key: string]: any } = {

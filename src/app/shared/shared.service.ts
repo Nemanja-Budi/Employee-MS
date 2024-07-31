@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,8 @@ import { Injectable } from '@angular/core';
 export class SharedService {
 
   constructor() { }
+
+  isDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   getKeysWithoutFirstAndLast(obj: any): string[] {
     const keys = Object.keys(obj);

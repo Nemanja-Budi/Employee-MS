@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { EmployeSalaryService } from 'src/app/employes/employe-salary/employe-salary.service';
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { EmployeCBFilter } from 'src/app/employes/employe/types/employe.types';
+import { SharedService } from '../../shared.service';
 
 @Component({
   selector: 'app-filter',
@@ -13,18 +14,25 @@ export class FilterComponent {
 
   employeService: EmployeService = inject(EmployeService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
-
+  sharedService: SharedService = inject(SharedService);
   currentPage: number = 1;
+
   @Input({required: true}) employeParams: EmployeCBFilter[] = [];
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
-
-  // this.employeService.getEmployeParams();
 
   onChangeInput(changeInput: EmployeCBFilter): void {
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
     let sortBy: string = '';
     let changeSearch = this.searchSubject.value;
+    if(changeInput.name === 'changeDateTime') {
+      this.sharedService.isDate.next(true);
+      this.searchSubject.next('');
+    } else {
+      console.log(changeInput.name);
+      this.sharedService.isDate.next(false);
+      this.searchSubject.next('');
+    }
 
     this.employeParams.forEach((employe) => {
       if (employe.name === changeInput.name) {
@@ -66,10 +74,6 @@ export class FilterComponent {
         pageNumber: 1
       });
     }
-    // this.employeService.employeQuearyParamsSubject.next({
-    //   ...this.employeService.employeQuearyParamsSubject.value,
-    //   employeFilterDto: employeFilterDto,
-    // });
   }
 
   ngOnDestroy(): void {
