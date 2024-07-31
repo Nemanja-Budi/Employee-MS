@@ -11,37 +11,26 @@ export class ChangeInputTypeDirective{
   sharedService: SharedService = inject(SharedService);
   private currentType: string = this.sharedService.witchType.value;
 
-
   @Input('appChangeInputType') 
   set type(value: string) {
     if (this.currentType !== value) {
       this.currentType = value;
-      console.log(this.currentType);
-      let proba = this.sharedService.isChange.value;
-      if(proba == true) {
+      let change = this.sharedService.isChange.value;
+      if(change == true) {
         this.sharedService.isChange.next(false);
-      } else if(proba == false) {
+      } else if(change == false) {
         this.sharedService.isChange.next(true);
       }
-      console.log(proba);
 
       this.clearValue();
-      console.log(this.currentType)
-    } else {
-      // this.sharedService.isChange.next(false);
-    
-    }
+    } 
   }
-      // this.auditLogService.auditLogSearchSubject.next('');
 
   constructor(private el: ElementRef) {}
-
-
 
   private clearValue(): void {
     const input = this.el.nativeElement as HTMLInputElement;
     input.value = '';
-    // this.sharedService.isChange.next(false);
   }
 
 }
