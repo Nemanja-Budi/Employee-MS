@@ -12,6 +12,7 @@ import { IncomeFromWorkDto } from 'src/app/models/dto/incomeFromWorkDto';
 import { UserDTO } from 'src/app/models/dto/userDto';
 import { GetAuditLog } from './types/auditlog.types';
 import { EmployeCBFilter } from 'src/app/employes/employe/types/employe.types';
+import { SharedService } from 'src/app/shared/shared.service';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class AuditlogService {
     pageSize: 5
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
@@ -50,23 +51,23 @@ export class AuditlogService {
     return this.auditLogParams.slice();
   }
 
-private formatDate(dateInput: string): string {
-  const dateParts = dateInput.split('-');
+  private formatDate(dateInput: string): string {
+    const dateParts = dateInput.split('-');
 
-  if (dateParts.length === 1) {
-      // Ako je samo godina
-      return `${dateParts[0]}`;
-  } else if (dateParts.length === 2) {
-      // Ako je godina i mesec
-      return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
-  } else if (dateParts.length === 3) {
-      // Ako je puni datum
-      const day = dateParts[2].padStart(2, '0');
-      return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
-  } else {
-      throw new Error('Invalid date input');
+    if (dateParts.length === 1) {
+        // Ako je samo godina
+        return `${dateParts[0]}`;
+    } else if (dateParts.length === 2) {
+        // Ako je godina i mesec
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
+    } else if (dateParts.length === 3) {
+        // Ako je puni datum
+        const day = dateParts[2].padStart(2, '0');
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
+    } else {
+        throw new Error('Invalid date input');
+    }
   }
-}
   
   getAuditLogs(): Observable<{ totalCount: number, auditLogs: AuditlogDto[] }> {
     return this.auditLogQuearyParamsSubject.pipe(
@@ -164,5 +165,32 @@ private formatDate(dateInput: string): string {
       default:
         return {};
     }
+  }
+
+  resetFilters(): void {
+    this.auditLogParams.forEach((auditlog) => {
+      if(auditlog.name == "operationType") {
+        auditlog.chacked = true;
+      }
+      else {
+        auditlog.chacked = false;
+      }
+    });
+
+    this.sharedService.isChange.next(false);
+    this.sharedService.witchType.next('text');
+    this.auditLogSearchSubject.next('');
+    this.auditLogQuearyParamsSubject.next({
+      employeFilterDto: {
+        userName: '',
+        tableName: '',
+        operationType: '',
+        changeDateTime: ''
+      },
+      sortBy: 'firstName',
+      isAscending: true,
+      pageNumber: 1,
+      pageSize: 15
+    });
   }
 }

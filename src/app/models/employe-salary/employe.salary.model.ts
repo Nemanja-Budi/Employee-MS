@@ -13,6 +13,8 @@ export interface EmployeSalary {
     overtimeHours: number;
     credits: number;
     damageCompensation: number;
+    calculationMonth: Date;
+    settlementDate: Date
     holidayBonus?: number;
     mealAllowance?: number;
     employeId: string;

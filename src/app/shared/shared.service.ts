@@ -8,7 +8,7 @@ export class SharedService {
 
   constructor() { }
 
-  isDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // isDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   witchType: BehaviorSubject<string> = new BehaviorSubject<string>('text');
   isChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 

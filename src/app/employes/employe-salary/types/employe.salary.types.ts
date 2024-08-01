@@ -1,6 +1,7 @@
 export type GetEmployeSalaryParams = {
     firstName: string;
     lastName: string;
+    bankName: string;
     [key: string]: string | number;
 }
 

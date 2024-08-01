@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AuditlogService } from './auditlog.service';
 import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
@@ -8,7 +8,7 @@ import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
   templateUrl: './auditlogs.component.html',
   styleUrls: ['./auditlogs.component.css']
 })
-export class AuditlogsComponent {
+export class AuditlogsComponent implements OnDestroy {
 
   auditLogService: AuditlogService = inject(AuditlogService);
   employeAuditLogs: Observable<AuditlogDto[]> = this.auditLogService.getAuditLogs().pipe(map((al) => al.auditLogs)); 
@@ -53,5 +53,10 @@ export class AuditlogsComponent {
       }
     }
     return diff;
+  }
+
+  ngOnDestroy(): void {
+    console.log("Pozivam se u audit logu");
+    this.auditLogService.resetFilters();
   }
 }

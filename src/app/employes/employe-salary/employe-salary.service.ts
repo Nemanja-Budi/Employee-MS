@@ -17,6 +17,7 @@ export class EmployeSalaryService {
     employeFilterDto: {
       firstName: '',
       lastName: '',
+      bankName: ''
     },
     sortBy: 'firstName',
     isAscending: true,
@@ -33,6 +34,7 @@ export class EmployeSalaryService {
   employeSalaryParams: EmployeCBFilter[] = [
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
+    { showName: 'Banka', name: 'bankName', chacked: false },
   ];
 
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
@@ -119,6 +121,7 @@ export class EmployeSalaryService {
       employeFilterDto: {
         firstName: '',
         lastName: '',
+        bankName: ''
       },
       sortBy: 'firstName',
       isAscending: true,
