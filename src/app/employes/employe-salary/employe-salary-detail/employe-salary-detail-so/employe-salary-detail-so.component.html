@@ -2,7 +2,11 @@
     <h3 class="text-center text-lg bg-indigo-600 text-white">Employee Salary SO</h3>
     <div class="p-1.5" *ngIf="employeSalarySO">
       <div *ngFor="let key of onGetKeysWithoutFirstAndLast(employeSalarySO)">
-        <p style="display: flex; justify-content: space-between;">{{ onFormatKey(key) }}: <span style="font-weight: bold; margin-left: 1rem;">{{ employeSalarySO[key] }}din</span></p>
+        <p style="display: flex; justify-content: space-between;">{{ onFormatKey(key) }}: 
+          <span style="font-weight: bold; margin-left: 1rem;">
+            {{ employeSalarySO[key] == 0 ? '' : employeSalarySO[key] + 'din' }}
+          </span>
+        </p>
       </div>
     </div>
 </div>
