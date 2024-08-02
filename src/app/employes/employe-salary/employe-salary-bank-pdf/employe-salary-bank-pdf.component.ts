@@ -14,7 +14,7 @@ export class EmployeSalaryBankPdfComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   pdfName: string = 'salary-by-banks.pdf';
   
-  @Input({required: true}) bankData2: CustomBank[] = [];
+  @Input({required: true}) bankData: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
   
   @ViewChild('pdfBankTemplate', { static: false }) pdfBankTemplate!: TemplateRef<any>;

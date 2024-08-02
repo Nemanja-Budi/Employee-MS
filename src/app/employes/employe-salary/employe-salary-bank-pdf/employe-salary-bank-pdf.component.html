@@ -11,8 +11,8 @@
           <p>BANKA INTESA : 890-361442-11</p>
         </div>
       </div>
-      <div *ngIf="bankData2.length > 0">
-        <div *ngFor="let bank of bankData2">
+      <div *ngIf="bankData.length > 0">
+        <div *ngFor="let bank of bankData">
           {{bank.bankName}}
           {{bank.totalNetSalary}}
         </div>

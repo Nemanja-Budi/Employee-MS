@@ -12,6 +12,7 @@ export class BankModalComponent {
 
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   sharedService: SharedService = inject(SharedService);
+  
   platePoBankama:CustomBank[] = [];
   month: number = 1;
   year: number = 1;
@@ -22,12 +23,9 @@ export class BankModalComponent {
   
   ngOnInit(): void {
     if(this.employeSalaryService.isModalOpen.value === true) {
-      console.log("*******************************OVDE SAM IF******************");
       this.bankModal.nativeElement.showModal();
     } else {
-      console.log("*******************************OVDE SAM ELSE******************");
       this.bankModal.nativeElement.close();
-
     }
   }
 
@@ -48,21 +46,22 @@ export class BankModalComponent {
     });
   }
 
-  getMesec(monthInput: string): void {
-    this.month = Number(monthInput);
+  getDate(dateInput: string): void {
+    let splitDate = dateInput.split("-");
+    this.year = Number(splitDate[0]);
+    this.month = Number(splitDate[1]);
   }
 
-  getYear(yearInput: string): void {
-    this.year = Number(yearInput);
-  }
-
-  onCloseNetoSalaryModal(): void {
-    this.employeSalaryService.isModalOpen.next(false);
+  onCloseNetoSalaryModal(wrongDate?: boolean): void {
+    if(wrongDate == true) {
+      this.bankModal.nativeElement.showModal();
+    } else {
+      this.employeSalaryService.isModalOpen.next(false);
+    }
     this.netoSalary.nativeElement.close();
   }
 
   onCloseModal(): void {
     this.employeSalaryService.isModalOpen.next(false);
-    // this.bankModal.nativeElement.close();
   }
 }

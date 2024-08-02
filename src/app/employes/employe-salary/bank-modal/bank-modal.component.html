@@ -1,15 +1,9 @@
 <dialog #bankModal class="modal">
-    <div class="flex flex-col gap-3 p-5">
-        <h2 class="text-indigo-600">Izracunaj po bankama</h2>
-        <div>
-          <div>
-            <label for="mesec">Mesec</label>
-            <input (input)="getMesec(monthInput.value)" #monthInput class="border rounded-md" type="number">
-          </div>
-          <div>
-            <label for="godina">Godina</label>
-            <input (input)="getYear(yearInput.value)" #yearInput class="border rounded-md" type="number">
-          </div>
+    <div class="flex flex-col gap-5 p-5">
+        <h2 class="text-indigo-600 text-2xl text-center font-bold">Izracunaj po bankama</h2>
+        <div class="flex gap-3">
+          <label for="date" class="text-indigo-600">Izaberite obracunski period</label>
+          <input (input)="getDate(dateInput.value)" #dateInput class="border rounded-md" type="month">
         </div>
         <div class="grid grid-cols-2 gap-2">
             <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm()">Yes</button>
@@ -19,7 +13,7 @@
   </dialog>
   
   <dialog #netoSalary class="modal">
-    <div *ngIf="platePoBankama.length > 0" class="flex flex-col gap-3 p-5">
+    <div *ngIf="platePoBankama.length > 0; else netoSalaryElse" class="flex flex-col gap-3 p-5">
         <h2 class="text-indigo-600">Ukupno po bankama</h2>
         <div *ngFor="let pb of platePoBankama">
           {{pb | json}}
@@ -27,9 +21,17 @@
         <p>ukupno: {{total}}</p>
         <div class="grid grid-cols-2 gap-2">
             <button class="bg-indigo-600 rounded-md text-white">
-              <app-employe-salary-bank-pdf [total]="total" [bankData2]="platePoBankama"></app-employe-salary-bank-pdf>
+              <app-employe-salary-bank-pdf [total]="total" [bankData]="platePoBankama"></app-employe-salary-bank-pdf>
             </button>
             <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button>
         </div>
     </div>
+    <ng-template #netoSalaryElse>
+      <div class="p-5 flex flex-col gap-5">
+        <h2 class="text-xl"><span class="text-rose-600">No available</span> salaries for this <strong>{{month}}.{{year}}</strong> period</h2>
+        <div class="flex justify-center">
+          <button class="bg-rose-600 rounded-md text-white px-4 py-2" (click)="onCloseNetoSalaryModal(true)">Close</button>
+        </div>
+      </div>
+    </ng-template>
   </dialog>
