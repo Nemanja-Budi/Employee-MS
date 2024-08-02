@@ -19,7 +19,8 @@
       <div *ngIf="employeSalarys | async as es">
         <app-employe-salarys-select 
           [employeSalarys]="es" 
-          [employeSalaryId]="employeSalaryId">
+          [employeSalaryId]="employeSalaryId"
+          [calculationMonth]="employeSalaryData.calculationMonth">
         </app-employe-salarys-select>
       </div>
       <div class="grid grid-rows-2 gap-5 h-full">

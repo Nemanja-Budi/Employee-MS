@@ -17,8 +17,8 @@
     </div>
     <h2 style="text-align: center;">OBRACUN ZARADE I NAKNADE ZARADE (procenat za isplatu 100.00%)</h2>
     <div style="display: flex; justify-content: space-between;">
-      <p>Obracun za : MAJ 2024.</p>
-      <p>Radjen dana: 28.06.2024</p>
+      <p>Obracun za : <span style="font-weight: bold;">{{employeSalaryData.calculationMonth | date:'MM.yyyy'}}</span></p>
+      <p>Radjen dana: <span style="font-weight: bold;">{{employeSalaryData.settlementDate | date:'dd.MM.yyyy'}}</span></p>
       <p>Sati u mesecu: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}h</span></p>
       <p>Vrednost sata: <span style="font-weight: bold;">{{hourlyRate}}din</span></p>
     </div>

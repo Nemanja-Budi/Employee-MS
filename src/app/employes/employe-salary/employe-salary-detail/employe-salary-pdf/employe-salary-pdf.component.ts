@@ -14,7 +14,7 @@ export class EmployeSalaryPdfComponent {
   
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
-
+  
   @ViewChild('pdfTemplate', { static: false }) pdfTemplate!: TemplateRef<any>;
 
   generatePdf(): void {
