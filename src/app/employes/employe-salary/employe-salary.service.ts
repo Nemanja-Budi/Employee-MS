@@ -52,14 +52,11 @@ export class EmployeSalaryService {
   employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
   isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  bankData: BehaviorSubject<CustomBank[]> = new BehaviorSubject<CustomBank[]>([]);
+
   constructor(private http: HttpClient) { }
 
   getSalariesByBank(month: number, year: number): Observable<CustomBank[]> {
-    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`).pipe(map((b) => {
-      this.bankData.next(b);
-      return b;
-    }));
+    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`);
   }
 
   getTotalSalariesByBanks(month: number, year: number): Observable<number> {

@@ -12,10 +12,11 @@ export class EmployeSalaryBankPdfComponent {
 
   sharedService: SharedService = inject(SharedService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
-  bankData: Observable<CustomBank[]> = this.employeSalaryService.bankData;
   pdfName: string = 'salary-by-banks.pdf';
-
+  
+  @Input({required: true}) bankData2: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
+  
   @ViewChild('pdfBankTemplate', { static: false }) pdfBankTemplate!: TemplateRef<any>;
   
   generatePdf(): void {
