@@ -39,7 +39,8 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
       workingHoursForTheHoliday: [0, [Validators.required, Validators.min(0)]],
       overtimeHours: [0, [Validators.required, Validators.min(0)]],
       credits: [0, [Validators.required, Validators.min(0)]],
-      damageCompensation: [0, [Validators.required, Validators.min(0)]]
+      damageCompensation: [0, [Validators.required, Validators.min(0)]],
+      calculationMonth: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
