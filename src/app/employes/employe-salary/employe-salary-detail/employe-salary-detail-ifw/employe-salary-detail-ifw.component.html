@@ -1,5 +1,5 @@
 <div class="border border-indigo-600 rounded-md">
-    <h3 class="text-center text-lg bg-indigo-600 text-white">Income From Work</h3>
+    <h3 style="text-align: center;" class="text-lg bg-indigo-600 text-white">Income From Work</h3>
     <div *ngIf="incomeFromWork" class="p-1.5">
       <div *ngFor="let key of onGetKeysWithoutFirstAndLast(incomeFromWork)">
         <p style="display: flex; justify-content: space-between;">{{ onFormatKey(key) }}: 

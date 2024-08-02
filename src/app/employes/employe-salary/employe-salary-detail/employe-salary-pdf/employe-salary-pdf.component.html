@@ -22,19 +22,19 @@
       <p>Sati u mesecu: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}h</span></p>
       <p>Vrednost sata: <span style="font-weight: bold;">{{hourlyRate}}din</span></p>
     </div>
-    <div style="display:flex; justify-content: space-between;">
-      <div>
+    <div style="display:flex;">
+      <div style="flex: 1; padding: 0rem 1rem;">
         <app-employe-salary-detail-hours [employeSalaryData]="employeSalaryData"></app-employe-salary-detail-hours>
       </div>
-      <div *ngIf="employeSalaryData.incomeFromWork">
+      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.incomeFromWork">
         <app-employe-salary-detail-ifw [incomeFromWork]="employeSalaryData.incomeFromWork"></app-employe-salary-detail-ifw>
       </div>
     </div>
-    <div style="display: flex; justify-content: space-between;">    
-      <div *ngIf="employeSalaryData.employeSalarySO">
+    <div style="display: flex;">    
+      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySO">
         <app-employe-salary-detail-so [employeSalarySO]="employeSalaryData.employeSalarySO"></app-employe-salary-detail-so>
       </div>
-      <div *ngIf="employeSalaryData.employeSalarySOE">
+      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySOE">
         <app-employe-salary-detail-soe [employeSalarySOE]="employeSalaryData.employeSalarySOE"></app-employe-salary-detail-soe>
       </div>
     </div>
