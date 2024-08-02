@@ -12,6 +12,7 @@ export class EmployeSalaryComponent implements OnInit, OnDestroy {
 
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  
   selectedEmployeId: string | null = null;
   naslov: string = `Sve plate zaposlenih`;
 
