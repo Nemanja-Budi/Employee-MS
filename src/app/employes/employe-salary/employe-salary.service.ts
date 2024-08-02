@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { GetEmployeSalary } from './types/employe.salary.types';
+import { BankAccount, GetEmployeSalary } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { environment } from 'src/environments/environment.development.ts';
 import { EmployeCBFilter } from '../employe/types/employe.types';
@@ -11,6 +11,7 @@ import { EmployeCBFilter } from '../employe/types/employe.types';
 export type CustomBank = {
   bankName: string;
   totalNetSalary: number;
+  racun: string;
 }
 
 @Injectable({
@@ -42,6 +43,19 @@ export class EmployeSalaryService {
     { showName: 'Banka', name: 'bankName', chacked: false },
   ];
 
+  bankAccounts: BankAccount[] = [
+    { bankName: 'Komercijalna Banka', racun: '908-20501-70' },
+    { bankName: 'Raiffeisen Banka', racun: '908-26501-15' },
+    { bankName: 'Aik Banka', racun: '908-10501-97'},
+    { bankName: 'Yettel Banka', racun: '908-11501-07' },
+    { bankName: 'Euro Bank Direktna', racun: '908-15001-80' },
+    { bankName: 'Banka Intesa', racun: '908-16001-87' },
+    { bankName: 'OTP Banka', racun: '908-32501-57' },
+
+    
+  ]; 
+  
+
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
 
@@ -55,6 +69,10 @@ export class EmployeSalaryService {
 
   constructor(private http: HttpClient) { }
 
+  getBankAccounts(): BankAccount[] {
+    return this.bankAccounts.slice();
+  }
+  
   getSalariesByBank(month: number, year: number): Observable<CustomBank[]> {
     return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`);
   }

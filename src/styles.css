@@ -25,6 +25,24 @@
     border-radius: 5px;
 }
 
+.netoSalaryModal::backdrop {
+    background: hsla(0, 0%, 100%, 0.1);
+        backdrop-filter: blur(0.2rem);
+}
+
+.netoSalaryModal {
+    position: fixed;
+    top: 50%;
+    left: 50%; 
+    height: fit-content;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    /* padding: 20px; */
+    border: 2px solid #4F46E5;
+    border-radius: 5px;
+}
+
 /* 
 .modalMessage::backdrop {
   background: hsla(0, 0%, 100%, 0.1);

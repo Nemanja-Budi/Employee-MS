@@ -12,3 +12,8 @@ export type GetEmployeSalary = {
       pageNumber: number;
       pageSize: number;
 }
+
+export type BankAccount = {
+    bankName: string;
+    racun: string;
+  } 

@@ -1,19 +1,24 @@
-import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
 import { CustomBank, EmployeSalaryService } from '../employe-salary.service';
 import { Observable } from 'rxjs';
+import { BankAccount } from '../types/employe.salary.types';
+
+
 
 @Component({
   selector: 'app-employe-salary-bank-pdf',
   templateUrl: './employe-salary-bank-pdf.component.html',
   styleUrls: ['./employe-salary-bank-pdf.component.css']
 })
-export class EmployeSalaryBankPdfComponent {
+export class EmployeSalaryBankPdfComponent implements OnInit {
 
   sharedService: SharedService = inject(SharedService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   pdfName: string = 'salary-by-banks.pdf';
-  
+  bankAccounts: BankAccount[] = this.employeSalaryService.getBankAccounts();
+ 
+
   @Input({required: true}) bankData: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
   
@@ -32,5 +37,18 @@ export class EmployeSalaryBankPdfComponent {
     } else {
       console.error('Element with id "pdf-content" not found.');
     }
+  }
+
+  ngOnInit() {
+    this.updateBankData();
+  }
+
+  updateBankData() {
+    this.bankData.forEach(bank => {
+      const bankItem = this.bankAccounts.find(bankAccounts => bankAccounts.bankName === bank.bankName);
+      if (bankItem) {
+        bank.racun = bankItem.racun; 
+      }
+    });
   }
 }
