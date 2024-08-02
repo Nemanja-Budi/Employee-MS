@@ -53,9 +53,4 @@ export class SearchComponent {
     }
   }
 
-  ngOnDestroy(): void {
-    console.log("Unistavam se");
-    this.employeService.resetFilters();
-    this.employeSalaryService.resetFilters();
-  }
 }

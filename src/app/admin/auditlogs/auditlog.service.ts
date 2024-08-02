@@ -187,10 +187,10 @@ export class AuditlogService {
         operationType: '',
         changeDateTime: ''
       },
-      sortBy: 'firstName',
+      sortBy: 'operationType',
       isAscending: true,
       pageNumber: 1,
-      pageSize: 15
+      pageSize: 5
     });
   }
 }

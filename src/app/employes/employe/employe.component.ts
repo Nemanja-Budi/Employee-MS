@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { EmployeService } from './employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
 import { map, Observable } from 'rxjs';
@@ -8,8 +8,8 @@ import { map, Observable } from 'rxjs';
   templateUrl: './employe.component.html',
   styleUrls: ['./employe.component.css']
 })
-export class EmployeComponent {
-  itemsPerPage: number[] = [5,10,15];
+export class EmployeComponent implements OnDestroy {
+  // itemsPerPage: number[] = [5,10,15];
 
   employeService: EmployeService = inject(EmployeService);
   employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employes) => employes.employes));
@@ -23,5 +23,10 @@ export class EmployeComponent {
     // } else {
     //   console.log("Dodaj nesto")
     // }
+  }
+
+  ngOnDestroy(): void {
+    console.log("Unistavam se");
+    this.employeService.resetFilters();
   }
 }

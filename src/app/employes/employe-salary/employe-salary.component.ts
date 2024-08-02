@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { EmployeSalaryService } from './employe-salary.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './employe-salary.component.html',
   styleUrls: ['./employe-salary.component.css']
 })
-export class EmployeSalaryComponent implements OnInit {
+export class EmployeSalaryComponent implements OnInit, OnDestroy {
 
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
@@ -26,5 +26,10 @@ export class EmployeSalaryComponent implements OnInit {
         console.log(`ID JE OVDE else ${this.selectedEmployeId}`)
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log("Unistavam se");
+    this.employeSalaryService.resetFilters();
   }
 }

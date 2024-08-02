@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AuditlogService } from './auditlog.service';
 import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
