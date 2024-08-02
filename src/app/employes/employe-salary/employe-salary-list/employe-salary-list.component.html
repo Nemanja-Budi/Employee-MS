@@ -24,7 +24,7 @@
               [isDetail]="false">
             </app-employe-salary-employe-detail>
           </td>
-          <td class="py-2 px-4  text-center">{{ salary.calculationMonth }}</td>
+          <td class="py-2 px-4  text-center">{{ salary.calculationMonth | date:'dd.MM.yyyy'}}</td>
           <td class="py-2 px-4  text-center">{{ salary.totalNumberOfHours }}</td>
           <td class="py-2 px-4 text-center">
             <p class="font-bold">{{ salary.employeSalarySO?.grossSalary }}din</p>

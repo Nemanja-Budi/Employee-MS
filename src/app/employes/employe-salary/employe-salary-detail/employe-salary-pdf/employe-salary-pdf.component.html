@@ -1,6 +1,6 @@
 <ng-template #pdfTemplate *ngIf="employeSalaryData"> 
   <div style="display: flex; flex-direction: column; gap: 1rem;" >
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between; padding: 0rem 1rem;">
       <div>
         <h3>Podaci o poslodavcu</h3>
         <p>MITROSREM</p>
@@ -15,8 +15,8 @@
         <app-employe-salary-employe-detail [isDetail]="true" [isPdf]="true"></app-employe-salary-employe-detail>
       </div>
     </div>
-    <h2 style="text-align: center;">OBRACUN ZARADE I NAKNADE ZARADE (procenat za isplatu 100.00%)</h2>
-    <div style="display: flex; justify-content: space-between;">
+    <h3 style="text-align: center;">OBRACUN ZARADE I NAKNADE ZARADE (procenat za isplatu 100.00%)</h3>
+    <div style="display: flex; justify-content: space-between; padding: 0rem 1rem;">
       <p>Obracun za : <span style="font-weight: bold;">{{employeSalaryData.calculationMonth | date:'MM.yyyy'}}</span></p>
       <p>Radjen dana: <span style="font-weight: bold;">{{employeSalaryData.settlementDate | date:'dd.MM.yyyy'}}</span></p>
       <p>Sati u mesecu: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}h</span></p>
@@ -30,12 +30,12 @@
         <app-employe-salary-detail-ifw [incomeFromWork]="employeSalaryData.incomeFromWork"></app-employe-salary-detail-ifw>
       </div>
     </div>
-    <div style="display: flex;">    
-      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySO">
-        <app-employe-salary-detail-so [employeSalarySO]="employeSalaryData.employeSalarySO"></app-employe-salary-detail-so>
-      </div>
+    <div style="display: flex;">
       <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySOE">
         <app-employe-salary-detail-soe [employeSalarySOE]="employeSalaryData.employeSalarySOE"></app-employe-salary-detail-soe>
+      </div>    
+      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySO">
+        <app-employe-salary-detail-so [employeSalarySO]="employeSalaryData.employeSalarySO"></app-employe-salary-detail-so>
       </div>
     </div>
   </div>
