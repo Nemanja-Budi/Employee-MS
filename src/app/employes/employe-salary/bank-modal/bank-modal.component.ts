@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import { CustomBank, EmployeSalaryService } from '../employe-salary.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-bank-modal',
@@ -14,6 +15,7 @@ export class BankModalComponent {
   platePoBankama:CustomBank[] = [];
   month: number = 1;
   year: number = 1;
+  total: number = 0;
 
   @ViewChild('netoSalary', { static: true }) netoSalary!: ElementRef<HTMLDialogElement>;
   @ViewChild('bankModal', { static: true }) bankModal!: ElementRef<HTMLDialogElement>;
@@ -32,12 +34,17 @@ export class BankModalComponent {
   onConfirm(): void {
     if(this.month === 1 && this.year === 1) return;
     console.log(this.month, this.year);
-    this.employeSalaryService.getSalariesByBank(this.month, this.year).subscribe({
-      next: (array) => {
+    forkJoin([
+      this.employeSalaryService.getSalariesByBank(this.month, this.year),
+      this.employeSalaryService.getTotalSalariesByBanks(this.month, this.year)
+    ]).subscribe({
+      next: ([array, total]) => {
         this.platePoBankama = array;
+        this.total = total;
         this.bankModal.nativeElement.close();
         this.netoSalary.nativeElement.showModal();
-      }
+      },
+      error: (e) => console.error(e)
     });
   }
 

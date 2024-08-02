@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/shared/shared.service';
 import { CustomBank, EmployeSalaryService } from '../employe-salary.service';
 import { Observable } from 'rxjs';
@@ -14,6 +14,8 @@ export class EmployeSalaryBankPdfComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   bankData: Observable<CustomBank[]> = this.employeSalaryService.bankData;
   pdfName: string = 'salary-by-banks.pdf';
+
+  @Input({required: true}) total: number = 0;
   @ViewChild('pdfBankTemplate', { static: false }) pdfBankTemplate!: TemplateRef<any>;
   
   generatePdf(): void {

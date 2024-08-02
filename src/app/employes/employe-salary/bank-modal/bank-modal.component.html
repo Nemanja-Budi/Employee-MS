@@ -24,10 +24,12 @@
         <div *ngFor="let pb of platePoBankama">
           {{pb | json}}
         </div>
+        <p>ukupno: {{total}}</p>
         <div class="grid grid-cols-2 gap-2">
-            <button class="bg-indigo-600 rounded-md text-white"><app-employe-salary-bank-pdf></app-employe-salary-bank-pdf></button>
-            <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">No</button>
+            <button class="bg-indigo-600 rounded-md text-white">
+              <app-employe-salary-bank-pdf [total]="total"></app-employe-salary-bank-pdf>
+            </button>
+            <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button>
         </div>
-        
     </div>
   </dialog>

@@ -55,11 +55,15 @@ export class EmployeSalaryService {
   bankData: BehaviorSubject<CustomBank[]> = new BehaviorSubject<CustomBank[]>([]);
   constructor(private http: HttpClient) { }
 
-  getSalariesByBank(mesec: number, year: number): Observable<CustomBank[]> {
-    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${mesec}&year=${year}`).pipe(map((b) => {
+  getSalariesByBank(month: number, year: number): Observable<CustomBank[]> {
+    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`).pipe(map((b) => {
       this.bankData.next(b);
       return b;
     }));
+  }
+
+  getTotalSalariesByBanks(month: number, year: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:5000/api/employesalary/grand-total-salary?month=${month}&year=${year}`);
   }
 
 

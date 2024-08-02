@@ -11,12 +11,11 @@ export class EmployeSalaryPdfComponent {
 
   sharedService: SharedService = inject(SharedService);
   pdfName: string = 'employee-salary.pdf';
+  
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
 
   @ViewChild('pdfTemplate', { static: false }) pdfTemplate!: TemplateRef<any>;
-
-  @Output() pdf: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>;
 
   generatePdf(): void {
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfTemplate);
