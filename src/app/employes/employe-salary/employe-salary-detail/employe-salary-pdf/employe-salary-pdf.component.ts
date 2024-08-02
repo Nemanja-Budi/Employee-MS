@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 export class EmployeSalaryPdfComponent {
 
   sharedService: SharedService = inject(SharedService);
-
+  pdfName: string = 'employee-salary.pdf';
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
 
@@ -24,12 +24,7 @@ export class EmployeSalaryPdfComponent {
       const htmlContent = pdfElement.innerHTML;
       this.sharedService.generatePdf(htmlContent).subscribe({
         next: (blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'employee-salary.pdf';
-          a.click();
-          window.URL.revokeObjectURL(url);
+          this.sharedService.pdfForDownload(blob,this.pdfName);
         },
         error: (e) => console.error('Error generating PDF', e)
       });
