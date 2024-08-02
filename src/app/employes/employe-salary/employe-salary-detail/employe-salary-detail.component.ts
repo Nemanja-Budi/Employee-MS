@@ -7,6 +7,7 @@ import { EmployeSalaryService } from '../employe-salary.service';
 
 import { EmployeService } from '../../employe/employe.service';
 import { Employe } from 'src/app/models/employe/employe.model';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-salary-detail',
@@ -17,6 +18,7 @@ export class EmployeSalaryDetailComponent {
 
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   employeService: EmployeService = inject(EmployeService);
+  sharedService: SharedService = inject(SharedService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   hourlyRate: number = 0;
@@ -49,22 +51,4 @@ export class EmployeSalaryDetailComponent {
       );
     })
   );
-
-  generatePdf(pdfElement: HTMLElement) {
-    if (pdfElement) {
-      const htmlContent = pdfElement.innerHTML;
-      this.employeSalaryService.generatePdf(htmlContent).subscribe(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'employee-salary.pdf';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }, error => {
-        console.error('Error generating PDF:', error);
-      });
-    } else {
-      console.error('Element with id "pdf-content" not found.');
-    }
-  }
 }

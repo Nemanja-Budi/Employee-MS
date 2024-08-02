@@ -8,6 +8,11 @@ import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.
 import { environment } from 'src/environments/environment.development.ts';
 import { EmployeCBFilter } from '../employe/types/employe.types';
 
+export type CustomBank = {
+  bankName: string;
+  totalNetSalary: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,7 +51,17 @@ export class EmployeSalaryService {
   employeSalarySearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
+  isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  bankData: BehaviorSubject<CustomBank[]> = new BehaviorSubject<CustomBank[]>([]);
   constructor(private http: HttpClient) { }
+
+  getSalariesByBank(mesec: number, year: number): Observable<CustomBank[]> {
+    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${mesec}&year=${year}`).pipe(map((b) => {
+      this.bankData.next(b);
+      return b;
+    }));
+  }
+
 
   getEmployeSalaryParams(): EmployeCBFilter[] {
     return this.employeSalaryParams.slice();
@@ -100,12 +115,7 @@ export class EmployeSalaryService {
     return this.http.delete<string>(`http://localhost:5000/api/employesalary/delete-employe-salary/${employeSalaryId}`);
   }
 
-  private apiUrl = 'http://localhost:5000/api/pdf/generate';
-
-  generatePdf(htmlContent: string): Observable<Blob> {
-    return this.http.post(this.apiUrl, { HtmlContent: htmlContent }, { responseType: 'blob' });
-  }
-
+ 
   resetFilters(): void {
     this.employeSalaryParams.forEach((employe) => {
       if(employe.name == "firstName") {

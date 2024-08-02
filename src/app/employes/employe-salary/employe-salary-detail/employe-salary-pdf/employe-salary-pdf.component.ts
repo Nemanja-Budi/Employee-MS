@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-salary-pdf',
@@ -7,6 +8,9 @@ import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.mode
   styleUrls: ['./employe-salary-pdf.component.css']
 })
 export class EmployeSalaryPdfComponent {
+
+  sharedService: SharedService = inject(SharedService);
+
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
 
@@ -15,19 +19,22 @@ export class EmployeSalaryPdfComponent {
   @Output() pdf: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>;
 
   generatePdf(): void {
-    console.log("s");
-    const htmlContent = this.extractHtmlFromTemplate(this.pdfTemplate);
-
-    if(!htmlContent) return;
-    console.log("prosao uslov");
-    this.pdf.emit(htmlContent)
-  }
-
-  private extractHtmlFromTemplate(template: TemplateRef<any>): HTMLElement {
-    const container = document.createElement('div');
-    const view = template.createEmbeddedView(null);
-    view.detectChanges();
-    container.appendChild(view.rootNodes[0].cloneNode(true));
-    return container;
+    const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfTemplate);
+    if (pdfElement) {
+      const htmlContent = pdfElement.innerHTML;
+      this.sharedService.generatePdf(htmlContent).subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'employee-salary.pdf';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (e) => console.error('Error generating PDF', e)
+      });
+    } else {
+      console.error('Element with id "pdf-content" not found.');
+    }
   }
 }

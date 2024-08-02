@@ -33,4 +33,9 @@ export class EmployeSalaryComponent implements OnInit, OnDestroy {
     console.log("Unistavam se");
     this.employeSalaryService.resetFilters();
   }
+
+  probic(): void {
+    console.log('PROBIC RADI')
+    this.employeSalaryService.isModalOpen.next(true);
+  }
 }

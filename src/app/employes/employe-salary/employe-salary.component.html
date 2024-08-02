@@ -3,8 +3,13 @@
   <div class="grid grid-rows-[auto,1fr,auto] h-full p-5 gap-5">
     <div *ngIf="!selectedEmployeId" class="grid grid-cols-4 gap-3 items-center justify-center">
       <div class="grid grid-cols-2 gap-3">
-        <div class="w-full h-full">
-          <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="w-full h-full">
+            <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+          </div>
+          <div class="w-full h-full">
+            <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" (click)="probic()">Bank Modal</button>
+          </div>
         </div>
         <div>
           <app-filter 
@@ -44,3 +49,5 @@
     </div>
   </div>
 </div>
+
+<app-bank-modal *ngIf="employeSalaryService.isModalOpen.value === true"></app-bank-modal>

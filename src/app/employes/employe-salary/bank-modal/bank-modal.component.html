@@ -1,0 +1,33 @@
+<dialog #bankModal class="modal">
+    <div class="flex flex-col gap-3 p-5">
+        <h2 class="text-indigo-600">Izracunaj po bankama</h2>
+        <div>
+          <div>
+            <label for="mesec">Mesec</label>
+            <input (input)="getMesec(monthInput.value)" #monthInput class="border rounded-md" type="number">
+          </div>
+          <div>
+            <label for="godina">Godina</label>
+            <input (input)="getYear(yearInput.value)" #yearInput class="border rounded-md" type="number">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm()">Yes</button>
+            <button class="bg-rose-600 rounded-md text-white" (click)="onCloseModal()">No</button>
+        </div>
+    </div>
+  </dialog>
+  
+  <dialog #netoSalary class="modal">
+    <div *ngIf="platePoBankama.length > 0" class="flex flex-col gap-3 p-5">
+        <h2 class="text-indigo-600">Ukupno po bankama</h2>
+        <div *ngFor="let pb of platePoBankama">
+          {{pb | json}}
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <button class="bg-indigo-600 rounded-md text-white"><app-employe-salary-bank-pdf></app-employe-salary-bank-pdf></button>
+            <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">No</button>
+        </div>
+        
+    </div>
+  </dialog>

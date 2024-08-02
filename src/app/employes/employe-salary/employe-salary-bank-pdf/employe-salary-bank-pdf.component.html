@@ -1,0 +1,24 @@
+<ng-template #pdfBankTemplate> 
+    <div style="display: flex; flex-direction: column; gap: 1rem;" >
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <h3>Podaci o poslodavcu</h3>
+          <p>MITROSREM</p>
+          <p>SREM.MITROVICA</p>
+          <p>TRG VOJVODJANSKIH BRIGADA 3</p>
+          <p>PIB : 10091677</p>
+          <p>MB : 91064225</p>
+          <p>BANKA INTESA : 890-361442-11</p>
+        </div>
+      </div>
+      <div *ngIf="bankData | async as bankDataArray">
+        <div *ngFor="let bank of bankDataArray">
+          {{bank.bankName}}
+          {{bank.totalNetSalary}}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div>
+    <button (click)="generatePdf()">Generate PDF</button>
+  </div>
