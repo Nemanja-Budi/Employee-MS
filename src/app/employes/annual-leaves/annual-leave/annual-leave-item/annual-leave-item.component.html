@@ -1,0 +1,31 @@
+<ng-container *ngIf="annualLeave as al">
+    <div class="mb-4 flex flex-col gap-1">
+        <p class="flex justify-between">Reason: <strong>{{al.reason}}</strong></p>
+        <p *ngIf="isDetail === true" class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p>
+        <div class="grid grid-cols-2 gap-5">
+            <p class="flex justify-between">Start Date: <strong>{{al.startDate | date:'dd.MM.yyyy'}}</strong></p>
+            <p class="flex justify-between">End Date: <strong>{{al.endDate | date:'dd.MM.yyyy'}}</strong></p>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+            <p class="flex justify-between">Request Date: <strong>{{al.requestDate | date:'dd.MM.yyyy'}}</strong></p>
+            <p class="flex justify-between">Approval Date: <strong>{{al.approvalDate | date:'dd.MM.yyyy'}}</strong></p>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+            <p class="flex justify-between">Total Days: <strong>{{al.totalDays}}</strong></p>
+            <p class="flex justify-between">Used Days: <strong>{{al.usedDays}}</strong></p>
+        </div>
+        <div *ngIf="isDetail === true" class="grid grid-cols-2 gap-5">
+            <div>
+                <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
+                <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
+            </div>
+            <div class="">
+                <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
+                <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
+            </div>
+        </div>
+    </div>
+    <div *ngIf="al.createdByUser && isDetail === true">
+        <app-user-info [user]="al.createdByUser"></app-user-info>
+    </div>
+</ng-container>
