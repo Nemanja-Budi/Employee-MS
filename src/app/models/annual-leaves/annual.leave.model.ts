@@ -1,5 +1,4 @@
-import { User } from "src/app/account/models/user.model";
-import { Employe } from "../employe/employe.model";
+import { UserDTO } from "../dto/userDto";
 
 
 export interface AnnualLeave {
@@ -19,6 +18,6 @@ export interface AnnualLeave {
     isCarryOver: boolean;
     isSickLeave: boolean;
     createdByUserId?: string;
-    createdByUser?: User;
+    createdByUser?: UserDTO;
     createdDate: Date;
 }

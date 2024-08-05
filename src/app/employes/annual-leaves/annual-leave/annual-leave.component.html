@@ -1,93 +1,48 @@
-<div class="container mx-auto py-8">
-    <form [formGroup]="annualLeaveForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- <div class=" col-span-2">
-          <label for="employeId" class="block text-sm font-medium text-gray-700">Select Employee</label>
-          <select id="employeId" formControlName="employeId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <option value="">-- Select an Employee --</option>
-            <option *ngFor="let employee of employes | async" [value]="employee.id">{{ employee.firstName }} {{ employee.lastName }}</option>
-          </select>
-          <div *ngIf="annualLeaveForm.get('selectedEmployee')?.invalid && annualLeaveForm.get('selectedEmployee')?.touched" class="text-red-600">Please select an employee</div>
-        </div> -->
-        <div class="col-span-2">
-          <app-employe-select label="Select Employee" controlName="employeId"></app-employe-select>
-        </div>
-        <div>
-          <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
-          <input id="startDate" type="datetime" formControlName="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('startDate')?.invalid && annualLeaveForm.get('startDate')?.touched" class="text-red-600">Start Date is required</div>
-        </div>
-        <div>
-          <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
-          <input id="endDate" type="date" formControlName="endDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('endDate')?.invalid && annualLeaveForm.get('endDate')?.touched" class="text-red-600">End Date is required</div>
-        </div>
-        <div>
-          <label for="reason" class="block text-sm font-medium text-gray-700">Reason</label>
-          <input id="reason" type="text" formControlName="reason" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('reason')?.invalid && annualLeaveForm.get('reason')?.touched" class="text-red-600">Reason is required and must be less than 255 characters</div>
-        </div>
-        <div>
-          <label for="comments" class="block text-sm font-medium text-gray-700">Comments</label>
-          <input id="comments" type="text" formControlName="comments" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('comments')?.invalid && annualLeaveForm.get('comments')?.touched" class="text-red-600">Comments are required and must be less than 255 characters</div>
-        </div>
-        <div>
-          <label for="requestDate" class="block text-sm font-medium text-gray-700">Request Date</label>
-          <input id="requestDate" type="date" formControlName="requestDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('requestDate')?.invalid && annualLeaveForm.get('requestDate')?.touched" class="text-red-600">Request Date is required</div>
-        </div>
-        <div>
-          <label for="approvalDate" class="block text-sm font-medium text-gray-700">Approval Date</label>
-          <input id="approvalDate" type="date" formControlName="approvalDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('approvalDate')?.invalid && annualLeaveForm.get('approvalDate')?.touched" class="text-red-600">Approval Date is required</div>
-        </div>
-        <div>
-          <label for="totalDays" class="block text-sm font-medium text-gray-700">Total Days</label>
-          <input id="totalDays" type="number" formControlName="totalDays" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('totalDays')?.invalid && annualLeaveForm.get('totalDays')?.touched" class="text-red-600">Total Days is required and must be at least 1</div>
-        </div>
-        <div>
-          <label for="usedDays" class="block text-sm font-medium text-gray-700">Used Days</label>
-          <input id="usedDays" type="number" formControlName="usedDays" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('usedDays')?.invalid && annualLeaveForm.get('usedDays')?.touched" class="text-red-600">Used Days is required and must be at least 0</div>
-        </div>
-        <!-- <div>
-          <label for="createdDate" class="block text-sm font-medium text-gray-700">Created Date</label>
-          <input id="createdDate" type="date" formControlName="createdDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('createdDate')?.invalid && annualLeaveForm.get('createdDate')?.touched" class="text-red-600">Created Date is required</div>
-        </div> -->
-        <div class="flex justify-between col-span-2">
-          <div>
-            <label for="isPaid" class="block text-sm font-medium text-gray-700">Is Paid</label>
-            <input id="isPaid" type="checkbox" formControlName="isPaid" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="annualLeaveForm.get('isPaid')?.invalid && annualLeaveForm.get('isPaid')?.touched" class="text-red-600">Is Paid status is required</div>
+<div class="grid grid-rows-[auto,1fr] gap-5 h-full">
+  <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
+  <div class="grid grid-rows-[auto,1fr,auto] h-full ">
+      <div>Search filter</div>
+      <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
+          <div *ngFor="let al of (annualleave | async | slice:0:3)" class="p-4 bg-white rounded-lg shadow-md mb-4">
+              <div class="mb-4 flex flex-col gap-1">
+                  <p class="flex justify-between">Reason: <strong>{{al.reason}}</strong></p>
+                  <p class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p>
+                  <div class="grid grid-cols-2 gap-5">
+                      <p class="flex justify-between">Start Date: <strong>{{al.startDate | date:'dd.MM.yyyy'}}</strong></p>
+                      <p class="flex justify-between">End Date: <strong>{{al.endDate | date:'dd.MM.yyyy'}}</strong></p>
+                  </div>
+                  <div class="grid grid-cols-2 gap-5">
+                      <p class="flex justify-between">Request Date: <strong>{{al.requestDate | date:'dd.MM.yyyy'}}</strong></p>
+                      <p class="flex justify-between">Approval Date: <strong>{{al.approvalDate | date:'dd.MM.yyyy'}}</strong></p>
+                  </div>
+                  <div class="grid grid-cols-2 gap-5">
+                      <p class="flex justify-between">Total Days: <strong>{{al.totalDays}}</strong></p>
+                      <p class="flex justify-between">Used Days: <strong>{{al.usedDays}}</strong></p>
+                  </div>
+                  <div class="grid grid-cols-2 gap-5">
+                      <div>
+                          <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
+                          <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
+                      </div>
+                      <div class="">
+                          <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
+                          <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
+                      </div>
+                  </div>
+              </div>
+              <fieldset class="border border-gray-300 rounded p-4">
+                  <legend class="text-lg font-semibold">User</legend>
+                  <div class="flex flex-col space-y-2">
+                      <p><strong>UserID: </strong>{{al.createdByUser?.id}}</p>
+                      <p><strong>UserName: </strong>{{al.createdByUser?.userName}}</p>
+                      <p><strong>Email: </strong>{{al.createdByUser?.email}}</p>
+                      <p><strong>FirstName: </strong>{{al.createdByUser?.firstName}}</p>
+                      <p><strong>LastName: </strong>{{al.createdByUser?.lastName}}</p>
+                  </div>
+              </fieldset>
           </div>
-          <div>
-            <label for="isCarryOver" class="block text-sm font-medium text-gray-700">Is Carry Over</label>
-            <input id="isCarryOver" type="checkbox" formControlName="isCarryOver" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="annualLeaveForm.get('isCarryOver')?.invalid && annualLeaveForm.get('isCarryOver')?.touched" class="text-red-600">Is Carry Over status is required</div>
-          </div>
-          <div>
-            <label for="isSickLeave" class="block text-sm font-medium text-gray-700">Is Sick Leave</label>
-            <input id="isSickLeave" type="checkbox" formControlName="isSickLeave" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="annualLeaveForm.get('isSickLeave')?.invalid && annualLeaveForm.get('isSickLeave')?.touched" class="text-red-600">Is Sick Leave status is required</div>
-          </div>
-          <div>
-            <label for="approved" class="block text-sm font-medium text-gray-700">Approved</label>
-            <input id="approved" type="checkbox" formControlName="approved" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="annualLeaveForm.get('approved')?.invalid && annualLeaveForm.get('approved')?.touched" class="text-red-600">Approved status is required</div>
-          </div>
-        </div>
-        <!-- <div>
-          <label for="createdByUserId" class="block text-sm font-medium text-gray-700">Created By User ID</label>
-          <input id="createdByUserId" type="text" formControlName="createdByUserId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="annualLeaveForm.get('createdByUserId')?.invalid && annualLeaveForm.get('createdByUserId')?.touched" class="text-red-600">Created By User ID is required</div>
-        </div> -->
       </div>
-      <div class="flex justify-end mt-6">
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
-      </div>
-    </form>
+      <div>Paganacija</div>
   </div>
-  
+</div>
+
