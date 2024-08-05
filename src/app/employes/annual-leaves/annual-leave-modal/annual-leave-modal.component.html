@@ -1,0 +1,43 @@
+<dialog #anuualLeaveAction class="modal">
+    <div class="grid grid-rows-[auto,1fr] gap-5 relative p-10">
+        <button 
+            (click)="onCloseModals()" 
+            class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+            <span class="font-bold">X</span>
+        </button>
+        <h2 class="text-center text-3xl text-indigo-600 font-bold">Action</h2>
+        <div class="grid md:grid-cols-2 xl:grid-cols-2 gap-4">
+            <button 
+                (click)="onOpenAnnualLeaveDetail()" 
+                class="bg-indigo-600 text-white rounded-md px-4 py-2">Detalji
+            </button>
+            <button 
+                (click)="onGoToAlEdit()" 
+                class="bg-indigo-600 text-white rounded-md px-4 py-2">Edit
+            </button>
+        </div>
+      </div>
+</dialog>
+
+
+<dialog #anuualLeaveDetail class="modal">
+    <div class="grid grid-rows-[auto,1fr] gap-5 relative p-10">
+        <button 
+            (click)="onCloseModals()" 
+            class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+            <span class="font-bold">X</span>
+        </button>
+        <h2 class="text-center text-3xl text-indigo-600 font-bold">Annual Leave details</h2>
+        <fieldset class="border border-gray-300 rounded-md p-4" *ngIf="currentAnnualLeave">
+            <legend class="text-xl font-bold text-center">
+                <app-employe-salary-employe-detail 
+                    [employeId]="currentAnnualLeave.employeId" 
+                    [isPdf]="false" 
+                    [isDetail]="false"
+                    [showBankInfo]="false">
+                </app-employe-salary-employe-detail>
+            </legend>
+            <app-annual-leave-item [annualLeave]="currentAnnualLeave" [isDetail]="true"></app-annual-leave-item>
+        </fieldset>
+      </div>
+</dialog>

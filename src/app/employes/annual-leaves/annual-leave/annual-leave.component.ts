@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
@@ -18,9 +18,9 @@ export class AnnualLeaveComponent {
 
   annualleaveService: AnnualleaveService = inject(AnnualleaveService);
   sharedService: SharedService = inject(SharedService);
-
+  
   annualleave: Observable<AnnualLeave[]> = this.annualleaveService.getAllAnnualLeave();
-
+  
   onGetKeysWithoutFirstAndLast(obj: any): Array<string> {
     return this.sharedService.getKeysWithoutFirstAndLast(obj);
   }
@@ -28,4 +28,9 @@ export class AnnualLeaveComponent {
   onFormatKey(key: string): string {
     return this.sharedService.formatKey(key);
   }
+
+  onOpenAlModal(annualLeave: AnnualLeave): void {
+    this.annualleaveService.currentAnnualLeaveSubject.next(annualLeave);
+  }
+
 }

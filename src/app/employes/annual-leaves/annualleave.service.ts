@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 
 @Injectable({
@@ -9,6 +9,8 @@ import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 export class AnnualleaveService {
 
   constructor(private http: HttpClient) { }
+
+  currentAnnualLeaveSubject: BehaviorSubject<AnnualLeave | null> = new BehaviorSubject<AnnualLeave | null>(null);
 
   getAllAnnualLeave(): Observable<AnnualLeave[]> {
     return this.http.get<AnnualLeave[]>(`http://localhost:5000/api/annualleave/get-annualleaves`);
