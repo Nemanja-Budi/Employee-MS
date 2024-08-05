@@ -10,6 +10,7 @@ import { PaganationComponent } from './components/paganation/paganation.componen
 import { FilterComponent } from './components/filter/filter.component';
 import { SearchComponent } from './components/search/search.component';
 import { ChangeInputTypeDirective } from './directives/change-input-type.directive';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ChangeInputTypeDirective } from './directives/change-input-type.directi
     PaganationComponent,
     FilterComponent,
     SearchComponent,
-    ChangeInputTypeDirective
+    ChangeInputTypeDirective,
+    UserInfoComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { ChangeInputTypeDirective } from './directives/change-input-type.directi
     FilterComponent,
     SearchComponent,
     PaganationComponent,
-    ChangeInputTypeDirective
+    ChangeInputTypeDirective,
+    UserInfoComponent
   ]
 })
 export class SharedModule { }

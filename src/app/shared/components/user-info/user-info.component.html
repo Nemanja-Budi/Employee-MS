@@ -1,0 +1,12 @@
+<ng-container *ngIf="user as al">
+    <fieldset class="border border-gray-300 rounded p-4">
+        <legend class="text-lg font-semibold">User</legend>
+        <div class="flex flex-col space-y-2">
+            <p><strong>UserID: </strong>{{al.id}}</p>
+            <p><strong>UserName: </strong>{{al.userName}}</p>
+            <p><strong>Email: </strong>{{al.email}}</p>
+            <p><strong>FirstName: </strong>{{al.firstName}}</p>
+            <p><strong>LastName: </strong>{{al.lastName}}</p>
+        </div>
+    </fieldset>
+</ng-container>

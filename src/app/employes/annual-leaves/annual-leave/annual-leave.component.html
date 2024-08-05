@@ -14,7 +14,7 @@
         <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
             <fieldset 
                 routerLink="/employes/annual-leave/update-annual-leave/{{al.annualLeaveId}}" 
-                *ngFor="let al of (annualleave | async | slice:0:3)" 
+                *ngFor="let al of (annualleave | async | slice:0:9)" 
                 class="bg-white shadow-md border border-gray-300 rounded-md p-4">
                 <legend class="text-xl font-bold text-center">
                     <div>
@@ -28,7 +28,7 @@
                 </legend>
                 <div class="mb-4 flex flex-col gap-1">
                     <p class="flex justify-between">Reason: <strong>{{al.reason}}</strong></p>
-                    <p class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p>
+                    <!-- <p class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p> -->
                     <div class="grid grid-cols-2 gap-5">
                         <p class="flex justify-between">Start Date: <strong>{{al.startDate | date:'dd.MM.yyyy'}}</strong></p>
                         <p class="flex justify-between">End Date: <strong>{{al.endDate | date:'dd.MM.yyyy'}}</strong></p>
@@ -41,7 +41,7 @@
                         <p class="flex justify-between">Total Days: <strong>{{al.totalDays}}</strong></p>
                         <p class="flex justify-between">Used Days: <strong>{{al.usedDays}}</strong></p>
                     </div>
-                    <div class="grid grid-cols-2 gap-5">
+                    <!-- <div class="grid grid-cols-2 gap-5">
                         <div>
                             <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
                             <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
@@ -50,9 +50,9 @@
                             <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
                             <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <fieldset class="border border-gray-300 rounded p-4">
+                <!-- <fieldset class="border border-gray-300 rounded p-4">
                     <legend class="text-lg font-semibold">User</legend>
                     <div class="flex flex-col space-y-2">
                         <p><strong>UserID: </strong>{{al.createdByUser?.id}}</p>
@@ -61,7 +61,10 @@
                         <p><strong>FirstName: </strong>{{al.createdByUser?.firstName}}</p>
                         <p><strong>LastName: </strong>{{al.createdByUser?.lastName}}</p>
                     </div>
-                </fieldset>
+                </fieldset> -->
+                <div *ngIf="al.createdByUser">
+                    <app-user-info [user]="al.createdByUser"></app-user-info>
+                </div>
             </fieldset>
         </div>
         <div>Paganacija</div>
