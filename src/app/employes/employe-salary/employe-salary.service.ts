@@ -3,16 +3,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { BankAccount, GetEmployeSalary } from './types/employe.salary.types';
+import { BankAccount, CustomBank, GetEmployeSalary } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { environment } from 'src/environments/environment.development.ts';
 import { EmployeCBFilter } from '../employe/types/employe.types';
 
-export type CustomBank = {
-  bankName: string;
-  totalNetSalary: number;
-  racun: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +46,8 @@ export class EmployeSalaryService {
     { bankName: 'Euro Bank Direktna', racun: '908-15001-80' },
     { bankName: 'Banka Intesa', racun: '908-16001-87' },
     { bankName: 'OTP Banka', racun: '908-32501-57' },
-
-    
   ]; 
   
-
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
 
@@ -80,7 +72,6 @@ export class EmployeSalaryService {
   getTotalSalariesByBanks(month: number, year: number): Observable<number> {
     return this.http.get<number>(`http://localhost:5000/api/employesalary/grand-total-salary?month=${month}&year=${year}`);
   }
-
 
   getEmployeSalaryParams(): EmployeCBFilter[] {
     return this.employeSalaryParams.slice();
@@ -134,7 +125,6 @@ export class EmployeSalaryService {
     return this.http.delete<string>(`http://localhost:5000/api/employesalary/delete-employe-salary/${employeSalaryId}`);
   }
 
- 
   resetFilters(): void {
     this.employeSalaryParams.forEach((employe) => {
       if(employe.name == "firstName") {

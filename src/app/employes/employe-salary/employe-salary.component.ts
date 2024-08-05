@@ -34,7 +34,7 @@ export class EmployeSalaryComponent implements OnInit, OnDestroy {
     this.employeSalaryService.resetFilters();
   }
 
-  probic(): void {
+  openBankModal(): void {
     console.log('PROBIC RADI')
     this.employeSalaryService.isModalOpen.next(true);
   }

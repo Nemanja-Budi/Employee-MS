@@ -1,7 +1,8 @@
 import { Component, ElementRef, EventEmitter, inject, Output, ViewChild } from '@angular/core';
-import { CustomBank, EmployeSalaryService } from '../employe-salary.service';
+import { EmployeSalaryService } from '../employe-salary.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { forkJoin } from 'rxjs';
+import { CustomBank } from '../types/employe.salary.types';
 
 @Component({
   selector: 'app-bank-modal',

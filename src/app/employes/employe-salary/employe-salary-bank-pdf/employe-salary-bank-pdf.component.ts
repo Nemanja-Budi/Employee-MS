@@ -1,8 +1,8 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit,TemplateRef, ViewChild } from '@angular/core';
+
 import { SharedService } from 'src/app/shared/shared.service';
-import { CustomBank, EmployeSalaryService } from '../employe-salary.service';
-import { Observable } from 'rxjs';
-import { BankAccount } from '../types/employe.salary.types';
+import { EmployeSalaryService } from '../employe-salary.service';
+import { BankAccount, CustomBank } from '../types/employe.salary.types';
 
 
 
