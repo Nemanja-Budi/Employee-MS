@@ -7,7 +7,8 @@ import { AnnualLeaveCreateComponent } from './annual-leave-create/annual-leave-c
 const routes: Routes = [
   { path: '', redirectTo: 'all-annual-leaves', pathMatch: 'full' },
   { path: 'all-annual-leaves', component: AnnualLeaveComponent},
-  { path: 'annual-leaves/:annualleaveId', component: AnnualLeaveComponent},
+
+  { path: 'update-annual-leave/:annualleaveId', component: AnnualLeaveCreateComponent},
   { path: 'create-annual-leave', component: AnnualLeaveCreateComponent},
   { path: 'create-annual-leave/:employeId', component: AnnualLeaveCreateComponent},
 ];

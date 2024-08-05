@@ -22,4 +22,7 @@ export class AnnualleaveService {
     return this.http.post<AnnualLeave>(`http://localhost:5000/api/annualleave/create-annualleave`, annualleave);
   }
 
+  updateAnnualLeave(annualleave: AnnualLeave): Observable<AnnualLeave> {
+    return this.http.put<AnnualLeave>(`http://localhost:5000/api/annualleave/edit-annualleave/${annualleave.annualLeaveId}`, annualleave);
+  }
 }

@@ -19,7 +19,7 @@ export class AnnualLeaveCreateComponent {
   employeService: EmployeService = inject(EmployeService);
   router: Router = inject(Router);
   currentEmployeIdValue: string = '';
-  
+  alId: string = '';
   employes: Observable<Employe[]> = this.employeService.getEmployesForSelect();
   annualLeaveForm: FormGroup;
   private destroy = new Subject<void>();
@@ -65,9 +65,10 @@ export class AnnualLeaveCreateComponent {
       else if (annualLeaveId) {
         //this.isEditing = true;
         //this.employeSalaryID = salaryId;
-        this.annualLeavesService.getAnnualLeaveById(annualLeaveId).pipe(takeUntil(this.destroy)).subscribe(salary => {
-          console.log(salary);
-          this.annualLeaveForm.patchValue(salary);
+        this.alId = annualLeaveId;
+        this.annualLeavesService.getAnnualLeaveById(annualLeaveId).pipe(takeUntil(this.destroy)).subscribe(al => {
+          console.log(al);
+          this.annualLeaveForm.patchValue(al);
           this.currentEmployeIdValue = this.annualLeaveForm.get('employeId')?.value;
           this.annualLeaveForm.get('employeId')?.disable();
           console.log(this.currentEmployeIdValue);
@@ -92,11 +93,28 @@ export class AnnualLeaveCreateComponent {
           //employeId: this.currentEmployeIdValue
         }
       }
-     
-      this.annualLeavesService.addAnnualLeave(newAnnualLeave).subscribe({
-        next: (al) => console.log(al),
-        error: (err) => console.error('Error:', err)
-      });
+      if(this.alId === '') {
+        this.annualLeavesService.addAnnualLeave(newAnnualLeave).subscribe({
+          next: (al) => console.log(al),
+          error: (err) => console.error('Error:', err)
+        });
+        console.log(`KAD NEMA alID ZNACI DODAVANJE NOVOG AL ${newAnnualLeave}`);
+        console.log(`NOVI GODISNJI ODMOR AL ID JE PRAZAN ${this.alId}`);
+      } else if (this.alId !== '') {
+        
+        newAnnualLeave = {
+          ...newAnnualLeave,
+          annualLeaveId: this.alId
+        }
+        console.log(`KAD IME alID ZNACI UPDATE AL ${newAnnualLeave}`);
+        console.log(newAnnualLeave);
+        console.log(`UPDATE GODISNJI ODMOR AL ID NIJE PRAZAN ${this.alId}`);
+        this.annualLeavesService.updateAnnualLeave(newAnnualLeave).subscribe({
+          next:(al) => console.log(al),
+          error:(err) => console.error(`Error`, err)
+        });
+      }
+
     }
   }
 }

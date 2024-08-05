@@ -1,48 +1,70 @@
 <div class="grid grid-rows-[auto,1fr] gap-5 h-full">
-  <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
-  <div class="grid grid-rows-[auto,1fr,auto] h-full ">
-      <div>Search filter</div>
-      <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
-          <div *ngFor="let al of (annualleave | async | slice:0:3)" class="p-4 bg-white rounded-lg shadow-md mb-4">
-              <div class="mb-4 flex flex-col gap-1">
-                  <p class="flex justify-between">Reason: <strong>{{al.reason}}</strong></p>
-                  <p class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p>
-                  <div class="grid grid-cols-2 gap-5">
-                      <p class="flex justify-between">Start Date: <strong>{{al.startDate | date:'dd.MM.yyyy'}}</strong></p>
-                      <p class="flex justify-between">End Date: <strong>{{al.endDate | date:'dd.MM.yyyy'}}</strong></p>
-                  </div>
-                  <div class="grid grid-cols-2 gap-5">
-                      <p class="flex justify-between">Request Date: <strong>{{al.requestDate | date:'dd.MM.yyyy'}}</strong></p>
-                      <p class="flex justify-between">Approval Date: <strong>{{al.approvalDate | date:'dd.MM.yyyy'}}</strong></p>
-                  </div>
-                  <div class="grid grid-cols-2 gap-5">
-                      <p class="flex justify-between">Total Days: <strong>{{al.totalDays}}</strong></p>
-                      <p class="flex justify-between">Used Days: <strong>{{al.usedDays}}</strong></p>
-                  </div>
-                  <div class="grid grid-cols-2 gap-5">
-                      <div>
-                          <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
-                          <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
-                      </div>
-                      <div class="">
-                          <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
-                          <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
-                      </div>
-                  </div>
-              </div>
-              <fieldset class="border border-gray-300 rounded p-4">
-                  <legend class="text-lg font-semibold">User</legend>
-                  <div class="flex flex-col space-y-2">
-                      <p><strong>UserID: </strong>{{al.createdByUser?.id}}</p>
-                      <p><strong>UserName: </strong>{{al.createdByUser?.userName}}</p>
-                      <p><strong>Email: </strong>{{al.createdByUser?.email}}</p>
-                      <p><strong>FirstName: </strong>{{al.createdByUser?.firstName}}</p>
-                      <p><strong>LastName: </strong>{{al.createdByUser?.lastName}}</p>
-                  </div>
-              </fieldset>
-          </div>
-      </div>
-      <div>Paganacija</div>
-  </div>
+    <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
+    <div class="grid grid-rows-[auto,1fr,auto] h-full ">
+        <div class="grid grid-cols-2">
+            <div class="w-full h-full">
+                <button 
+                    class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
+                    routerLink="/employes/annual-leave/create-annual-leave">
+                    Add Annual Leave
+                </button>
+            </div>
+            <div>Search filter</div>
+        </div>
+        <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
+            <fieldset 
+                routerLink="/employes/annual-leave/update-annual-leave/{{al.annualLeaveId}}" 
+                *ngFor="let al of (annualleave | async | slice:0:3)" 
+                class="bg-white shadow-md border border-gray-300 rounded-md p-4">
+                <legend class="text-xl font-bold text-center">
+                    <div>
+                        <app-employe-salary-employe-detail 
+                            [employeId]="al.employeId" 
+                            [isPdf]="false" 
+                            [isDetail]="false"
+                            [showBankInfo]="false">
+                        </app-employe-salary-employe-detail>
+                    </div>  
+                </legend>
+                <div class="mb-4 flex flex-col gap-1">
+                    <p class="flex justify-between">Reason: <strong>{{al.reason}}</strong></p>
+                    <p class="flex justify-between">Comments: <strong>{{al.comments}}</strong></p>
+                    <div class="grid grid-cols-2 gap-5">
+                        <p class="flex justify-between">Start Date: <strong>{{al.startDate | date:'dd.MM.yyyy'}}</strong></p>
+                        <p class="flex justify-between">End Date: <strong>{{al.endDate | date:'dd.MM.yyyy'}}</strong></p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-5">
+                        <p class="flex justify-between">Request Date: <strong>{{al.requestDate | date:'dd.MM.yyyy'}}</strong></p>
+                        <p class="flex justify-between">Approval Date: <strong>{{al.approvalDate | date:'dd.MM.yyyy'}}</strong></p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-5">
+                        <p class="flex justify-between">Total Days: <strong>{{al.totalDays}}</strong></p>
+                        <p class="flex justify-between">Used Days: <strong>{{al.usedDays}}</strong></p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
+                            <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
+                        </div>
+                        <div class="">
+                            <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
+                            <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="border border-gray-300 rounded p-4">
+                    <legend class="text-lg font-semibold">User</legend>
+                    <div class="flex flex-col space-y-2">
+                        <p><strong>UserID: </strong>{{al.createdByUser?.id}}</p>
+                        <p><strong>UserName: </strong>{{al.createdByUser?.userName}}</p>
+                        <p><strong>Email: </strong>{{al.createdByUser?.email}}</p>
+                        <p><strong>FirstName: </strong>{{al.createdByUser?.firstName}}</p>
+                        <p><strong>LastName: </strong>{{al.createdByUser?.lastName}}</p>
+                    </div>
+                </fieldset>
+            </fieldset>
+        </div>
+        <div>Paganacija</div>
+    </div>
 </div>
 

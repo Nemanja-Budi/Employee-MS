@@ -1,8 +1,11 @@
 <ng-container *ngIf="isPdf === false">
   <div *ngIf="employe$ | async as employe">
-    <div class="grid grid-cols-2">
+    <div *ngIf="showBankInfo === true" class="grid grid-cols-2">
       <p>{{ employe.firstName}} {{ employe.lastName}}</p>
       <p>{{employe.bankName}}</p>
+    </div>
+    <div *ngIf="showBankInfo === false" class="flex gap-3">
+      <p>{{ employe.firstName}} {{ employe.lastName}}</p>
     </div>
     <div *ngIf="isDetail">
       <p>{{employe.jmbg}}</p>

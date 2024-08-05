@@ -15,6 +15,7 @@ export class EmployeSalaryEmployeDetailComponent {
   employeService: EmployeService = inject(EmployeService);
 
   @Input() employeId: string = '';
+  @Input() showBankInfo: boolean = false;
   @Input({required: true}) isDetail: boolean = false;
   @Input({required: true}) isPdf: boolean = false;
 
