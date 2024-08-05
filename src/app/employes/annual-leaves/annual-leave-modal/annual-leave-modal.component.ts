@@ -1,8 +1,9 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
-import { AnnualleaveService } from '../annualleave.service';
+
 import { Observable } from 'rxjs';
+import { AnnualleaveService } from '../annualleave.service';
 
 @Component({
   selector: 'app-annual-leave-modal',
@@ -14,10 +15,14 @@ export class AnnualLeaveModalComponent implements OnInit {
   annualleaveService: AnnualleaveService = inject(AnnualleaveService);
   router: Router = inject(Router);
 
+  currentAnnualLeave!: AnnualLeave;
+  message: string = '';
+  
   @ViewChild('anuualLeaveAction', { static: true }) anuualLeaveAction!: ElementRef<HTMLDialogElement>;
   @ViewChild('anuualLeaveDetail', { static: true }) anuualLeaveDetail!: ElementRef<HTMLDialogElement>;
+  @ViewChild('deleteAnnualLeave', { static: true }) deleteAnnualLeave!: ElementRef<HTMLDialogElement>;
 
-  currentAnnualLeave!: AnnualLeave;
+  @Output() deletedAction: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
     if(this.annualleaveService.currentAnnualLeaveSubject.value !== null) {
@@ -34,7 +39,7 @@ export class AnnualLeaveModalComponent implements OnInit {
   }
 
   onGoToAlEdit(): void {
-    if(this.currentAnnualLeave.annualLeaveId === '') return;
+    if(!this.currentAnnualLeave) return;
     this.onCloseModals();
     this.router.navigate([`/employes/annual-leave/update-annual-leave/${this.currentAnnualLeave.annualLeaveId}`])
   }
@@ -42,6 +47,29 @@ export class AnnualLeaveModalComponent implements OnInit {
   onCloseModals(): void {
     this.annualleaveService.currentAnnualLeaveSubject.next(null);
     this.anuualLeaveAction.nativeElement.close();
+  }
+
+  onConfirm(): void {
+    if(!this.currentAnnualLeave) return;
+    this.annualleaveService.deleteAnnualLeave(this.currentAnnualLeave.annualLeaveId).subscribe({
+      next:(response) => {
+        this.deleteAnnualLeave.nativeElement.close();
+        this.onCloseModals();
+        console.log(response.message);
+        this.deletedAction.emit(response.message);
+      },
+      error:(err) => console.error(`Error`, err)
+    });
+  }
+
+  onCloseDeleteModal(): void {
+    this.deleteAnnualLeave.nativeElement.close();
+    this.onCloseModals();
+  }
+
+  openDeleteModal(): void {
+    this.anuualLeaveAction.nativeElement.close();
+    this.deleteAnnualLeave.nativeElement.showModal();
   }
 
 }

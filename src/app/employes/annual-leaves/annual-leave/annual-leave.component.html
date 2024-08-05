@@ -14,7 +14,7 @@
         <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
             <fieldset 
                 (click)="onOpenAlModal(al)"
-                *ngFor="let al of (annualleave | async | slice:0:9)" 
+                *ngFor="let al of (annualleave | async)" 
                 class="bg-white shadow-md border border-gray-300 rounded-md p-4">
                 <legend class="text-xl font-bold text-center">
                     <app-employe-salary-employe-detail 
@@ -37,5 +37,14 @@
 </div>
 
 <ng-container *ngIf="annualleaveService.currentAnnualLeaveSubject.value !== null">
-    <app-annual-leave-modal></app-annual-leave-modal>
+    <app-annual-leave-modal (deletedAction)="onUpdateAL($event)"></app-annual-leave-modal>
 </ng-container>
+
+<dialog #messageModal class="modal">
+    <div class="flex flex-col gap-3 p-5">
+        <h2 class="text-center font-bold">{{message}}</h2>
+        <div class="flex justify-center items-center">
+            <button class="bg-red-600 rounded-md text-white px-6 py-1.5" (click)="onCloseMessageModal()">Close</button>
+        </div>
+    </div>
+</dialog>

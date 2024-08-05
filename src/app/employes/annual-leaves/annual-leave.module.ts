@@ -7,6 +7,7 @@ import { AnnualLeaveCreateComponent } from './annual-leave-create/annual-leave-c
 import { AnnualLeaveItemComponent } from './annual-leave/annual-leave-item/annual-leave-item.component';
 import { AnnualLeaveModalComponent } from './annual-leave-modal/annual-leave-modal.component';
 
+
 @NgModule({
   declarations: [AnnualLeaveComponent, AnnualLeaveCreateComponent, AnnualLeaveItemComponent, AnnualLeaveModalComponent],
   imports: [

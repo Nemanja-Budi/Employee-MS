@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 
+export type deleteMessage = {
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,5 +30,9 @@ export class AnnualleaveService {
 
   updateAnnualLeave(annualleave: AnnualLeave): Observable<AnnualLeave> {
     return this.http.put<AnnualLeave>(`http://localhost:5000/api/annualleave/edit-annualleave/${annualleave.annualLeaveId}`, annualleave);
+  }
+
+  deleteAnnualLeave(annualleaveId: string): Observable<deleteMessage> {
+    return this.http.delete<deleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
   }
 }

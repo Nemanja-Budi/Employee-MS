@@ -6,7 +6,7 @@
             <span class="font-bold">X</span>
         </button>
         <h2 class="text-center text-3xl text-indigo-600 font-bold">Action</h2>
-        <div class="grid md:grid-cols-2 xl:grid-cols-2 gap-4">
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
             <button 
                 (click)="onOpenAnnualLeaveDetail()" 
                 class="bg-indigo-600 text-white rounded-md px-4 py-2">Detalji
@@ -14,6 +14,10 @@
             <button 
                 (click)="onGoToAlEdit()" 
                 class="bg-indigo-600 text-white rounded-md px-4 py-2">Edit
+            </button>
+            <button 
+                (click)="openDeleteModal()" 
+                class="bg-rose-600 text-white rounded-md px-4 py-2">Delete
             </button>
         </div>
       </div>
@@ -40,4 +44,14 @@
             <app-annual-leave-item [annualLeave]="currentAnnualLeave" [isDetail]="true"></app-annual-leave-item>
         </fieldset>
       </div>
+</dialog>
+
+<dialog #deleteAnnualLeave class="modal">
+    <div class="flex flex-col gap-3 p-5">
+        <h2>Are you sure you want to delete this annual leave?</h2>
+        <div class="grid grid-cols-2 gap-2">
+            <button class="bg-[#4BB543] rounded-md text-white" (click)="onConfirm()">Yes</button>
+            <button class="bg-red-600 rounded-md text-white" (click)="onCloseDeleteModal()">Close</button>
+        </div>
+    </div>
 </dialog>

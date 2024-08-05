@@ -15,12 +15,14 @@ import { AnnualleaveService } from '../annualleave.service';
 export class AnnualLeaveCreateComponent {
 
   annualLeavesService: AnnualleaveService = inject(AnnualleaveService);
-  annualleaves: Observable<AnnualLeave[]> = this.annualLeavesService.getAllAnnualLeave();
   employeService: EmployeService = inject(EmployeService);
   router: Router = inject(Router);
+
+  annualleaves: Observable<AnnualLeave[]> = this.annualLeavesService.getAllAnnualLeave();
+  employes: Observable<Employe[]> = this.employeService.getEmployesForSelect();
+  
   currentEmployeIdValue: string = '';
   alId: string = '';
-  employes: Observable<Employe[]> = this.employeService.getEmployesForSelect();
   annualLeaveForm: FormGroup;
   private destroy = new Subject<void>();
 
@@ -95,7 +97,7 @@ export class AnnualLeaveCreateComponent {
       }
       if(this.alId === '') {
         this.annualLeavesService.addAnnualLeave(newAnnualLeave).subscribe({
-          next: (al) => console.log(al),
+          next: (al) => this.router.navigate([`/employes/annual-leave/all-annual-leaves`]),
           error: (err) => console.error('Error:', err)
         });
         console.log(`KAD NEMA alID ZNACI DODAVANJE NOVOG AL ${newAnnualLeave}`);
@@ -110,7 +112,7 @@ export class AnnualLeaveCreateComponent {
         console.log(newAnnualLeave);
         console.log(`UPDATE GODISNJI ODMOR AL ID NIJE PRAZAN ${this.alId}`);
         this.annualLeavesService.updateAnnualLeave(newAnnualLeave).subscribe({
-          next:(al) => console.log(al),
+          next:(al) => this.router.navigate([`/employes/annual-leave/all-annual-leaves`]),
           error:(err) => console.error(`Error`, err)
         });
       }
