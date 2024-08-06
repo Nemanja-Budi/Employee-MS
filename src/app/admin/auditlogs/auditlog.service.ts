@@ -41,10 +41,10 @@ export class AuditlogService {
   auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
 
   auditLogParams: EmployeCBFilter[] = [
-    { showName: 'Operation Type', name: 'operationType', chacked: true },
+    { showName: 'Operation', name: 'operationType', chacked: true },
     { showName: 'Username', name: 'userName', chacked: false },
-    { showName: 'Table name', name: 'tableName', chacked: false },
-    { showName: 'Action time', name: 'changeDateTime', chacked: false },
+    { showName: 'Table', name: 'tableName', chacked: false },
+    { showName: 'Time', name: 'changeDateTime', chacked: false },
   ];
 
   getAuditLogParamsParams(): EmployeCBFilter[] {
