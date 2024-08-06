@@ -23,7 +23,7 @@ export class AnnualleaveService {
     sortBy: 'firstName',
     isAscending: true,
     pageNumber: 1,
-    pageSize: 9
+    pageSize: 12
   }
 
   cbSubject: EmployeCBFilter = {

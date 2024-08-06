@@ -1,8 +1,8 @@
 <div class="grid grid-rows-[auto,1fr] gap-5 h-full">
     <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
-    <div class="grid grid-rows-[auto,1fr,auto] h-full ">
-        <div class="grid grid-cols-2">
-            <div class="grid grid-cols-2">
+    <div class="grid grid-rows-[auto,1fr,auto] h-full gap-3 px-4 pb-4">
+        <div class="grid grid-cols-4 gap-5">
+            <div class="grid grid-cols-2 gap-5">
                 <div class="w-full h-full">
                     <button 
                         class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
@@ -18,19 +18,29 @@
                     </app-filter>
                 </div>
             </div>
-            <div>
+            <div class="col-span-2">
                 <app-search 
                     [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject" 
                     [employeParams]="this.annualleaveService.getAnnualLeaveParams()"
                     [searchSubject]="this.annualleaveService.annualleaveSearchSubject">
                 </app-search>
             </div>
+            <div>
+                <app-show-items-per-page
+                    [itemsPerPage]="[9,18,36]" 
+                    [textColor]="'white'" 
+                    [bgButton]="'indigo-600'"
+                    [hbutton]="8"
+                    [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
+                    [valueAfterReset]="9">
+                </app-show-items-per-page>
+            </div>
         </div>
-        <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
+        <div class="grid grid-cols-3 gap-x-5 h-fit">
             <fieldset 
                 (click)="onOpenAlModal(al)"
                 *ngFor="let al of (annualleave | async)" 
-                class="bg-white shadow-md border border-gray-300 rounded-md p-4">
+                class="bg-white shadow-md border border-indigo-600 rounded-md px-5 pt-5">
                 <legend class="text-xl font-bold text-center">
                     <app-employe-salary-employe-detail 
                         [employeId]="al.employeId" 
