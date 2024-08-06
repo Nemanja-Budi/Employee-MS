@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { map, Observable, Subject, takeUntil } from 'rxjs';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 import { Employe } from 'src/app/models/employe/employe.model';
 import { EmployeService } from '../../employe/employe.service';
@@ -18,7 +18,7 @@ export class AnnualLeaveCreateComponent {
   employeService: EmployeService = inject(EmployeService);
   router: Router = inject(Router);
 
-  annualleaves: Observable<AnnualLeave[]> = this.annualLeavesService.getAllAnnualLeave();
+  annualleaves: Observable<AnnualLeave[]> = this.annualLeavesService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
   employes: Observable<Employe[]> = this.employeService.getEmployesForSelect();
   
   currentEmployeIdValue: string = '';

@@ -19,7 +19,7 @@ export class AnnualLeaveComponent implements OnInit {
   annualleaveService: AnnualleaveService = inject(AnnualleaveService);
   sharedService: SharedService = inject(SharedService);
   
-  annualleave: Observable<AnnualLeave[]> = this.annualleaveService.getAllAnnualLeave();
+  annualleave: Observable<AnnualLeave[]> = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
   @ViewChild('messageModal', { static: true }) messageModal!: ElementRef<HTMLDialogElement>;
 
   message: string = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat vel temporibus animi possimus eum debitis quia sunt natus esse fuga quis dolorem obcaecati quae cumque molestiae excepturi iure impedit id eos ipsam, minus exercitationem nisi nulla minima. Voluptas atque consequatur vero nulla molestias, quaerat amet hic quo! Quia, minima iusto?`;
@@ -40,7 +40,7 @@ export class AnnualLeaveComponent implements OnInit {
     if(deleteEventMessage === '' ) return;
     this.message = deleteEventMessage;
     this.messageModal.nativeElement.showModal();
-    this.annualleave = this.annualleaveService.getAllAnnualLeave();
+    this.annualleave = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
 
   }
 

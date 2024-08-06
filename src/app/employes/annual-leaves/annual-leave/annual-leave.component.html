@@ -2,14 +2,29 @@
     <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
     <div class="grid grid-rows-[auto,1fr,auto] h-full ">
         <div class="grid grid-cols-2">
-            <div class="w-full h-full">
-                <button 
-                    class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
-                    routerLink="/employes/annual-leave/create-annual-leave">
-                    Add Annual Leave
-                </button>
+            <div class="grid grid-cols-2">
+                <div class="w-full h-full">
+                    <button 
+                        class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
+                        routerLink="/employes/annual-leave/create-annual-leave">
+                        Add Annual Leave
+                    </button>
+                </div>
+                <div>
+                    <app-filter 
+                        [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
+                        [employeParams]="this.annualleaveService.getAnnualLeaveParams()"
+                        [searchSubject]="this.annualleaveService.annualleaveSearchSubject">
+                    </app-filter>
+                </div>
             </div>
-            <div>Search filter</div>
+            <div>
+                <app-search 
+                    [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject" 
+                    [employeParams]="this.annualleaveService.getAnnualLeaveParams()"
+                    [searchSubject]="this.annualleaveService.annualleaveSearchSubject">
+                </app-search>
+            </div>
         </div>
         <div class="grid grid-cols-3 gap-5 p-5 justify-center items-center">
             <fieldset 
@@ -32,7 +47,13 @@
                </div>
             </fieldset>
         </div>
-        <div>Paganacija</div>
+        <div>
+            <app-paganation 
+                [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
+                [currentSize]="this.annualleaveService.currentSize"
+                [isNula]="annualleaveService.isNula">
+          </app-paganation>
+        </div>
     </div>
 </div>
 

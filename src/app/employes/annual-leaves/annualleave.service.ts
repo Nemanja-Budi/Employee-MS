@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
+import { GetAnnualLeave } from './types/annual-leave.types';
+import { EmployeCBFilter } from '../employe/types/employe.types';
+import { AnnualLeaveList } from 'src/app/models/annual-leaves/annual.leave-list';
 
 export type deleteMessage = {
   message: string;
@@ -12,13 +15,74 @@ export type deleteMessage = {
 })
 export class AnnualleaveService {
 
-  constructor(private http: HttpClient) { }
+  annualleaveFilterSubject: GetAnnualLeave = {
+    employeFilterDto: {
+      firstName: '',
+      lastName: ''
+    },
+    sortBy: 'firstName',
+    isAscending: true,
+    pageNumber: 1,
+    pageSize: 9
+  }
 
+  cbSubject: EmployeCBFilter = {
+    showName: '',
+    name: '', 
+    chacked: false
+  }
+
+  annualLeaveParams: EmployeCBFilter[] = [
+    { showName: 'Ime', name: 'firstName', chacked: true },
+    { showName: 'Prezime', name: 'lastName', chacked: false },
+  ];
+
+  annualleaveQuearyParamsSubject: BehaviorSubject<GetAnnualLeave> = new BehaviorSubject<GetAnnualLeave>(this.annualleaveFilterSubject);
   currentAnnualLeaveSubject: BehaviorSubject<AnnualLeave | null> = new BehaviorSubject<AnnualLeave | null>(null);
 
-  getAllAnnualLeave(): Observable<AnnualLeave[]> {
-    return this.http.get<AnnualLeave[]>(`http://localhost:5000/api/annualleave/get-annualleaves`);
+  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  annualleaveSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  annualleaveCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+
+  constructor(private http: HttpClient) { }
+
+  getAllAnnualLeave(): Observable<AnnualLeaveList> {
+    return this.annualleaveQuearyParamsSubject.pipe(
+      switchMap(params => {
+        let httpParams = new HttpParams();
+        const filterDto = params.employeFilterDto;
+        Object.keys(filterDto).forEach(key => {
+          if (filterDto[key]) {
+            httpParams = httpParams.append(key, filterDto[key]);
+          }
+        });
+        if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
+        if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
+        if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
+        if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
+        else httpParams = httpParams.append('pageSize', '50');
+        return this.http.get<AnnualLeaveList>(`http://localhost:5000/api/annualleave/get-annualleaves`, { params: httpParams }).pipe(map((annualleave) => {
+          this.currentSize.next(Math.ceil(annualleave.totalCount/params.pageSize));
+          if(annualleave.totalCount == 0) {
+            this.isNula.next(true);
+          } else {
+            this.isNula.next(false);
+          }
+          return annualleave;
+        }));
+      })
+    );
   }
+
+  getAnnualLeaveParams(): EmployeCBFilter[] {
+    return this.annualLeaveParams.slice();
+  }
+
+  // getAllAnnualLeave(): Observable<AnnualLeave[]> {
+  //   return this.http.get<AnnualLeave[]>(`http://localhost:5000/api/annualleave/get-annualleaves`);
+  // }
 
   getAnnualLeaveById(id: string): Observable<AnnualLeave> {
     return this.http.get<AnnualLeave>(`http://localhost:5000/api/AnnualLeave/get-annualleave/${id}`);
