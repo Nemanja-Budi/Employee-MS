@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let salary of employeSalarys | async; let i = index;">
-        <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="even:bg-indigo-100">
+        <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="even:bg-indigo-100 hover:bg-indigo-400 hover:cursor-pointer">
           <td class="py-2 px-4">{{ i + 1 }}</td>
           <td *ngIf="salary.employeId">
             <app-employe-salary-employe-detail 
