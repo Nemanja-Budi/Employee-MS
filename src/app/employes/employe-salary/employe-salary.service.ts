@@ -36,6 +36,7 @@ export class EmployeSalaryService {
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
     { showName: 'Banka', name: 'bankName', chacked: false },
+    { showName: 'Mesec', name: 'month', chacked: false },
   ];
 
   bankAccounts: BankAccount[] = [

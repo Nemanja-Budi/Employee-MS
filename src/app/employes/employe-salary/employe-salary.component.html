@@ -1,16 +1,16 @@
 <div class="grid grid-rows-[auto,1fr] h-full">
   <h2 class="text-center text-xl pt-5">{{naslov}}</h2>
-  <div class="grid grid-rows-[auto,1fr,auto] h-full p-5 gap-5">
-    <div *ngIf="!selectedEmployeId" class="grid grid-cols-4 gap-3 items-center justify-center">
-      <div class="grid grid-cols-2 gap-3">
-        <div class="grid grid-cols-2 gap-3">
-          <div class="w-full h-full">
-            <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
-          </div>
-          <div class="w-full h-full">
-            <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" (click)="openBankModal()">Bank Modal</button>
-          </div>
+  <div class="grid grid-rows-[auto,1fr,auto] h-full p-4 gap-4">
+    <div *ngIf="!selectedEmployeId" class="grid grid-rows-2 gap-4">
+      <div class="grid grid-cols-2 gap-3 h-full">
+        <div class="w-full h-full">
+          <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
         </div>
+        <div class="w-full h-full">
+          <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-4 gap-4">
         <div>
           <app-filter 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
@@ -18,23 +18,23 @@
             [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
           </app-filter>
         </div>
-      </div>
-      <div class="col-span-2">
-        <app-search 
-          [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
-          [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
-          [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
-        </app-search>
-      </div>
-      <div>
-        <app-show-items-per-page
-          [itemsPerPage]="[5,10,15]" 
-          [textColor]="'white'" 
-          [bgButton]="'indigo-600'"
-          [hbutton]="8"
-          [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
-          [valueAfterReset]="15">
-        </app-show-items-per-page>
+        <div class="col-span-2">
+          <app-search 
+            [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
+            [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
+            [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
+          </app-search>
+        </div>
+        <div>
+          <app-show-items-per-page
+            [itemsPerPage]="[5,10,15]" 
+            [textColor]="'white'" 
+            [bgButton]="'indigo-600'"
+            [hbutton]="8"
+            [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
+            [valueAfterReset]="15">
+          </app-show-items-per-page>
+        </div>
       </div>
     </div>
     <div>
