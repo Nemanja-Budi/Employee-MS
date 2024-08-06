@@ -2,7 +2,8 @@ export type GetEmployeSalaryParams = {
   firstName: string;
   lastName: string;
   bankName: string;
-  [key: string]: string | number;
+  calculationMonth: string;
+  [key: string]: string | any;
 }
 
 export type GetEmployeSalary = {

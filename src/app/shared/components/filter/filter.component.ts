@@ -28,6 +28,9 @@ export class FilterComponent {
     if(changeInput.name === 'changeDateTime') {
       this.sharedService.witchType.next('date');
       this.searchSubject.next('');
+    } else if(changeInput.name === 'calculationMonth') {
+      this.sharedService.witchType.next('month');
+      this.searchSubject.next('');
     } else {
       this.sharedService.witchType.next('text');
     }

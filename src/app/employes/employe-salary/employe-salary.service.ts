@@ -7,6 +7,7 @@ import { BankAccount, CustomBank, GetEmployeSalary } from './types/employe.salar
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { environment } from 'src/environments/environment.development.ts';
 import { EmployeCBFilter } from '../employe/types/employe.types';
+import { SharedService } from 'src/app/shared/shared.service';
 
 
 @Injectable({
@@ -18,7 +19,8 @@ export class EmployeSalaryService {
     employeFilterDto: {
       firstName: '',
       lastName: '',
-      bankName: ''
+      bankName: '',
+      calculationMonth: ''
     },
     sortBy: 'firstName',
     isAscending: true,
@@ -36,7 +38,7 @@ export class EmployeSalaryService {
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
     { showName: 'Banka', name: 'bankName', chacked: false },
-    { showName: 'Mesec', name: 'month', chacked: false },
+    { showName: 'Mesec', name: 'calculationMonth', chacked: false },
   ];
 
   bankAccounts: BankAccount[] = [
@@ -60,7 +62,7 @@ export class EmployeSalaryService {
 
   isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   getBankAccounts(): BankAccount[] {
     return this.bankAccounts.slice();
@@ -85,7 +87,13 @@ export class EmployeSalaryService {
         const filterDto = params.employeFilterDto;
         Object.keys(filterDto).forEach(key => {
           if (filterDto[key]) {
-            httpParams = httpParams.append(key, filterDto[key]);
+            if (key === 'changeDateTime') {
+              console.log('pozivam se svaki put');
+              const formattedDate = this.formatDate(filterDto[key]);
+              httpParams = httpParams.append(key, formattedDate);
+            } else {
+              httpParams = httpParams.append(key, filterDto[key]);
+            }
           }
         });
         if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
@@ -104,6 +112,23 @@ export class EmployeSalaryService {
         }));
       })
     );
+  }
+
+  private formatDate(dateInput: string): string {
+    const dateParts = dateInput.split('-');
+    if (dateParts.length === 1) {
+        // Ako je samo godina
+        return `${dateParts[0]}`;
+    } else if (dateParts.length === 2) {
+        // Ako je godina i mesec
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
+    } else if (dateParts.length === 3) {
+        // Ako je puni datum
+        const day = dateParts[2].padStart(2, '0');
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
+    } else {
+        throw new Error('Invalid date input');
+    }
   }
 
   getEmployeSalarysByEmployeId(employeId: string): Observable<EmployeSalary[]> {
@@ -136,12 +161,16 @@ export class EmployeSalaryService {
       }
     });
 
+
+    this.sharedService.isChange.next(false);
+    this.sharedService.witchType.next('text');
     this.employeSalarySearchSubject.next('');
     this.employeSalaryQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',
         lastName: '',
-        bankName: ''
+        bankName: '',
+        calculationMonth: ''
       },
       sortBy: 'firstName',
       isAscending: true,
