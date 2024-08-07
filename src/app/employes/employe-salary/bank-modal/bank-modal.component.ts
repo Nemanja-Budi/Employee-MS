@@ -15,6 +15,7 @@ export class BankModalComponent {
   sharedService: SharedService = inject(SharedService);
   
   platePoBankama:CustomBank[] = [];
+  nazivPdfa: string = '';
   month: number = 1;
   year: number = 1;
   total: number = 0;
@@ -32,13 +33,12 @@ export class BankModalComponent {
 
   onConfirm(): void {
     if(this.month === 1 && this.year === 1) return;
-    console.log(this.month, this.year);
     forkJoin([
       this.employeSalaryService.getSalariesByBank(this.month, this.year),
       this.employeSalaryService.getTotalSalariesByBanks(this.month, this.year)
     ]).subscribe({
-      next: ([array, total]) => {
-        this.platePoBankama = array;
+      next: ([plate, total]) => {
+        this.platePoBankama = plate;
         this.total = total;
         this.bankModal.nativeElement.close();
         this.netoSalary.nativeElement.showModal();
@@ -51,6 +51,21 @@ export class BankModalComponent {
     let splitDate = dateInput.split("-");
     this.year = Number(splitDate[0]);
     this.month = Number(splitDate[1]);
+    this.cratePdfName(this.year, this.month);
+  }
+
+  cratePdfName(year: number, month: number): void {
+    const months = [
+      'januar', 'februar', 'mart', 'april', 'maj', 'jun',
+      'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'
+    ];
+    if (month >= 1 && month <= 12) {
+      const mesec = months[month - 1];
+      this.nazivPdfa = `plata-${mesec}-${year}.pdf`;
+      console.log(this.nazivPdfa);
+    } else {
+      throw new Error("Nepoznat mesec");
+    }
   }
 
   onCloseNetoSalaryModal(wrongDate?: boolean): void {

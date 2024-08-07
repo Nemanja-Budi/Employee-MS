@@ -15,22 +15,24 @@ export class EmployeSalaryBankPdfComponent implements OnInit {
 
   sharedService: SharedService = inject(SharedService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
-  pdfName: string = 'salary-by-banks.pdf';
+
   bankAccounts: BankAccount[] = this.employeSalaryService.getBankAccounts();
- 
 
   @Input({required: true}) bankData: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
+  @Input({required: true}) plateZa = '';
   
   @ViewChild('pdfBankTemplate', { static: false }) pdfBankTemplate!: TemplateRef<any>;
   
   generatePdf(): void {
+    if(this.plateZa === '') return;
+    console.log(this.plateZa);
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfBankTemplate);
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
       this.sharedService.generatePdf(htmlContent).subscribe({
         next: (blob) => {
-          this.sharedService.pdfForDownload(blob,this.pdfName);
+          this.sharedService.pdfForDownload(blob,this.plateZa);
         },
         error: (e) => console.error('Error generating PDF:', e)
       });
