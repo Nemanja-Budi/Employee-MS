@@ -55,10 +55,7 @@ export class BankModalComponent {
   }
 
   cratePdfName(year: number, month: number): void {
-    const months = [
-      'januar', 'februar', 'mart', 'april', 'maj', 'jun',
-      'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'
-    ];
+    const months = this.sharedService.getMonths();
     if (month >= 1 && month <= 12) {
       const mesec = months[month - 1];
       this.nazivPdfa = `plata-${mesec}-${year}.pdf`;

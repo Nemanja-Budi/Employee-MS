@@ -25,6 +25,7 @@ export class EmployeSalaryDetailComponent {
   employeSalarys!: Observable<EmployeSalary[]>;
   employeSalaryId: string | undefined = '';
   employe!: Employe;
+  nazivPdfa: string = '';
 
   employeSalary: Observable<EmployeSalary | null> = this.activatedRoute.paramMap.pipe(
     switchMap((param) => {
@@ -44,6 +45,7 @@ export class EmployeSalaryDetailComponent {
           this.employe = employe;
           this.hourlyRate = employe.hourlyRate;
           this.employeSalaryId = salary.id
+          this.createPdfName(employe, salary)
           const salarys: Observable<EmployeSalary[]> = this.employeSalaryService.getEmployeSalarysByEmployeId(String(employe.id));
           this.employeSalarys = from(salarys)
           return salary;
@@ -51,4 +53,22 @@ export class EmployeSalaryDetailComponent {
       );
     })
   );
+  
+  createPdfName(employe: Employe,  salary: EmployeSalary): void {
+    if(employe.id === salary.employeId) {
+      
+      const months: string[] = this.sharedService.getMonths();
+      const datum: Date = new Date(salary.calculationMonth);
+      const year: number = datum.getFullYear();
+      const month: number = datum.getMonth() + 1;
+      
+      if (month >= 1 && month <= 12) {
+        const mesec = months[month - 1];
+        this.nazivPdfa = `${employe.lastName} ${employe.firstName} plata ${mesec} ${year}.pdf`;
+        console.log(this.nazivPdfa);
+      } else {
+        throw new Error("Nepoznat mesec");
+      }
+    }
+  }
 }

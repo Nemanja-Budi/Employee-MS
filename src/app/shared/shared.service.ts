@@ -7,10 +7,20 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SharedService {
 
+  months: string[] = [
+    'januar', 'februar', 'mart', 'april', 'maj', 'jun',
+    'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'
+  ];
+
   constructor(private http: HttpClient) { }
 
   witchType: BehaviorSubject<string> = new BehaviorSubject<string>('text');
   isChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+
+  getMonths(): string[] {
+    return this.months.slice();
+  }
 
   getKeysWithoutFirstAndLast(obj: any): string[] {
     const keys = Object.keys(obj);
