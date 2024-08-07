@@ -22,6 +22,7 @@ export class BankModalComponent {
 
   @ViewChild('netoSalary', { static: true }) netoSalary!: ElementRef<HTMLDialogElement>;
   @ViewChild('bankModal', { static: true }) bankModal!: ElementRef<HTMLDialogElement>;
+  @ViewChild('preview', { static: true }) preview!: ElementRef<HTMLDialogElement>;
   
   ngOnInit(): void {
     if(this.employeSalaryService.isModalOpen.value === true) {
@@ -31,7 +32,8 @@ export class BankModalComponent {
     }
   }
 
-  onConfirm(): void {
+  onConfirm(proba: boolean): void {
+    console.log(proba);
     if(this.month === 1 && this.year === 1) return;
     forkJoin([
       this.employeSalaryService.getSalariesByBank(this.month, this.year),
@@ -41,11 +43,19 @@ export class BankModalComponent {
         this.platePoBankama = plate;
         this.total = total;
         this.bankModal.nativeElement.close();
-        this.netoSalary.nativeElement.showModal();
+        if(proba === true) {  
+          this.preview.nativeElement.showModal();
+          console.log(proba)
+        } else if(proba === false) {
+          console.log(proba)
+
+          this.netoSalary.nativeElement.showModal();
+        }
       },
       error: (e) => console.error(e)
     });
   }
+
 
   getDate(dateInput: string): void {
     let splitDate = dateInput.split("-");

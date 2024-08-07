@@ -20,8 +20,9 @@ export class EmployeSalaryBankPdfComponent implements OnInit {
 
   @Input({required: true}) bankData: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
-  @Input({required: true}) plateZa = '';
+  @Input({required: true}) plateZa: string = '';
   
+  @Input() show: boolean = false;
   @ViewChild('pdfBankTemplate', { static: false }) pdfBankTemplate!: TemplateRef<any>;
   
   generatePdf(): void {

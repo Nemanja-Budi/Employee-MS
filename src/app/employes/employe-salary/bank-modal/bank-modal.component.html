@@ -1,19 +1,30 @@
 <dialog #bankModal class="modal">
-  <div class="flex flex-col gap-5 p-5">
+  <div class="flex flex-col gap-5 p-5 relative">
+    <button 
+      (click)="onCloseModal()" 
+      class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+      <span class="font-bold">X</span>
+    </button>
     <h2 class="text-indigo-600 text-2xl text-center font-bold">Izracunaj po bankama</h2>
     <div class="flex gap-3">
       <label for="date" class="text-indigo-600">Izaberite obracunski period</label>
       <input (input)="getDate(dateInput.value)" #dateInput class="border rounded-md" type="month">
     </div>
     <div class="grid grid-cols-2 gap-2">
-      <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm()">Yes</button>
-      <button class="bg-rose-600 rounded-md text-white" (click)="onCloseModal()">No</button>
+      <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm(true)">Preview</button>
+      <button class="bg-indigo-600 rounded-md text-white" (click)="onConfirm(false)">Izracunaj</button>
+      <!-- <button class="bg-rose-600 rounded-md text-white" (click)="onCloseModal()">No</button> -->
     </div>
   </div>
 </dialog>
   
 <dialog #netoSalary class="netoSalaryModal">
-  <div *ngIf="platePoBankama.length > 0; else netoSalaryElse" class="flex flex-col gap-3 p-5">
+  <div *ngIf="platePoBankama.length > 0; else netoSalaryElse" class="flex flex-col gap-3 p-5 relative">
+    <button 
+      (click)="onCloseNetoSalaryModal()" 
+      class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+      <span class="font-bold">X</span>
+    </button>
     <h2 class="text-indigo-600 text-2xl text-center font-bold">Ukupno po bankama za period {{month}}.{{year}}</h2>
     <div class="flex flex-col gap-3 md:gap-1">
       <div class="grid gap-0 border-b md:border-none md:grid md:grid-cols-3 md:gap-5" *ngFor="let pb of platePoBankama">
@@ -23,15 +34,15 @@
       </div>
     </div>
     <p class="flex justify-between border border-black px-2 py-1">Ukupno: <strong>{{total}}</strong></p>
-    <div class="grid grid-cols-2 gap-2">
-      <button class="bg-indigo-600 rounded-md text-white">
+    <div class="flex justify-center gap-2">
+      <button>
         <app-employe-salary-bank-pdf 
           [total]="total" 
           [bankData]="platePoBankama"
           [plateZa]="nazivPdfa">
         </app-employe-salary-bank-pdf>
       </button>
-      <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button>
+      <!-- <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button> -->
     </div>
   </div>
   <ng-template #netoSalaryElse>
@@ -42,4 +53,23 @@
       </div>
     </div>
   </ng-template>
+</dialog>
+
+<dialog #preview class="previewModal">
+  <div class="flex flex-col gap-2 p-10 relative">
+    <button 
+      (click)="onCloseNetoSalaryModal()" 
+      class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+      <span class="font-bold">X</span>
+    </button>
+      <div>
+        <app-employe-salary-bank-pdf 
+          [total]="total" 
+          [bankData]="platePoBankama"
+          [plateZa]="nazivPdfa"
+          [show]="true">
+        </app-employe-salary-bank-pdf>
+      </div>
+    <!-- <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button> -->
+  </div>
 </dialog>
