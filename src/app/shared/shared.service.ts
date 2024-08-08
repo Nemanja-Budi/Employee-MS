@@ -55,4 +55,18 @@ export class SharedService {
     window.URL.revokeObjectURL(url);
   }
 
+  formatDate(dateInput: string): string {
+    const dateParts = dateInput.split('-');
+    if (dateParts.length === 1) {
+        return `${dateParts[0]}`;
+    } else if (dateParts.length === 2) {
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
+    } else if (dateParts.length === 3) {
+        const day = dateParts[2].padStart(2, '0');
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
+    } else {
+        throw new Error('Invalid date input');
+    }
+  }
+
 }

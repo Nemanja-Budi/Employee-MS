@@ -39,14 +39,6 @@ export class AuditlogService {
     chacked: false
   }
 
-  constructor(private http: HttpClient, private sharedService: SharedService) { }
-
-  auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
-  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  auditLogCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
-
   auditLogParams: EmployeCBFilter[] = [
     { showName: 'Operation', name: 'operationType', chacked: true },
     { showName: 'Username', name: 'userName', chacked: false },
@@ -54,25 +46,14 @@ export class AuditlogService {
     { showName: 'Time', name: 'changeDateTime', chacked: false },
   ];
 
-  getAuditLogParamsParams(): EmployeCBFilter[] {
-    return this.auditLogParams.slice();
-  }
+  constructor(private http: HttpClient, private sharedService: SharedService) { }
 
-  private formatDate(dateInput: string): string {
-    const dateParts = dateInput.split('-');
+  auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
+  auditLogCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    if (dateParts.length === 1) {
-        return `${dateParts[0]}`;
-    } else if (dateParts.length === 2) {
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
-    } else if (dateParts.length === 3) {
-        const day = dateParts[2].padStart(2, '0');
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
-    } else {
-        throw new Error('Invalid date input');
-    }
-  }
-  
   getAuditLogs(): Observable<{ totalCount: number, auditLogs: AuditlogDto[] }> {
     return this.auditLogQuearyParamsSubject.pipe(
       switchMap(params => {
@@ -82,7 +63,7 @@ export class AuditlogService {
           if (filterDto[key]) {
             if (key === 'changeDateTime') {
               console.log('pozivam se svaki put');
-              const formattedDate = this.formatDate(filterDto[key]);
+              const formattedDate = this.sharedService.formatDate(filterDto[key]);
               httpParams = httpParams.append(key, formattedDate);
             } else {
               httpParams = httpParams.append(key, filterDto[key]);
@@ -169,6 +150,10 @@ export class AuditlogService {
       default:
         return {};
     }
+  }
+
+  getAuditLogParamsParams(): EmployeCBFilter[] {
+    return this.auditLogParams.slice();
   }
 
   resetFilters(): void {

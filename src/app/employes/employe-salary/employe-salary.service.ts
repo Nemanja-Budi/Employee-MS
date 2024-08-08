@@ -69,7 +69,7 @@ export class EmployeSalaryService {
           if (filterDto[key]) {
             if (key === 'changeDateTime') {
               console.log('pozivam se svaki put');
-              const formattedDate = this.formatDate(filterDto[key]);
+              const formattedDate = this.sharedService.formatDate(filterDto[key]);
               httpParams = httpParams.append(key, formattedDate);
             } else {
               httpParams = httpParams.append(key, filterDto[key]);
@@ -128,20 +128,6 @@ export class EmployeSalaryService {
 
   getEmployeSalaryParams(): EmployeCBFilter[] {
     return this.employeSalaryParams.slice();
-  }
-
-  private formatDate(dateInput: string): string {
-    const dateParts = dateInput.split('-');
-    if (dateParts.length === 1) {
-        return `${dateParts[0]}`;
-    } else if (dateParts.length === 2) {
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
-    } else if (dateParts.length === 3) {
-        const day = dateParts[2].padStart(2, '0');
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
-    } else {
-        throw new Error('Invalid date input');
-    }
   }
 
   resetFilters(): void {
