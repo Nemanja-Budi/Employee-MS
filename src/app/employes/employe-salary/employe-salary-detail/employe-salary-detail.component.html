@@ -20,7 +20,8 @@
         <app-employe-salarys-select 
           [employeSalarys]="es" 
           [employeSalaryId]="employeSalaryId"
-          [calculationMonth]="employeSalaryData.calculationMonth">
+          [calculationMonth]="employeSalaryData.calculationMonth"
+          [fullName]="employe.firstName + ' ' + employe.lastName">
         </app-employe-salarys-select>
       </div>
       <div class="grid grid-rows-2 gap-5 h-full">

@@ -13,6 +13,7 @@ export class EmployeSalarysSelectComponent {
   @Input({required: true}) employeSalarys: EmployeSalary[] = [];
   @Input({required: true}) employeSalaryId: string | undefined = '';
   @Input({required: true}) calculationMonth!: Date;
+  @Input() fullName: string = '';
 
   onChangeSelect(changeSelectSalary: string): void {
     this.router.navigate([`/employes/salary/detail-salary/${changeSelectSalary}`])
