@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
 import { GetAnnualLeave } from './types/annual-leave.types';
-import { EmployeCBFilter } from '../employe/types/employe.types';
 import { AnnualLeaveList } from 'src/app/models/annual-leaves/annual.leave-list';
+import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
 
 export type deleteMessage = {
   message: string;
@@ -26,19 +26,15 @@ export class AnnualleaveService {
     pageSize: 12
   }
 
-  cbSubject: EmployeCBFilter = {
-    showName: '',
-    name: '', 
-    chacked: false
-  }
+  checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
 
-  annualLeaveParams: EmployeCBFilter[] = [
+  annualLeaveParams: CheckBoxFilter[] = [
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
   ];
 
   annualleaveQuearyParamsSubject: BehaviorSubject<GetAnnualLeave> = new BehaviorSubject<GetAnnualLeave>(this.annualleaveFilterSubject);
-  annualleaveCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  annualleaveCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
   annualleaveSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   currentAnnualLeaveSubject: BehaviorSubject<AnnualLeave | null> = new BehaviorSubject<AnnualLeave | null>(null);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
@@ -90,7 +86,7 @@ export class AnnualleaveService {
     return this.http.delete<deleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
   }
 
-  getAnnualLeaveParams(): EmployeCBFilter[] {
+  getAnnualLeaveParams(): CheckBoxFilter[] {
     return this.annualLeaveParams.slice();
   }
 
@@ -104,11 +100,7 @@ export class AnnualleaveService {
       }
     });
     this.annualleaveSearchSubject.next('');
-    this.annualleaveCurrentSubject.next({
-      showName: '',
-      name: '',
-      chacked: false
-    });
+    this.annualleaveCurrentSubject.next(this.checkBoxSubject);
     this.annualleaveQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',

@@ -1,9 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+
 import { EmployeSalaryService } from 'src/app/employes/employe-salary/employe-salary.service';
 import { EmployeService } from 'src/app/employes/employe/employe.service';
-import { EmployeCBFilter } from 'src/app/employes/employe/types/employe.types';
 import { SharedService } from '../../shared.service';
+
+import { CheckBoxFilter } from '../../types/shared.types';
 
 @Component({
   selector: 'app-search',
@@ -16,8 +18,8 @@ export class SearchComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   sharedService: SharedService = inject(SharedService);
 
-  @Input({required: true}) employeParams: EmployeCBFilter[] = [];
-  @Input({required: true}) currentSubject!: BehaviorSubject<EmployeCBFilter>;
+  @Input({required: true}) employeParams: CheckBoxFilter[] = [];
+  @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
   

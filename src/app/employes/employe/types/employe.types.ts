@@ -22,10 +22,3 @@ export type GetEmploye = {
     pageNumber: number;
     pageSize: number;
 }
-
-export type EmployeCBFilter = {
-    showName: string;
-    name: string;
-    chacked: boolean;
-  }
-  

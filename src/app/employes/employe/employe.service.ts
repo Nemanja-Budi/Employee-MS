@@ -4,11 +4,10 @@ import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 
 import { environment } from 'src/environments/environment.development.ts';
 
-import { AuditLog } from '../../models/auditlog.model';
 import { Employe } from '../../models/employe/employe.model';
-import { GetEmploye, EmployeCBFilter } from './types/employe.types';
+import { GetEmploye } from './types/employe.types';
 import { EmployeList } from '../../models/employe/employe.list.model';
-import { EmployeModalComponent } from './employe-modal/employe-modal.component';
+import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
 
 @Injectable({
   providedIn: 'root'
@@ -37,13 +36,9 @@ export class EmployeService {
     pageSize: 8
   }
 
-  cbSubject: EmployeCBFilter = {
-    showName: '',
-    name: '', 
-    chacked: false
-  }
+  checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
 
-  employeParams: EmployeCBFilter[] = [
+  employeParams: CheckBoxFilter[] = [
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
     { showName: 'Jmbg', name: 'jmbg', chacked: false },
@@ -60,7 +55,7 @@ export class EmployeService {
   ];
 
   employeQuearyParamsSubject: BehaviorSubject<GetEmploye> = new BehaviorSubject<GetEmploye>(this.employeFilterSubject);
-  employeCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  employeCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
   employeSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
@@ -116,7 +111,7 @@ export class EmployeService {
     return this. http.put<Employe>(`http://localhost:5000/api/employe/update-employe/${employeId}`, employe);
   }
 
-  getEmployeParams(): EmployeCBFilter[] {
+  getEmployeParams(): CheckBoxFilter[] {
     return this.employeParams.slice();
   }
 
@@ -134,11 +129,7 @@ export class EmployeService {
       }
     });
     this.employeSearchSubject.next('');
-    this.employeCurrentSubject.next({
-      showName: '',
-      name: '',
-      chacked: false
-    });
+    this.employeCurrentSubject.next(this.checkBoxSubject);
     this.employeQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',

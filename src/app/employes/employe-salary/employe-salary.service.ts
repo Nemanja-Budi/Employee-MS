@@ -1,13 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { environment } from 'src/environments/environment.development.ts';
+
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
 import { BankAccount, CustomBank, GetEmployeSalary } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
-import { environment } from 'src/environments/environment.development.ts';
-import { EmployeCBFilter } from '../employe/types/employe.types';
 import { SharedService } from 'src/app/shared/shared.service';
+import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +29,9 @@ export class EmployeSalaryService {
     pageSize: 15
   }
 
-  cbSubject: EmployeCBFilter = {
-    showName: '',
-    name: '', 
-    chacked: false
-  }
+  checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
 
-  employeSalaryParams: EmployeCBFilter[] = [
+  employeSalaryParams: CheckBoxFilter[] = [
     { showName: 'Ime', name: 'firstName', chacked: true },
     { showName: 'Prezime', name: 'lastName', chacked: false },
     { showName: 'Banka', name: 'bankName', chacked: false },
@@ -51,7 +49,7 @@ export class EmployeSalaryService {
   ]; 
   
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
-  employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  employeSalaryCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
   employeSalarySearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -126,7 +124,7 @@ export class EmployeSalaryService {
     return this.bankAccounts.slice();
   }
 
-  getEmployeSalaryParams(): EmployeCBFilter[] {
+  getEmployeSalaryParams(): CheckBoxFilter[] {
     return this.employeSalaryParams.slice();
   }
 
@@ -142,11 +140,7 @@ export class EmployeSalaryService {
     this.sharedService.isChange.next(false);
     this.sharedService.witchType.next('text');
     this.employeSalarySearchSubject.next('');
-    this.employeSalaryCurrentSubject.next({
-      showName: '',
-      name: '',
-      chacked: false
-    })
+    this.employeSalaryCurrentSubject.next(this.checkBoxSubject);
     this.employeSalaryQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',

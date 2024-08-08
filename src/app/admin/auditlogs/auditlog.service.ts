@@ -1,6 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { SharedService } from 'src/app/shared/shared.service';
+
 import { AuditLog } from 'src/app/models/auditlog.model';
 import { AuditlogDto } from 'src/app/models/dto/auditlogDto';
 import { EmployeChildDto } from 'src/app/models/dto/employe.childDto';
@@ -11,8 +14,7 @@ import { EmployeSalarySOEDto } from 'src/app/models/dto/employeSalarySOEDto';
 import { IncomeFromWorkDto } from 'src/app/models/dto/incomeFromWorkDto';
 import { UserDTO } from 'src/app/models/dto/userDto';
 import { GetAuditLog } from './types/auditlog.types';
-import { EmployeCBFilter } from 'src/app/employes/employe/types/employe.types';
-import { SharedService } from 'src/app/shared/shared.service';
+import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
 
 
 @Injectable({
@@ -33,13 +35,9 @@ export class AuditlogService {
     pageSize: 5
   }
 
-  cbSubject: EmployeCBFilter = {
-    showName: '',
-    name: '', 
-    chacked: false
-  }
+  checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
 
-  auditLogParams: EmployeCBFilter[] = [
+  auditLogParams: CheckBoxFilter[] = [
     { showName: 'Operation', name: 'operationType', chacked: true },
     { showName: 'Username', name: 'userName', chacked: false },
     { showName: 'Table', name: 'tableName', chacked: false },
@@ -49,7 +47,7 @@ export class AuditlogService {
   constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
-  auditLogCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  auditLogCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
   auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -74,7 +72,7 @@ export class AuditlogService {
         if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
         if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
         if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
-        else httpParams = httpParams.append('pageSize', '15'); // Default pageSize
+        else httpParams = httpParams.append('pageSize', '15');
   
         return this.http.get<{ totalCount: number, auditLogs: AuditLog[] }>(`http://localhost:5000/api/auditlogs/get-auditlogs`, { params: httpParams }).pipe(
           map(response => {
@@ -152,7 +150,7 @@ export class AuditlogService {
     }
   }
 
-  getAuditLogParamsParams(): EmployeCBFilter[] {
+  getAuditLogParamsParams(): CheckBoxFilter[] {
     return this.auditLogParams.slice();
   }
 
@@ -168,11 +166,7 @@ export class AuditlogService {
     this.sharedService.isChange.next(false);
     this.sharedService.witchType.next('text');
     this.auditLogSearchSubject.next('');
-    this.auditLogCurrentSubject.next({
-      showName: '',
-      name: '',
-      chacked: false
-    });
+    this.auditLogCurrentSubject.next(this.checkBoxSubject);
     this.auditLogQuearyParamsSubject.next({
       employeFilterDto: {
         userName: '',
