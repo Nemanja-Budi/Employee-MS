@@ -4,10 +4,10 @@
     <div *ngIf="!selectedEmployeId" class="grid grid-rows-2 gap-4">
       <div class="grid grid-cols-2 gap-3 h-full">
         <div class="w-full h-full">
-          <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+          <button class="w-full h-full border rounded-md bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
         </div>
         <div class="w-full h-full">
-          <button class="w-full h-full border  rounded-md  bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
+          <button class="w-full h-full border rounded-md bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
         </div>
       </div>
       <div class="grid grid-cols-4 gap-4">
@@ -23,7 +23,8 @@
           <app-search 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
             [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
-            [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
+            [searchSubject]="this.employeSalaryService.employeSalarySearchSubject"
+            [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-search>
         </div>
         <div>

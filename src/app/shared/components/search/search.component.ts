@@ -17,6 +17,7 @@ export class SearchComponent {
   sharedService: SharedService = inject(SharedService);
 
   @Input({required: true}) employeParams: EmployeCBFilter[] = [];
+  @Input({required: true}) currentSubject!: BehaviorSubject<EmployeCBFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
   
@@ -24,7 +25,7 @@ export class SearchComponent {
   
   onChangeSearch(changeSearch: string): void {
     this.searchSubject.next(changeSearch);
-    const currentEmploye = this.employeService.employeCurrentSubject.value;
+    const currentEmploye = this.currentSubject.value;
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
 
     if(currentEmploye.name == '') {
