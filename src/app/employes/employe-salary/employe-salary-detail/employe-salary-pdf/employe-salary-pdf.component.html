@@ -1,48 +1,28 @@
 <ng-template #pdfTemplate *ngIf="employeSalaryData"> 
-  <div style="display: flex; flex-direction: column; gap: 1rem; width: 90%; margin: 0 auto;" >
-    <div style="display: flex; justify-content: space-between; padding: 0rem 1rem;">
-      <div>
-        <h3>Podaci o poslodavcu</h3>
-        <p>MITROSREM</p>
-        <p>SREM.MITROVICA</p>
-        <p>TRG VOJVODJANSKIH BRIGADA 3</p>
-        <p>PIB : 10091677</p>
-        <p>MB : 91064225</p>
-        <p>BANKA INTESA : 890-361442-11</p>
-      </div>
-      <div>
-        <h3 class="bg-red-600">Employe Details</h3>
-        <app-employe-salary-employe-detail 
-          [isDetail]="true" 
-          [isPdf]="true">
-        </app-employe-salary-employe-detail>
-      </div>
-    </div>
-    <h3 style="text-align: center;">OBRACUN ZARADE I NAKNADE ZARADE (procenat za isplatu 100.00%)</h3>
-    <div style="display: flex; justify-content: space-between; padding: 0rem 1rem;">
-      <p>Obracun za : <span style="font-weight: bold;">{{employeSalaryData.calculationMonth | date:'MM.yyyy'}}</span></p>
-      <p>Radjen dana: <span style="font-weight: bold;">{{employeSalaryData.settlementDate | date:'dd.MM.yyyy'}}</span></p>
-      <p>Sati u mesecu: <span style="font-weight: bold;">{{employeSalaryData.totalNumberOfHours}}h</span></p>
-      <p>Vrednost sata: <span style="font-weight: bold;">{{hourlyRate}}din</span></p>
-    </div>
-    <div style="display:flex;">
-      <div style="flex: 1; padding: 0rem 1rem;">
-        <app-employe-salary-detail-hours [employeSalaryData]="employeSalaryData"></app-employe-salary-detail-hours>
-      </div>
-      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.incomeFromWork">
-        <app-employe-salary-detail-ifw [incomeFromWork]="employeSalaryData.incomeFromWork"></app-employe-salary-detail-ifw>
-      </div>
-    </div>
-    <div style="display: flex;">
-      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySOE">
-        <app-employe-salary-detail-soe [employeSalarySOE]="employeSalaryData.employeSalarySOE"></app-employe-salary-detail-soe>
-      </div>    
-      <div style="flex: 1; padding: 0rem 1rem;" *ngIf="employeSalaryData.employeSalarySO">
-        <app-employe-salary-detail-so [employeSalarySO]="employeSalaryData.employeSalarySO"></app-employe-salary-detail-so>
-      </div>
-    </div>
-  </div>
+  <app-employe-salary-pdf-item 
+    [employeSalaryData]="employeSalaryData" 
+    [hourlyRate]="hourlyRate">
+  </app-employe-salary-pdf-item>
 </ng-template>
-<div>
-  <button (click)="generatePdf()">Generate PDF</button>
-</div>
+
+<button (click)="onOpenPreview()">Preview</button>
+
+<dialog #previewSalaryPdf class="previewSalaryPdfModal">
+  <div class="flex flex-col gap-4 p-2 md:p-7 relative">
+    <button 
+      (click)="onClosePreviewDetailModal()" 
+      class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
+      <span class="font-bold">X</span>
+    </button>
+      <div>
+        <app-employe-salary-pdf-item 
+          [employeSalaryData]="employeSalaryData" 
+          [hourlyRate]="hourlyRate">
+        </app-employe-salary-pdf-item>
+      </div>
+      <div class="flex justify-center items-center">
+        <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="generatePdf()">Generate PDF</button>
+      </div>
+  </div>
+</dialog>
+

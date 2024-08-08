@@ -9,7 +9,9 @@ import { SharedService } from 'src/app/shared/shared.service';
 })
 export class EmployeSalaryDetailIfwComponent {
   sharedService: SharedService = inject(SharedService);
+
   @Input({required: true}) incomeFromWork!: IncomeFromWork;
+  @Input({required: true}) showClass: boolean = false;
 
   onGetKeysWithoutFirstAndLast(obj: any): string[] {
     return this.sharedService.getKeysWithoutFirstAndLast(obj);

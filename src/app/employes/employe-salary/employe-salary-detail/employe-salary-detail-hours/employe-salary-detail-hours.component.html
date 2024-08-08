@@ -1,5 +1,10 @@
-<div class="border border-indigo-600 rounded-md">
-    <h3 style="text-align: center;" class="text-lg bg-indigo-600 text-white">Hours</h3>
+<div [ngClass]="{'border': showClass, 'border-indigo-600': showClass, 'rounded-md': showClass}">
+    <h3 
+      style="text-align: center;"
+      class="text-lg" 
+      [ngClass]="{'text-white': showClass, 'bg-indigo-600': showClass}">
+      Hours
+    </h3>
     <div class="p-1.5">
       <p style="display: flex; justify-content: space-between;">Total Number Of Hours: 
         <span style="font-weight: bold; margin-left: 1rem;">

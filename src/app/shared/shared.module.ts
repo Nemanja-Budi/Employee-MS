@@ -13,7 +13,6 @@ import { ChangeInputTypeDirective } from './directives/change-input-type.directi
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ProbickoComponent } from './components/probicko/probicko.component';
 
-
 @NgModule({
   declarations: [
     ValidationMessagesComponent, 
@@ -26,7 +25,7 @@ import { ProbickoComponent } from './components/probicko/probicko.component';
     SearchComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
-    ProbickoComponent
+    ProbickoComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +43,7 @@ import { ProbickoComponent } from './components/probicko/probicko.component';
     PaganationComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
-    ProbickoComponent
+    ProbickoComponent,
   ]
 })
 export class SharedModule { }

@@ -61,7 +61,23 @@
     border-radius: 5px;
 }
 
+.previewSalaryPdfModal::backdrop {
+    background: hsla(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(0.2rem);
+}
 
+.previewSalaryPdfModal {
+    position: fixed;
+    top: 50%;
+    left: 50%; 
+    height: fit-content;
+    min-width: 70%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    /* padding: 20px; */
+    border: 2px solid #4F46E5;
+    border-radius: 5px;
+}
 /* 
 .modalMessage::backdrop {
   background: hsla(0, 0%, 100%, 0.1);
@@ -87,10 +103,16 @@
     .netoSalaryModal {
         width: 100%!important;
     }
+    .previewSalaryPdfModal{
+        width: 100%!important;
+    }
   }
 
 @media only screen and (max-width: 1280px) {
     .netoSalaryModal {
         width: 80%;
+    }
+    .previewSalaryPdfModal{
+        width: 90%!important;
     }
 }

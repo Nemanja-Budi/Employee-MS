@@ -27,18 +27,30 @@
       <div class="grid grid-rows-2 gap-5 h-full">
         <div class="grid grid-cols-2 gap-5">
           <div>
-            <app-employe-salary-detail-hours [employeSalaryData]="employeSalaryData"></app-employe-salary-detail-hours>
+            <app-employe-salary-detail-hours 
+              [employeSalaryData]="employeSalaryData"
+              [showClass]="true">
+            </app-employe-salary-detail-hours>
           </div>
           <div *ngIf="employeSalaryData.incomeFromWork">
-            <app-employe-salary-detail-ifw [incomeFromWork]="employeSalaryData.incomeFromWork"></app-employe-salary-detail-ifw>
+            <app-employe-salary-detail-ifw 
+              [incomeFromWork]="employeSalaryData.incomeFromWork"
+              [showClass]="true">
+            </app-employe-salary-detail-ifw>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-5">
           <div *ngIf="employeSalaryData.employeSalarySOE">
-            <app-employe-salary-detail-soe [employeSalarySOE]="employeSalaryData.employeSalarySOE"></app-employe-salary-detail-soe>
+            <app-employe-salary-detail-soe 
+              [employeSalarySOE]="employeSalaryData.employeSalarySOE"
+              [showClass]="true">
+            </app-employe-salary-detail-soe>
           </div>
           <div *ngIf="employeSalaryData.employeSalarySO">
-            <app-employe-salary-detail-so [employeSalarySO]="employeSalaryData.employeSalarySO"></app-employe-salary-detail-so>
+            <app-employe-salary-detail-so 
+              [employeSalarySO]="employeSalaryData.employeSalarySO"
+              [showClass]="true">
+            </app-employe-salary-detail-so>
           </div>
         </div>
       </div>

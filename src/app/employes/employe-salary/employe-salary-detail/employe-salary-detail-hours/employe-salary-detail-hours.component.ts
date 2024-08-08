@@ -9,4 +9,5 @@ import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.mode
 export class EmployeSalaryDetailHoursComponent {
 
   @Input({required: true}) employeSalaryData!: EmployeSalary;
+  @Input({required: true}) showClass: boolean = false;
 }

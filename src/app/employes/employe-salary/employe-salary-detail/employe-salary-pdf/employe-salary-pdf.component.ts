@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { SharedService } from 'src/app/shared/shared.service';
 
@@ -14,8 +14,11 @@ export class EmployeSalaryPdfComponent {
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
   @Input() imeIprz: string = '';
+  @Input() show: boolean = false;
 
   @ViewChild('pdfTemplate', { static: false }) pdfTemplate!: TemplateRef<any>;
+  @ViewChild('previewSalaryPdf', { static: true }) previewSalaryPdf!: ElementRef<HTMLDialogElement>;
+
 
   generatePdf(): void {
     if(this.imeIprz === '') return;
@@ -31,5 +34,13 @@ export class EmployeSalaryPdfComponent {
     } else {
       console.error('Element with id "pdf-content" not found.');
     }
+  }
+
+  onOpenPreview(): void {
+    this.previewSalaryPdf.nativeElement.showModal();
+  }
+
+  onClosePreviewDetailModal(): void {
+    this.previewSalaryPdf.nativeElement.close();
   }
 }

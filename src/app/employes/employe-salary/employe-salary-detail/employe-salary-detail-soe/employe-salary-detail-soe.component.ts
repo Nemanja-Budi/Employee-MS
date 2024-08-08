@@ -12,7 +12,8 @@ export class EmployeSalaryDetailSoeComponent {
   sharedService: SharedService = inject(SharedService);
 
   @Input({required: true}) employeSalarySOE!: EmployeSalarySOE;
-
+  @Input({required: true}) showClass: boolean = false;
+  
   onGetKeysWithoutFirstAndLast(obj: any): string[] {
     return this.sharedService.getKeysWithoutFirstAndLast(obj);
   }
