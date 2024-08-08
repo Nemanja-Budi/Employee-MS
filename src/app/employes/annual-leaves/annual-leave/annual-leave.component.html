@@ -13,8 +13,9 @@
                 <div>
                     <app-filter 
                         [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
-                        [employeParams]="this.annualleaveService.getAnnualLeaveParams()"
-                        [searchSubject]="this.annualleaveService.annualleaveSearchSubject">
+                        [filterParams]="this.annualleaveService.getAnnualLeaveParams()"
+                        [searchSubject]="this.annualleaveService.annualleaveSearchSubject"
+                        [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
                     </app-filter>
                 </div>
             </div>

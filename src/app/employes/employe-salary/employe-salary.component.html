@@ -14,8 +14,9 @@
         <div>
           <app-filter 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
-            [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
-            [searchSubject]="this.employeSalaryService.employeSalarySearchSubject">
+            [filterParams]="this.employeSalaryService.getEmployeSalaryParams()"
+            [searchSubject]="this.employeSalaryService.employeSalarySearchSubject"
+            [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-filter>
         </div>
         <div class="col-span-2">

@@ -3,8 +3,9 @@
     <div>
       <app-filter 
         [queryParamsSubject]="this.auditLogService.auditLogQuearyParamsSubject"
-        [employeParams]="this.auditLogService.getAuditLogParamsParams()"
-        [searchSubject]="this.auditLogService.auditLogSearchSubject">
+        [filterParams]="this.auditLogService.getAuditLogParamsParams()"
+        [searchSubject]="this.auditLogService.auditLogSearchSubject"
+        [currentSubject]="this.auditLogService.auditLogCurrentSubject">
       </app-filter>
     </div>
     <div class="h-fit justify-center items-center col-span-2">

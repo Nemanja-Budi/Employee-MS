@@ -33,12 +33,19 @@ export class AuditlogService {
     pageSize: 5
   }
 
+  cbSubject: EmployeCBFilter = {
+    showName: '',
+    name: '', 
+    chacked: false
+  }
+
   constructor(private http: HttpClient, private sharedService: SharedService) { }
 
   auditLogQuearyParamsSubject: BehaviorSubject<GetAuditLog> = new BehaviorSubject<GetAuditLog>(this.auditLogFilterSubject);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   auditLogSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  auditLogCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
   auditLogParams: EmployeCBFilter[] = [
     { showName: 'Operation', name: 'operationType', chacked: true },

@@ -2,8 +2,9 @@
   <div row>
     <app-filter 
       [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
-      [employeParams]="this.employeService.getEmployeParams()"
-      [searchSubject]="this.employeService.employeSearchSubject">
+      [filterParams]="this.employeService.getEmployeParams()"
+      [searchSubject]="this.employeService.employeSearchSubject"
+      [currentSubject]="this.employeService.employeCurrentSubject">
     </app-filter>
   </div>
   <div class="grid grid-cols-4 gap-5">

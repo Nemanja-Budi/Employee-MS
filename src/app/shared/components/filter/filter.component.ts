@@ -17,14 +17,16 @@ export class FilterComponent {
   sharedService: SharedService = inject(SharedService);
   currentPage: number = 1;
 
-  @Input({required: true}) employeParams: EmployeCBFilter[] = [];
+  @Input({required: true}) filterParams: EmployeCBFilter[] = [];
+  @Input({required: true}) currentSubject!: BehaviorSubject<EmployeCBFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
 
   onChangeInput(changeInput: EmployeCBFilter): void {
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
+    const changeSearch = this.searchSubject.value;
     let sortBy: string = '';
-    let changeSearch = this.searchSubject.value;
+    
     if(changeInput.name === 'changeDateTime') {
       this.sharedService.witchType.next('date');
       this.searchSubject.next('');
@@ -35,28 +37,25 @@ export class FilterComponent {
       this.sharedService.witchType.next('text');
     }
 
-    console.log(this.sharedService.isChange.value);
-
     if(this.sharedService.isChange.value == true) {
       this.searchSubject.next('');
     }
     
-    this.employeParams.forEach((employe) => {
-      if (employe.name === changeInput.name) {
-        employe.chacked = !employe.chacked;
-        if (employe.chacked) {
-          sortBy = employe.name;
-          employeFilterDto[employe.name] = this.searchSubject.value;
-          this.employeService.employeCurrentSubject.next(employe);
+    this.filterParams.forEach((params) => {
+      if (params.name === changeInput.name) {
+        params.chacked = !params.chacked;
+        if (params.chacked) {
+          sortBy = params.name;
+          employeFilterDto[params.name] = this.searchSubject.value;
+          this.currentSubject.next(params);
         } 
         else {
-          console.log("Ulazim u else");
-          delete employeFilterDto[employe.name];
+          delete employeFilterDto[params.name];
         }
       } 
       else {
-        employe.chacked = false;
-        delete employeFilterDto[employe.name];
+        params.chacked = false;
+        delete employeFilterDto[params.name];
       }
     });
 
@@ -72,7 +71,6 @@ export class FilterComponent {
         pageNumber: this.currentPage
         
       });
-      // console.log(this.currentPage)
     } else {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
@@ -82,5 +80,4 @@ export class FilterComponent {
       });
     }
   }
-
 }
