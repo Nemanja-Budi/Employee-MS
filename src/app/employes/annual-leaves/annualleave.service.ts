@@ -38,13 +38,11 @@ export class AnnualleaveService {
   ];
 
   annualleaveQuearyParamsSubject: BehaviorSubject<GetAnnualLeave> = new BehaviorSubject<GetAnnualLeave>(this.annualleaveFilterSubject);
+  annualleaveCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  annualleaveSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   currentAnnualLeaveSubject: BehaviorSubject<AnnualLeave | null> = new BehaviorSubject<AnnualLeave | null>(null);
-
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  annualleaveSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  annualleaveCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
 
   constructor(private http: HttpClient) { }
 
@@ -76,14 +74,6 @@ export class AnnualleaveService {
     );
   }
 
-  getAnnualLeaveParams(): EmployeCBFilter[] {
-    return this.annualLeaveParams.slice();
-  }
-
-  // getAllAnnualLeave(): Observable<AnnualLeave[]> {
-  //   return this.http.get<AnnualLeave[]>(`http://localhost:5000/api/annualleave/get-annualleaves`);
-  // }
-
   getAnnualLeaveById(id: string): Observable<AnnualLeave> {
     return this.http.get<AnnualLeave>(`http://localhost:5000/api/AnnualLeave/get-annualleave/${id}`);
   }
@@ -98,5 +88,36 @@ export class AnnualleaveService {
 
   deleteAnnualLeave(annualleaveId: string): Observable<deleteMessage> {
     return this.http.delete<deleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
+  }
+
+  getAnnualLeaveParams(): EmployeCBFilter[] {
+    return this.annualLeaveParams.slice();
+  }
+
+  resetFilters(): void {
+    this.annualLeaveParams.forEach((employe) => {
+      if(employe.name == "firstName") {
+        employe.chacked = true;
+      }
+      else {
+        employe.chacked = false;
+      }
+    });
+    this.annualleaveSearchSubject.next('');
+    this.annualleaveCurrentSubject.next({
+      showName: '',
+      name: '',
+      chacked: false
+    });
+    this.annualleaveQuearyParamsSubject.next({
+      employeFilterDto: {
+        firstName: '',
+        lastName: ''
+      },
+      sortBy: '',
+      isAscending: false,
+      pageNumber: 1,
+      pageSize: 12
+    });
   }
 }

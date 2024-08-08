@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment.development.ts';
 import { EmployeCBFilter } from '../employe/types/employe.types';
 import { SharedService } from 'src/app/shared/shared.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -51,35 +50,16 @@ export class EmployeSalaryService {
     { bankName: 'OTP Banka', racun: '908-32501-57' },
   ]; 
   
-  employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
-
+  employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  employeSalarySearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
+  isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  employeSalarySearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  employeSalaryCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
-
-  isModalOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   constructor(private http: HttpClient, private sharedService: SharedService) { }
-
-  getBankAccounts(): BankAccount[] {
-    return this.bankAccounts.slice();
-  }
   
-  getSalariesByBank(month: number, year: number): Observable<CustomBank[]> {
-    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`);
-  }
-
-  getTotalSalariesByBanks(month: number, year: number): Observable<number> {
-    return this.http.get<number>(`http://localhost:5000/api/employesalary/grand-total-salary?month=${month}&year=${year}`);
-  }
-
-  getEmployeSalaryParams(): EmployeCBFilter[] {
-    return this.employeSalaryParams.slice();
-  }
-
   getEmployeSalarys(): Observable<EmployeSalaryList> {
     return this.employeSalaryQuearyParamsSubject.pipe(
       switchMap(params => {
@@ -114,21 +94,12 @@ export class EmployeSalaryService {
     );
   }
 
-  private formatDate(dateInput: string): string {
-    const dateParts = dateInput.split('-');
-    if (dateParts.length === 1) {
-        // Ako je samo godina
-        return `${dateParts[0]}`;
-    } else if (dateParts.length === 2) {
-        // Ako je godina i mesec
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
-    } else if (dateParts.length === 3) {
-        // Ako je puni datum
-        const day = dateParts[2].padStart(2, '0');
-        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
-    } else {
-        throw new Error('Invalid date input');
-    }
+  getSalariesByBank(month: number, year: number): Observable<CustomBank[]> {
+    return this.http.get<CustomBank[]>(`http://localhost:5000/api/employeSalary/salaries-by-bank?month=${month}&year=${year}`);
+  }
+
+  getTotalSalariesByBanks(month: number, year: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:5000/api/employesalary/grand-total-salary?month=${month}&year=${year}`);
   }
 
   getEmployeSalarysByEmployeId(employeId: string): Observable<EmployeSalary[]> {
@@ -151,6 +122,28 @@ export class EmployeSalaryService {
     return this.http.delete<string>(`http://localhost:5000/api/employesalary/delete-employe-salary/${employeSalaryId}`);
   }
 
+  getBankAccounts(): BankAccount[] {
+    return this.bankAccounts.slice();
+  }
+
+  getEmployeSalaryParams(): EmployeCBFilter[] {
+    return this.employeSalaryParams.slice();
+  }
+
+  private formatDate(dateInput: string): string {
+    const dateParts = dateInput.split('-');
+    if (dateParts.length === 1) {
+        return `${dateParts[0]}`;
+    } else if (dateParts.length === 2) {
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
+    } else if (dateParts.length === 3) {
+        const day = dateParts[2].padStart(2, '0');
+        return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
+    } else {
+        throw new Error('Invalid date input');
+    }
+  }
+
   resetFilters(): void {
     this.employeSalaryParams.forEach((employe) => {
       if(employe.name == "firstName") {
@@ -160,11 +153,14 @@ export class EmployeSalaryService {
         employe.chacked = false;
       }
     });
-
-
     this.sharedService.isChange.next(false);
     this.sharedService.witchType.next('text');
     this.employeSalarySearchSubject.next('');
+    this.employeSalaryCurrentSubject.next({
+      showName: '',
+      name: '',
+      chacked: false
+    })
     this.employeSalaryQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',

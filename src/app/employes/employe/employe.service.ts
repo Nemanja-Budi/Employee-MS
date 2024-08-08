@@ -60,18 +60,11 @@ export class EmployeService {
   ];
 
   employeQuearyParamsSubject: BehaviorSubject<GetEmploye> = new BehaviorSubject<GetEmploye>(this.employeFilterSubject);
+  employeCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
+  employeSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  employeSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  employeCurrentSubject: BehaviorSubject<EmployeCBFilter> = new BehaviorSubject<EmployeCBFilter>(this.cbSubject);
-
-  employeSubject: BehaviorSubject<Employe | null> = new BehaviorSubject<Employe | null>(null);
-
-  openModal(employe: Employe): void {
-    this.employeSubject.next(employe);
-  }
-
-
 
   constructor(private http: HttpClient ) { }
 
@@ -127,6 +120,10 @@ export class EmployeService {
     return this.employeParams.slice();
   }
 
+  openModal(employe: Employe): void {
+    this.employeSubject.next(employe);
+  }
+
   resetFilters(): void {
     this.employeParams.forEach((employe) => {
       if(employe.name == "firstName") {
@@ -136,8 +133,12 @@ export class EmployeService {
         employe.chacked = false;
       }
     });
-
     this.employeSearchSubject.next('');
+    this.employeCurrentSubject.next({
+      showName: '',
+      name: '',
+      chacked: false
+    });
     this.employeQuearyParamsSubject.next({
       employeFilterDto: {
         firstName: '',
@@ -159,8 +160,5 @@ export class EmployeService {
       pageNumber: 1,
       pageSize: 8
     });
-
   }
-
- 
 }

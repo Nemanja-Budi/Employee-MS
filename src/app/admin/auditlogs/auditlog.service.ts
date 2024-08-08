@@ -62,13 +62,10 @@ export class AuditlogService {
     const dateParts = dateInput.split('-');
 
     if (dateParts.length === 1) {
-        // Ako je samo godina
         return `${dateParts[0]}`;
     } else if (dateParts.length === 2) {
-        // Ako je godina i mesec
         return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}`;
     } else if (dateParts.length === 3) {
-        // Ako je puni datum
         const day = dateParts[2].padStart(2, '0');
         return `${dateParts[0]}-${dateParts[1].padStart(2, '0')}-${day === '00' ? '01' : day}`;
     } else {
@@ -183,10 +180,14 @@ export class AuditlogService {
         auditlog.chacked = false;
       }
     });
-
     this.sharedService.isChange.next(false);
     this.sharedService.witchType.next('text');
     this.auditLogSearchSubject.next('');
+    this.auditLogCurrentSubject.next({
+      showName: '',
+      name: '',
+      chacked: false
+    });
     this.auditLogQuearyParamsSubject.next({
       employeFilterDto: {
         userName: '',

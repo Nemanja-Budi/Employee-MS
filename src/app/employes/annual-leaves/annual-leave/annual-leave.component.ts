@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/shared/shared.service';
   templateUrl: './annual-leave.component.html',
   styleUrls: ['./annual-leave.component.css']
 })
-export class AnnualLeaveComponent implements OnInit {
+export class AnnualLeaveComponent implements OnDestroy{
 
   annualleaveService: AnnualleaveService = inject(AnnualleaveService);
   sharedService: SharedService = inject(SharedService);
@@ -44,12 +44,12 @@ export class AnnualLeaveComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    // this.messageModal.nativeElement.showModal();
-  }
-
   onCloseMessageModal(): void {
     this.messageModal.nativeElement.close();
+  }
+
+  ngOnDestroy(): void {
+    this.annualleaveService.resetFilters();
   }
 
 }
