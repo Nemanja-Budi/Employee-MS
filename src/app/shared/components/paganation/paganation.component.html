@@ -3,16 +3,16 @@
         <div class="flex justify-end items-center">
             <button 
                 (click)="goToFirstPage()"
-                *ngIf="this.queryParamsSubject.value.pageNumber !==1 && this.queryParamsSubject.value.pageNumber !==2"
+                *ngIf="this.queryParamsSubject.value.commonFilter.pageNumber !==1 && this.queryParamsSubject.value.commonFilter.pageNumber !==2"
                 class="text-white aspect-square w-8 bg-indigo-600 rounded shadow shadow-black">
                 1
             </button>
         </div>
         <div  class="flex justify-end items-center">
             <button 
-                *ngIf="this.queryParamsSubject.value.pageNumber !==1"   
+                *ngIf="this.queryParamsSubject.value.commonFilter.pageNumber !==1"   
                 class="text-white aspect-square w-8  bg-indigo-600 rounded shadow shadow-black" 
-                [disabled]="this.queryParamsSubject.value.pageNumber === 1 "
+                [disabled]="this.queryParamsSubject.value.commonFilter.pageNumber === 1 "
                 (click)="goToPreviousPage()">
                 〈
             </button>
@@ -22,9 +22,9 @@
         <ng-container *ngFor="let page of visiblePages()">
             <button
                 class="p-2 text-white h-8 aspect-square flex justify-center items-center bg-indigo-600 rounded shadow shadow-black"  
-                [ngClass]="{'border-black': this.queryParamsSubject.value.pageNumber === page, 'border': this.queryParamsSubject.value.pageNumber === page}" 
+                [ngClass]="{'border-black': this.queryParamsSubject.value.commonFilter.pageNumber === page, 'border': this.queryParamsSubject.value.commonFilter.pageNumber === page}" 
                 (click)="goToPage(page)"
-                [disabled]="this.queryParamsSubject.value.pageNumber === page">
+                [disabled]="this.queryParamsSubject.value.commonFilter.pageNumber === page">
                 {{ page }}
             </button>
         </ng-container>
@@ -32,17 +32,17 @@
     <div class="grid grid-cols-[0.1fr,1fr] gap-3">
         <div class="flex justify-start items-center">
             <button 
-                *ngIf="this.queryParamsSubject.value.pageNumber !== this.currentSize.value && this.isNula.value == false" 
+                *ngIf="this.queryParamsSubject.value.commonFilter.pageNumber !== this.currentSize.value && this.isNula.value == false" 
                 class="aspect-square h-8 bg-indigo-600 text-white  rounded shadow shadow-black" 
                 (click)="goToNextPage()"
-                [disabled]="this.queryParamsSubject.value.pageNumber === this.currentSize.value">
+                [disabled]="this.queryParamsSubject.value.commonFilter.pageNumber === this.currentSize.value">
                 〉
             </button>
         </div>
         <div class="flex justify-start items-center">
             <button  
                 (click)="goToLastPage()" 
-                *ngIf="this.queryParamsSubject.value.pageNumber !== this.currentSize.value && this.queryParamsSubject.value.pageNumber !== this.currentSize.value-1 && this.isNula.value == false"
+                *ngIf="this.queryParamsSubject.value.commonFilter.pageNumber !== this.currentSize.value && this.queryParamsSubject.value.commonFilter.pageNumber !== this.currentSize.value-1 && this.isNula.value == false"
                 class="aspect-square h-8 bg-indigo-600 rounded font-bold flex justify-center items-center shadow shadow-black text-white]">
                 {{this.currentSize.value}}
             </button>
