@@ -1,8 +1,8 @@
-<div class="grid grid-rows-[auto,1fr] gap-5 h-full">
-    <h2 class="text-xl text-center pt-5">Svi godisnji odmori</h2>
+<div class="grid grid-rows-[auto,1fr] gap-3 h-full">
+    <h2 class="text-xl text-center pt-3">Svi godisnji odmori</h2>
     <div class="grid grid-rows-[auto,1fr,auto] h-full gap-3 px-4 pb-4">
-        <div class="grid grid-cols-4 gap-5">
-            <div class="grid grid-cols-2 gap-5">
+        <div class="grid grid-cols-4 gap-3">
+            <div class="grid grid-cols-2 gap-3">
                 <div class="w-full h-full">
                     <button 
                         class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
@@ -38,11 +38,11 @@
                 </app-show-items-per-page>
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-x-5 h-fit">
+        <div class="grid grid-cols-3 gap-x-3 h-fit">
             <fieldset 
                 (click)="onOpenAlModal(al)"
                 *ngFor="let al of (annualleave | async)" 
-                class="bg-white shadow-md border border-indigo-600 rounded-md px-5 pt-5 hover:bg-indigo-400 hover:cursor-pointer hover:shadow-black hover:shadow hover:scale-105 group transition-all duration-700 ease-in-out">
+                class="bg-white shadow-md border border-indigo-600 rounded-md px-3 pt-3 hover:bg-indigo-400 hover:cursor-pointer hover:shadow-black hover:shadow hover:scale-105 group transition-all duration-700 ease-in-out">
                 <legend class="text-xl font-bold text-center text-indigo-600 group-hover:text-black">
                     <app-employe-salary-employe-detail 
                         [employeId]="al.employeId" 
@@ -74,10 +74,10 @@
 </ng-container>
 
 <dialog #messageModal class="modal">
-    <div class="flex flex-col gap-3 p-5">
+    <div class="flex flex-col gap-3 p-3">
         <h2 class="text-center font-bold">{{message}}</h2>
         <div class="flex justify-center items-center">
-            <button class="bg-red-600 rounded-md text-white px-6 py-1.5" (click)="onCloseMessageModal()">Close</button>
+            <button class="bg-red-600 rounded-md text-white px-6 py-1.3" (click)="onCloseMessageModal()">Close</button>
         </div>
     </div>
 </dialog>
