@@ -26,6 +26,7 @@ export class FilterComponent {
 
   onChangeInput(changeInput: CheckBoxFilter): void {
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
+    const commonFilter = { ...this.queryParamsSubject.value.commonFilter }
     const changeSearch = this.searchSubject.value;
     let sortBy: string = '';
     
@@ -61,24 +62,29 @@ export class FilterComponent {
       }
     });
 
-    if(this.queryParamsSubject.value.pageNumber > 1) {
-      this.currentPage = this.queryParamsSubject.value.pageNumber;
+    if(this.queryParamsSubject.value.commonFilter.pageNumber > 1) {
+      this.currentPage = this.queryParamsSubject.value.commonFilter.pageNumber;
     }
 
     if(changeSearch == "") {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
         employeFilterDto: employeFilterDto,
-        sortBy: sortBy,
-        pageNumber: this.currentPage
-        
+        commonFilter: {
+          ...commonFilter,
+          sortBy: sortBy,
+          pageNumber: this.currentPage
+        }
       });
     } else {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
         employeFilterDto: employeFilterDto,
-        sortBy: sortBy,
-        pageNumber: 1
+        commonFilter: {
+          ...commonFilter,
+          sortBy: sortBy,
+          pageNumber: 1
+        }
       });
     }
   }
