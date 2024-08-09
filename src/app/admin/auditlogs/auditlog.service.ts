@@ -15,6 +15,8 @@ import { IncomeFromWorkDto } from 'src/app/models/dto/incomeFromWorkDto';
 import { UserDTO } from 'src/app/models/dto/userDto';
 import { GetAuditLog, getAuditLogCheckBox, GetAuditLogParams, getDefaultAuditLogFilter } from './types/auditlog.types';
 import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
+import { AnnualLeaveDto } from 'src/app/models/dto/annualLeaveDto';
+import { UserToShow } from 'src/app/models/dto/userToShowDto';
 
 
 @Injectable({
@@ -86,7 +88,9 @@ export class AuditlogService {
       'EmployeSalary': EmployeSalaryDto,
       'EmployeSalarySO': EmployeSalarySODto,
       'EmployeSalarySOE': EmployeSalarySOEDto,
-      'IncomeFromWork': IncomeFromWorkDto
+      'IncomeFromWork': IncomeFromWorkDto,
+      'AnnualLeave': AnnualLeaveDto,
+      'User': UserToShow
     };
 
     let newDataInstance: any;
@@ -134,6 +138,10 @@ export class AuditlogService {
         return { newEmployeSalarySOE: newDataInstance, oldEmployeSalarySOE: oldDataInstance };  
       case 'IncomeFromWork':
         return { newIncomeFromWork: newDataInstance, oldIncomeFromWork: oldDataInstance };
+      case 'AnnualLeave':
+        return { newAnnualLeave: newDataInstance, oldAnnualLeave: oldDataInstance };
+      case 'User':
+        return { newUser: newDataInstance, oldUser: oldDataInstance };
       default:
         return {};
     }

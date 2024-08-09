@@ -21,7 +21,8 @@ export class AuditlogsComponent implements OnDestroy {
     const specialKeys = [
       'newEmployeDto', 'oldEmployeDto', 'newEmployeChild', 'oldEmployeChild',
       'newEmployeSalary', 'oldEmployeSalary', 'newEmployeSalarySO', 'oldEmployeSalarySO',
-      'newEmployeSalarySOE', 'oldEmployeSalarySOE', 'newIncomeFromWork', 'oldIncomeFromWork'
+      'newEmployeSalarySOE', 'oldEmployeSalarySOE', 'newIncomeFromWork', 'oldIncomeFromWork',
+      'newAnnualLeave','oldAnnualLeave','newUser','oldUser'
     ];
     return specialKeys.includes(key);
   }
