@@ -15,8 +15,6 @@ export class AnnualLeaveDto {
     IsPaid: boolean;
     IsCarryOver: boolean;
     IsSickLeave: boolean;
-    CreatedByUserId?: string;
-    CreatedByUser?: UserDTO;
     CreatedDate: Date;
 
     constructor(obj?: any) {
@@ -34,8 +32,6 @@ export class AnnualLeaveDto {
         this.IsPaid = obj && obj.IsPaid || false;
         this.IsCarryOver = obj && obj.IsCarryOver || false;
         this.IsSickLeave = obj && obj.IsSickLeave || false;
-        this.CreatedByUserId = obj && obj.CreatedByUserId || '';
-        this.CreatedByUser = obj?.CreatedByUser ? new UserDTO(obj.createdByUser) : undefined;
         this.CreatedDate = obj && obj.CreatedDate || '';
     }
 }

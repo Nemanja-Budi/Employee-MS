@@ -94,7 +94,27 @@
                               <strong>{{ formatKey(nestedKey) }}:</strong>
                             </div>
                             <div class="col-span-3">
-                              {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+                              <ng-container *ngIf="nestedKey === 'EmployeId'; else otherValues">
+                                <app-employe-salary-employe-detail 
+                                  [employeId]="auditLog[key]?.[nestedKey]" 
+                                  [isPdf]="false" 
+                                  [isDetail]="false"
+                                  [showBankInfo]="false">
+                                </app-employe-salary-employe-detail>
+                              </ng-container>
+                              <ng-template #otherValues>
+                                <ng-container *ngIf="['StartDate', 'EndDate', 'RequestDate', 'ApprovalDate'].includes(nestedKey); else defaultValue">
+                                  {{ auditLog[key]?.[nestedKey] | date:'dd.MM.yyyy' }}
+                                </ng-container>
+                                <ng-template #defaultValue>
+                                  <ng-container *ngIf="nestedKey === 'CreatedDate'; else normalValue">
+                                    {{ auditLog[key]?.[nestedKey] | date:'dd.MM.yyyy HH:mm' }}
+                                  </ng-container>
+                                  <ng-template #normalValue>
+                                    {{ auditLog[key]?.[nestedKey] !== undefined ? auditLog[key]?.[nestedKey] : 'Not available' }}
+                                  </ng-template>
+                                </ng-template>
+                              </ng-template>
                             </div>
                           </ng-container>
                         </ng-container>

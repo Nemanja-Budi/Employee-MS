@@ -35,6 +35,9 @@ export class AuditlogsComponent implements OnDestroy {
 }
 
   formatKey(key: string): string {
+    if(key === 'EmployeId') {
+      key = 'Employe'
+    }
     return key
       .replace(/([A-Z])/g, ' $1') // Razdvoji reči
       .replace(/^./, (str) => str.toUpperCase()) // Prvo slovo veliko

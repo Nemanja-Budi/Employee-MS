@@ -1,13 +1,13 @@
 export class EmployeChildDto {
     Id: string;
     Name: string;
-    Jmbg: string;
+    JMBG: string;
     Gender: string;
 
     constructor(obj?: any) {
         this.Id = obj && obj.Id || '';
         this.Name = obj && obj.Name || '';
-        this.Jmbg = obj && obj.Jmbg || '';
+        this.JMBG = obj && obj.JMBG || '';
         this.Gender = obj && obj.Gender || '';
     }
 }
