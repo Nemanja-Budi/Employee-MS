@@ -6,47 +6,26 @@ import { environment } from 'src/environments/environment.development.ts';
 
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { BankAccount, CustomBank, GetEmployeSalary } from './types/employe.salary.types';
+import { BankAccount, CustomBank, getBankAccounts, getDefaultEmployeSalaryFilter, GetEmployeSalary, getEmployeSalaryCheckBoxes, GetEmployeSalaryParams } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { SharedService } from 'src/app/shared/shared.service';
-import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
+import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeSalaryService {
 
-  employeSalaryFilterSubject: GetEmployeSalary = {
-    employeFilterDto: {
-      firstName: '',
-      lastName: '',
-      bankName: '',
-      calculationMonth: ''
-    },
-    sortBy: 'firstName',
-    isAscending: true,
-    pageNumber: 1,
-    pageSize: 15
-  }
-
+  defaultEmployeSalaryFilter: GetEmployeSalaryParams = getDefaultEmployeSalaryFilter();
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
-
-  employeSalaryParams: CheckBoxFilter[] = [
-    { showName: 'Ime', name: 'firstName', chacked: true },
-    { showName: 'Prezime', name: 'lastName', chacked: false },
-    { showName: 'Banka', name: 'bankName', chacked: false },
-    { showName: 'Mesec', name: 'calculationMonth', chacked: false },
-  ];
-
-  bankAccounts: BankAccount[] = [
-    { bankName: 'Komercijalna Banka', racun: '908-20501-70' },
-    { bankName: 'Raiffeisen Banka', racun: '908-26501-15' },
-    { bankName: 'Aik Banka', racun: '908-10501-97'},
-    { bankName: 'Yettel Banka', racun: '908-11501-07' },
-    { bankName: 'Euro Bank Direktna', racun: '908-15001-80' },
-    { bankName: 'Banka Intesa', racun: '908-16001-87' },
-    { bankName: 'OTP Banka', racun: '908-32501-57' },
-  ]; 
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 15);
+  employeSalaryCheckBox: CheckBoxFilter[] = getEmployeSalaryCheckBoxes();
+  bankAccounts: BankAccount[] = getBankAccounts();
+  
+  employeSalaryFilterSubject: GetEmployeSalary = {
+    employeFilterDto: this.defaultEmployeSalaryFilter,
+    commonFilter: this.defaultCommonFilter
+  }
   
   employeSalaryQuearyParamsSubject: BehaviorSubject<GetEmployeSalary> = new BehaviorSubject<GetEmployeSalary>(this.employeSalaryFilterSubject);
   employeSalaryCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
@@ -62,25 +41,20 @@ export class EmployeSalaryService {
     return this.employeSalaryQuearyParamsSubject.pipe(
       switchMap(params => {
         let httpParams = new HttpParams();
-        const filterDto = params.employeFilterDto;
-        Object.keys(filterDto).forEach(key => {
-          if (filterDto[key]) {
+        const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        Object.keys(allFilters).forEach(key => {
+          if (allFilters[key]) {
             if (key === 'changeDateTime') {
               console.log('pozivam se svaki put');
-              const formattedDate = this.sharedService.formatDate(filterDto[key]);
+              const formattedDate = this.sharedService.formatDate(allFilters[key]);
               httpParams = httpParams.append(key, formattedDate);
             } else {
-              httpParams = httpParams.append(key, filterDto[key]);
+              httpParams = httpParams.append(key, allFilters[key]);
             }
           }
         });
-        if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
-        if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
-        if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
-        if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
-        else httpParams = httpParams.append('pageSize', '50');
         return this.http.get<EmployeSalaryList>(`${environment.appUrl}/employesalary/employe-salarys`, { params: httpParams }).pipe(map((employelist) => {
-          this.currentSize.next(Math.ceil(employelist.totalCount/params.pageSize));
+          this.currentSize.next(Math.ceil(employelist.totalCount/params.commonFilter.pageSize));
           if(employelist.totalCount == 0) {
             this.isNula.next(true);
           } else {
@@ -120,21 +94,21 @@ export class EmployeSalaryService {
     return this.http.delete<string>(`http://localhost:5000/api/employesalary/delete-employe-salary/${employeSalaryId}`);
   }
 
+  getEmployeSalaryCheckBox(): CheckBoxFilter[] {
+    return this.employeSalaryCheckBox.slice();
+  }
+
   getBankAccounts(): BankAccount[] {
     return this.bankAccounts.slice();
   }
 
-  getEmployeSalaryParams(): CheckBoxFilter[] {
-    return this.employeSalaryParams.slice();
-  }
-
   resetFilters(): void {
-    this.employeSalaryParams.forEach((employe) => {
-      if(employe.name == "firstName") {
-        employe.chacked = true;
+    this.employeSalaryCheckBox.forEach((employeSalary) => {
+      if(employeSalary.name == "firstName") {
+        employeSalary.chacked = true;
       }
       else {
-        employe.chacked = false;
+        employeSalary.chacked = false;
       }
     });
     this.sharedService.isChange.next(false);
@@ -142,16 +116,8 @@ export class EmployeSalaryService {
     this.employeSalarySearchSubject.next('');
     this.employeSalaryCurrentSubject.next(this.checkBoxSubject);
     this.employeSalaryQuearyParamsSubject.next({
-      employeFilterDto: {
-        firstName: '',
-        lastName: '',
-        bankName: '',
-        calculationMonth: ''
-      },
-      sortBy: 'firstName',
-      isAscending: true,
-      pageNumber: 1,
-      pageSize: 15
+      employeFilterDto: this.defaultEmployeSalaryFilter,
+      commonFilter: this.defaultCommonFilter
     });
   }
 }
