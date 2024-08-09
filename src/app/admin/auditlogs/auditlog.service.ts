@@ -13,8 +13,8 @@ import { EmployeSalarySODto } from 'src/app/models/dto/employeSalarySODto';
 import { EmployeSalarySOEDto } from 'src/app/models/dto/employeSalarySOEDto';
 import { IncomeFromWorkDto } from 'src/app/models/dto/incomeFromWorkDto';
 import { UserDTO } from 'src/app/models/dto/userDto';
-import { GetAuditLog } from './types/auditlog.types';
-import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
+import { GetAuditLog, getAuditLogCheckBox, GetAuditLogParams, getDefaultAuditLogFilter } from './types/auditlog.types';
+import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
 
 
 @Injectable({
@@ -22,27 +22,15 @@ import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/s
 })
 export class AuditlogService {
 
-  auditLogFilterSubject: GetAuditLog = {
-    employeFilterDto: {
-      userName: '',
-      tableName: '',
-      operationType: '',
-      changeDateTime: ''
-    },
-    sortBy: 'operationType',
-    isAscending: false,
-    pageNumber: 1,
-    pageSize: 5
-  }
-
+  defaultAuditLogFilter: GetAuditLogParams = getDefaultAuditLogFilter();
+  auditLogCheckBoxs: CheckBoxFilter[] = getAuditLogCheckBox();
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 5);
 
-  auditLogParams: CheckBoxFilter[] = [
-    { showName: 'Operation', name: 'operationType', chacked: true },
-    { showName: 'Username', name: 'userName', chacked: false },
-    { showName: 'Table', name: 'tableName', chacked: false },
-    { showName: 'Time', name: 'changeDateTime', chacked: false },
-  ];
+  auditLogFilterSubject: GetAuditLog = {
+    employeFilterDto: this.defaultAuditLogFilter,
+    commonFilter: this.defaultCommonFilter
+  }
 
   constructor(private http: HttpClient, private sharedService: SharedService) { }
 
@@ -56,28 +44,22 @@ export class AuditlogService {
     return this.auditLogQuearyParamsSubject.pipe(
       switchMap(params => {
         let httpParams = new HttpParams();
-        const filterDto = params.employeFilterDto;
-        Object.keys(filterDto).forEach(key => {
-          if (filterDto[key]) {
+        const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        Object.keys(allFilters).forEach(key => {
+          if (allFilters[key]) {
             if (key === 'changeDateTime') {
               console.log('pozivam se svaki put');
-              const formattedDate = this.sharedService.formatDate(filterDto[key]);
+              const formattedDate = this.sharedService.formatDate(allFilters[key]);
               httpParams = httpParams.append(key, formattedDate);
             } else {
-              httpParams = httpParams.append(key, filterDto[key]);
+              httpParams = httpParams.append(key, allFilters[key]);
             }
           }
         });
-        if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
-        if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
-        if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
-        if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
-        else httpParams = httpParams.append('pageSize', '15');
-  
         return this.http.get<{ totalCount: number, auditLogs: AuditLog[] }>(`http://localhost:5000/api/auditlogs/get-auditlogs`, { params: httpParams }).pipe(
           map(response => {
             const mappedLogs = response.auditLogs.map(log => this.mapLogToDto(log));
-            this.currentSize.next(Math.ceil(response.totalCount / params.pageSize));
+            this.currentSize.next(Math.ceil(response.totalCount / params.commonFilter.pageSize));
             this.isNula.next(response.totalCount === 0);
             return {
               auditLogs: mappedLogs,
@@ -150,12 +132,12 @@ export class AuditlogService {
     }
   }
 
-  getAuditLogParamsParams(): CheckBoxFilter[] {
-    return this.auditLogParams.slice();
+  getAuditLogCheckBoxs(): CheckBoxFilter[] {
+    return this.auditLogCheckBoxs.slice();
   }
 
   resetFilters(): void {
-    this.auditLogParams.forEach((auditlog) => {
+    this.auditLogCheckBoxs.forEach((auditlog) => {
       if(auditlog.name == "operationType") {
         auditlog.chacked = true;
       }
@@ -168,16 +150,8 @@ export class AuditlogService {
     this.auditLogSearchSubject.next('');
     this.auditLogCurrentSubject.next(this.checkBoxSubject);
     this.auditLogQuearyParamsSubject.next({
-      employeFilterDto: {
-        userName: '',
-        tableName: '',
-        operationType: '',
-        changeDateTime: ''
-      },
-      sortBy: 'operationType',
-      isAscending: true,
-      pageNumber: 1,
-      pageSize: 5
+      employeFilterDto: this.defaultAuditLogFilter,
+      commonFilter: this.defaultCommonFilter
     });
   }
 }
