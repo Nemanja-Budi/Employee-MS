@@ -11,7 +11,6 @@ import { FilterComponent } from './components/filter/filter.component';
 import { SearchComponent } from './components/search/search.component';
 import { ChangeInputTypeDirective } from './directives/change-input-type.directive';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { ProbickoComponent } from './components/probicko/probicko.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { ProbickoComponent } from './components/probicko/probicko.component';
     SearchComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
-    ProbickoComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +41,6 @@ import { ProbickoComponent } from './components/probicko/probicko.component';
     PaganationComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
-    ProbickoComponent,
   ]
 })
 export class SharedModule { }

@@ -1,17 +1,9 @@
 <ng-template #pdfBankTemplate> 
-    <app-probicko [bankData]="bankData" [total]="total"></app-probicko>
-  </ng-template>
-  <ng-container *ngIf="show === true">
-    <app-probicko [bankData]="bankData" [total]="total"></app-probicko>
-  </ng-container>
-  <div class="flex justify-center mt-2">
-    <button class="bg-indigo-600 rounded-md text-white px-4 py-2" (click)="generatePdf()">Generate PDF</button>
-  </div>
-
-
-
-          <!-- <div *ngFor="let bank of bankData" style="display: flex; justify-content: space-between;">
-          <p>Ime banke: <strong>{{bank.bankName}}</strong></p>
-          <p>Ziro racun: <strong>{{bank.racun}}  </strong></p>
-          <p>Iznos za uplatu: <strong>{{bank.totalNetSalary}}</strong></p>
-        </div> -->
+  <app-employe-salary-bank-pdf-preview [bankData]="bankData" [total]="total"></app-employe-salary-bank-pdf-preview>
+</ng-template>
+<ng-container *ngIf="show === true">
+  <app-employe-salary-bank-pdf-preview [bankData]="bankData" [total]="total"></app-employe-salary-bank-pdf-preview>
+</ng-container>
+<div class="flex justify-center mt-2">
+  <button class="bg-indigo-600 rounded-md text-white px-4 py-2" (click)="generatePdf()">Generate PDF</button>
+</div>

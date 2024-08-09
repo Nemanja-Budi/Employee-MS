@@ -18,6 +18,7 @@ import { EmployeSalaryActionComponent } from '../employe-salary-action/employe-s
 import { EmployeSalaryBankPdfComponent } from '../employe-salary-bank-pdf/employe-salary-bank-pdf.component';
 import { BankModalComponent } from '../bank-modal/bank-modal.component';
 import { EmployeSalaryPdfItemComponent } from '../employe-salary-detail/employe-salary-pdf/employe-salary-pdf-item/employe-salary-pdf-item.component';
+import { EmployeSalaryBankPdfPreviewComponent } from '../employe-salary-bank-pdf/employe-salary-bank-pdf-preview/employe-salary-bank-pdf-preview.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EmployeSalaryPdfItemComponent } from '../employe-salary-detail/employe-
     EmployeSalaryActionComponent,
     EmployeSalaryBankPdfComponent,
     BankModalComponent,
-    EmployeSalaryPdfItemComponent
+    EmployeSalaryPdfItemComponent,
+    EmployeSalaryBankPdfPreviewComponent
   ],
   imports: [
     CommonModule,
