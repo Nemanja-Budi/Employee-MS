@@ -38,12 +38,19 @@ export class EmployeService {
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        const { isAscending } = params.commonFilter;
+
         Object.keys(allFilters).forEach(key => {
           const value = allFilters[key];
-          if (value) {
+          if (key !== 'isAscending' && value) {
             httpParams = httpParams.append(key, value);
           }
         });
+
+        if (isAscending !== undefined && isAscending!== null) {
+          httpParams = httpParams.append('isAscending', isAscending.toString());
+        }
+        
         return this.http.get<EmployeList>(`${environment.appUrl}/employe/get-employes`, { params: httpParams }).pipe(map((employelist) => {
           this.currentSize.next(Math.ceil(employelist.totalCount/params.commonFilter.pageSize));
           if(employelist.totalCount == 0) {

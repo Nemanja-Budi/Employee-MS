@@ -1,8 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AdminService } from 'src/app/admin/admin.service';
-import { EmployeSalaryService } from 'src/app/employes/employe-salary/employe-salary.service';
-import { EmployeService } from 'src/app/employes/employe/employe.service';
 
 @Component({
   selector: 'app-show-items-per-page',
@@ -19,25 +16,29 @@ export class ShowItemsPerPageComponent {
   @Input({required: true}) valueAfterReset: number = 0;
 
   isAscending: boolean = true;
-  // adminService: AdminService = inject(AdminService);
-  // employeService: EmployeService = inject(EmployeService);
-  // employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
 
   private updateQueryParams(params: any): void {
     if (this.queryParamsSubject) {
+      const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
+      const commonFilter = { ...this.queryParamsSubject.value.commonFilter }
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
-        ...params
+        employeFilterDto: employeFilterDto,
+        commonFilter: {
+          ...commonFilter,
+          ...params
+        }
       });
     }
   }
 
   getCurrentPageSize(): number {
-    return this.queryParamsSubject ? this.queryParamsSubject.value.pageSize : -1;
+    return this.queryParamsSubject ? this.queryParamsSubject.value.commonFilter.pageSize : -1;
   }
 
   onChangeSortDirection(): void {
     this.isAscending = !this.isAscending;
+    console.log(this.isAscending);
     this.updateQueryParams({ isAscending: this.isAscending });
   }
 
