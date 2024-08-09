@@ -1,37 +1,27 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
-import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
-import { GetAnnualLeave } from './types/annual-leave.types';
-import { AnnualLeaveList } from 'src/app/models/annual-leaves/annual.leave-list';
-import { CheckBoxFilter, getDefaultCheckBoxFilter } from 'src/app/shared/types/shared.types';
 
-export type deleteMessage = {
-  message: string;
-}
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+
+import { AnnualLeave } from 'src/app/models/annual-leaves/annual.leave.model';
+import { DeleteMessage, GetAnnualLeave, getAnnualLeaveCheckBoxes, GetAnnualleaveParams, getDefaultAnnualLeaveFilter } from './types/annual-leave.types';
+import { AnnualLeaveList } from 'src/app/models/annual-leaves/annual.leave-list';
+import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnualleaveService {
 
-  annualleaveFilterSubject: GetAnnualLeave = {
-    employeFilterDto: {
-      firstName: '',
-      lastName: ''
-    },
-    sortBy: 'firstName',
-    isAscending: true,
-    pageNumber: 1,
-    pageSize: 12
-  }
-
+  defaultAnnualLeaveFilter:GetAnnualleaveParams = getDefaultAnnualLeaveFilter();
+  annualLeaveCheckBox: CheckBoxFilter[] = getAnnualLeaveCheckBoxes();
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
-
-  annualLeaveParams: CheckBoxFilter[] = [
-    { showName: 'Ime', name: 'firstName', chacked: true },
-    { showName: 'Prezime', name: 'lastName', chacked: false },
-  ];
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 9);
+  
+  annualleaveFilterSubject: GetAnnualLeave = {
+    employeFilterDto: this.defaultAnnualLeaveFilter,
+    commonFilter: this.defaultCommonFilter
+  }
 
   annualleaveQuearyParamsSubject: BehaviorSubject<GetAnnualLeave> = new BehaviorSubject<GetAnnualLeave>(this.annualleaveFilterSubject);
   annualleaveCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
@@ -46,19 +36,15 @@ export class AnnualleaveService {
     return this.annualleaveQuearyParamsSubject.pipe(
       switchMap(params => {
         let httpParams = new HttpParams();
-        const filterDto = params.employeFilterDto;
-        Object.keys(filterDto).forEach(key => {
-          if (filterDto[key]) {
-            httpParams = httpParams.append(key, filterDto[key]);
+        const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        Object.keys(allFilters).forEach(key => {
+          const value = allFilters[key];
+          if (value) {
+            httpParams = httpParams.append(key, value);
           }
         });
-        if (params.sortBy) httpParams = httpParams.append('sortBy', params.sortBy);
-        if (params.isAscending !== undefined) httpParams = httpParams.append('isAscending', params.isAscending.toString());
-        if (params.pageNumber) httpParams = httpParams.append('pageNumber', params.pageNumber);
-        if (params.pageSize) httpParams = httpParams.append('pageSize', params.pageSize);
-        else httpParams = httpParams.append('pageSize', '50');
         return this.http.get<AnnualLeaveList>(`http://localhost:5000/api/annualleave/get-annualleaves`, { params: httpParams }).pipe(map((annualleave) => {
-          this.currentSize.next(Math.ceil(annualleave.totalCount/params.pageSize));
+          this.currentSize.next(Math.ceil(annualleave.totalCount/params.commonFilter.pageSize));
           if(annualleave.totalCount == 0) {
             this.isNula.next(true);
           } else {
@@ -82,34 +68,28 @@ export class AnnualleaveService {
     return this.http.put<AnnualLeave>(`http://localhost:5000/api/annualleave/edit-annualleave/${annualleave.annualLeaveId}`, annualleave);
   }
 
-  deleteAnnualLeave(annualleaveId: string): Observable<deleteMessage> {
-    return this.http.delete<deleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
+  deleteAnnualLeave(annualleaveId: string): Observable<DeleteMessage> {
+    return this.http.delete<DeleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
   }
 
   getAnnualLeaveParams(): CheckBoxFilter[] {
-    return this.annualLeaveParams.slice();
+    return this.annualLeaveCheckBox.slice();
   }
 
   resetFilters(): void {
-    this.annualLeaveParams.forEach((employe) => {
-      if(employe.name == "firstName") {
-        employe.chacked = true;
+    this.annualLeaveCheckBox.forEach((al) => {
+      if(al.name == "firstName") {
+        al.chacked = true;
       }
       else {
-        employe.chacked = false;
+        al.chacked = false;
       }
     });
     this.annualleaveSearchSubject.next('');
     this.annualleaveCurrentSubject.next(this.checkBoxSubject);
     this.annualleaveQuearyParamsSubject.next({
-      employeFilterDto: {
-        firstName: '',
-        lastName: ''
-      },
-      sortBy: '',
-      isAscending: false,
-      pageNumber: 1,
-      pageSize: 12
+      employeFilterDto: this.defaultAnnualLeaveFilter,
+      commonFilter: this.defaultCommonFilter
     });
   }
 }
