@@ -37,12 +37,19 @@ export class AnnualleaveService {
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        const { isAscending } = params.commonFilter;
+
         Object.keys(allFilters).forEach(key => {
           const value = allFilters[key];
-          if (value) {
+          if (key !== 'isAscending' && value) {
             httpParams = httpParams.append(key, value);
           }
         });
+
+        if (isAscending !== undefined && isAscending!== null) {
+          httpParams = httpParams.append('isAscending', isAscending.toString());
+        }
+
         return this.http.get<AnnualLeaveList>(`http://localhost:5000/api/annualleave/get-annualleaves`, { params: httpParams }).pipe(map((annualleave) => {
           this.currentSize.next(Math.ceil(annualleave.totalCount/params.commonFilter.pageSize));
           if(annualleave.totalCount == 0) {

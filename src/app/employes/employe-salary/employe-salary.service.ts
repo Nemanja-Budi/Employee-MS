@@ -42,10 +42,11 @@ export class EmployeSalaryService {
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        const { isAscending } = params.commonFilter;
+        
         Object.keys(allFilters).forEach(key => {
-          if (allFilters[key]) {
+          if (allFilters[key] && key !== 'isAscending') {
             if (key === 'changeDateTime') {
-              console.log('pozivam se svaki put');
               const formattedDate = this.sharedService.formatDate(allFilters[key]);
               httpParams = httpParams.append(key, formattedDate);
             } else {
@@ -53,6 +54,11 @@ export class EmployeSalaryService {
             }
           }
         });
+
+        if (isAscending !== undefined && isAscending!== null) {
+          httpParams = httpParams.append('isAscending', isAscending.toString());
+        }
+        
         return this.http.get<EmployeSalaryList>(`${environment.appUrl}/employesalary/employe-salarys`, { params: httpParams }).pipe(map((employelist) => {
           this.currentSize.next(Math.ceil(employelist.totalCount/params.commonFilter.pageSize));
           if(employelist.totalCount == 0) {

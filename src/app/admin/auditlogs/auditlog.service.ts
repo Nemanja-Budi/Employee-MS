@@ -25,7 +25,7 @@ export class AuditlogService {
   defaultAuditLogFilter: GetAuditLogParams = getDefaultAuditLogFilter();
   auditLogCheckBoxs: CheckBoxFilter[] = getAuditLogCheckBox();
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
-  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 5);
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('operationType', 5);
 
   auditLogFilterSubject: GetAuditLog = {
     employeFilterDto: this.defaultAuditLogFilter,
@@ -45,8 +45,10 @@ export class AuditlogService {
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        const { isAscending } = params.commonFilter;
+
         Object.keys(allFilters).forEach(key => {
-          if (allFilters[key]) {
+          if (allFilters[key] && key !== 'isAscending') {
             if (key === 'changeDateTime') {
               console.log('pozivam se svaki put');
               const formattedDate = this.sharedService.formatDate(allFilters[key]);
@@ -56,6 +58,11 @@ export class AuditlogService {
             }
           }
         });
+
+        if (isAscending !== undefined && isAscending!== null) {
+          httpParams = httpParams.append('isAscending', isAscending.toString());
+        }
+
         return this.http.get<{ totalCount: number, auditLogs: AuditLog[] }>(`http://localhost:5000/api/auditlogs/get-auditlogs`, { params: httpParams }).pipe(
           map(response => {
             const mappedLogs = response.auditLogs.map(log => this.mapLogToDto(log));
