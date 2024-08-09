@@ -2,7 +2,7 @@
   <div row>
     <app-filter 
       [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
-      [filterParams]="this.employeService.getEmployeParams()"
+      [filterParams]="this.employeService.getEmployeCheckBoxes()"
       [searchSubject]="this.employeService.employeSearchSubject"
       [currentSubject]="this.employeService.employeCurrentSubject">
     </app-filter>
@@ -18,7 +18,7 @@
     <div class="col-span-2 gap-5">
       <app-search 
         [queryParamsSubject]="this.employeService.employeQuearyParamsSubject" 
-        [employeParams]="this.employeService.getEmployeParams()"
+        [filterParams]="this.employeService.getEmployeCheckBoxes()"
         [searchSubject]="this.employeService.employeSearchSubject"
         [currentSubject]="this.employeService.employeCurrentSubject">
       </app-search>

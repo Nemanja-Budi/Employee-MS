@@ -22,7 +22,6 @@ export class EmployeSalaryComponent implements OnInit, OnDestroy {
       if(id !== null) {
         this.selectedEmployeId = id;
         this.naslov = `Sve plate zaposlenog`
-        console.log(`ID JE OVDE if ${this.selectedEmployeId}`)
       } else {
         console.log(`ID JE OVDE else ${this.selectedEmployeId}`)
       }
@@ -30,12 +29,10 @@ export class EmployeSalaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Unistavam se");
     this.employeSalaryService.resetFilters();
   }
 
   openBankModal(): void {
-    console.log('PROBIC RADI')
     this.employeSalaryService.isModalOpen.next(true);
   }
 }

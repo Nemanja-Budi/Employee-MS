@@ -14,7 +14,7 @@
         <div>
           <app-filter 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
-            [filterParams]="this.employeSalaryService.getEmployeSalaryParams()"
+            [filterParams]="this.employeSalaryService.getEmployeSalaryCheckBox()"
             [searchSubject]="this.employeSalaryService.employeSalarySearchSubject"
             [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-filter>
@@ -22,7 +22,7 @@
         <div class="col-span-2">
           <app-search 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
-            [employeParams]="this.employeSalaryService.getEmployeSalaryParams()"
+            [filterParams]="this.employeSalaryService.getEmployeSalaryCheckBox()"
             [searchSubject]="this.employeSalaryService.employeSalarySearchSubject"
             [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-search>

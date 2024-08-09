@@ -72,7 +72,7 @@ export class AnnualleaveService {
     return this.http.delete<DeleteMessage>(`http://localhost:5000/api/annualleave/delete-annualleave/${annualleaveId}`);
   }
 
-  getAnnualLeaveParams(): CheckBoxFilter[] {
+  getAnnualLeaveCheckBox(): CheckBoxFilter[] {
     return this.annualLeaveCheckBox.slice();
   }
 

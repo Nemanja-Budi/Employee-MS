@@ -56,7 +56,6 @@ export class AuditlogsComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log("Pozivam se u audit logu");
     this.auditLogService.resetFilters();
   }
 }

@@ -13,7 +13,7 @@
                 <div>
                     <app-filter 
                         [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
-                        [filterParams]="this.annualleaveService.getAnnualLeaveParams()"
+                        [filterParams]="this.annualleaveService.getAnnualLeaveCheckBox()"
                         [searchSubject]="this.annualleaveService.annualleaveSearchSubject"
                         [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
                     </app-filter>
@@ -22,7 +22,7 @@
             <div class="col-span-2">
                 <app-search 
                     [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject" 
-                    [employeParams]="this.annualleaveService.getAnnualLeaveParams()"
+                    [filterParams]="this.annualleaveService.getAnnualLeaveCheckBox()"
                     [searchSubject]="this.annualleaveService.annualleaveSearchSubject"
                     [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
                 </app-search>
