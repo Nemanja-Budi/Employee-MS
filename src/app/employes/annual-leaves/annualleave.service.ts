@@ -16,7 +16,7 @@ export class AnnualleaveService {
   defaultAnnualLeaveFilter:GetAnnualleaveParams = getDefaultAnnualLeaveFilter();
   annualLeaveCheckBox: CheckBoxFilter[] = getAnnualLeaveCheckBoxes();
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
-  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 9);
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 12);
   
   annualleaveFilterSubject: GetAnnualLeave = {
     employeFilterDto: this.defaultAnnualLeaveFilter,
