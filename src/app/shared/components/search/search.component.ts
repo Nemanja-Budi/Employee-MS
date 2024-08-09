@@ -18,7 +18,7 @@ export class SearchComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   sharedService: SharedService = inject(SharedService);
 
-  @Input({required: true}) employeParams: CheckBoxFilter[] = [];
+  @Input({required: true}) filterParams: CheckBoxFilter[] = [];
   @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
@@ -27,31 +27,40 @@ export class SearchComponent {
   
   onChangeSearch(changeSearch: string): void {
     this.searchSubject.next(changeSearch);
+    
     const currentEmploye = this.currentSubject.value;
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
-
+    const commonFilter = { ...this.queryParamsSubject.value.commonFilter }
+    const employeParams = { ...this.filterParams };
+    
     if(currentEmploye.name == '') {
-      employeFilterDto[this.employeParams[0].name] = changeSearch;
+      employeFilterDto[employeParams[0].name] = changeSearch;
     } else {
       employeFilterDto[currentEmploye.name] = changeSearch;
     }
 
-    if(this.queryParamsSubject.value.pageNumber > 1) {
-      this.currentPage = this.queryParamsSubject.value.pageNumber;
+    if(this.queryParamsSubject.value.commonFilter.pageNumber > 1) {
+      this.currentPage = this.queryParamsSubject.value.commonFilter.pageNumber;
     }
     
     if(changeSearch == "") {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
         employeFilterDto: employeFilterDto,
-        pageNumber: this.currentPage
+        commonFilter: {
+          ...commonFilter,
+          pageNumber: this.currentPage
+        }
       });
       console.log(this.currentPage)
     } else {
       this.queryParamsSubject.next({
         ...this.queryParamsSubject.value,
         employeFilterDto: employeFilterDto,
-        pageNumber: 1
+        commonFilter: {
+          ...commonFilter,
+          pageNumber: 1 
+        }
       });
     }
   }
