@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, TemplateRef } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { DeleteMessage } from '../employes/annual-leaves/types/annual-leave.types';
 import { PdfType } from './types/shared.types';
 
@@ -19,6 +19,14 @@ export class SharedService {
   witchType: BehaviorSubject<string> = new BehaviorSubject<string>('text');
   isChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   pdfName: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  pdf: BehaviorSubject<PdfType | null> = new BehaviorSubject<PdfType | null>(null);
+  
+  updatePdf(): void {
+    this.getPdfItem(this.pdfName.value).subscribe({
+      next: (response) => this.pdf.next(response),
+      error: (error) => this.pdf.next(null)
+    });
+  }
 
   getMonths(): string[] {
     return this.months.slice();

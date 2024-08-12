@@ -9,13 +9,12 @@ import { PdfType } from 'src/app/shared/types/shared.types';
   templateUrl: './employe-salary-pdf.component.html',
   styleUrls: ['./employe-salary-pdf.component.css']
 })
-export class EmployeSalaryPdfComponent {
+export class EmployeSalaryPdfComponent implements OnInit {
 
   sharedService: SharedService = inject(SharedService);
 
   email: string = 'dobrikasi@gmail.com'
   message: string = ``;
-  getPdf: Observable<PdfType> = this.sharedService.getPdfItem(this.sharedService.pdfName.value)
 
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
@@ -32,9 +31,8 @@ export class EmployeSalaryPdfComponent {
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
       this.sharedService.generatePdfForSalary(htmlContent, this.imeIprz).subscribe({
-        next: (response) => {
-          this.getPdf = this.sharedService.getPdfItem(this.sharedService.pdfName.value)
-          // this.sharedService.pdfForDownload(new Blob([htmlContent], { type: 'application/pdf' }), this.imeIprz);
+        next: () => {
+          this.sharedService.updatePdf();
           this.previewSalaryPdf.nativeElement.close();
         },
         error: (e) => console.error('Error generating PDF', e)
@@ -51,7 +49,7 @@ export class EmployeSalaryPdfComponent {
       next: (response) => {
         this.message = response.message;
         this.messageModal.nativeElement.showModal();
-        this.getPdf = this.sharedService.getPdfItem(this.sharedService.pdfName.value);
+        this.sharedService.updatePdf();
       },
       error: (e) => {
         console.error('Error sending email:', e);
@@ -76,12 +74,14 @@ export class EmployeSalaryPdfComponent {
   deletePdf(pdf: PdfType): void {
     this.sharedService.deletePdf(pdf.name).subscribe({
       next:(response) => {
-        this.getPdf = this.sharedService.getPdfItem(this.sharedService.pdfName.value);
+        this.sharedService.updatePdf();
         this.message = response.message;
         this.messageModal.nativeElement.showModal();
-        console.log(response);
       },
-      error:(e) => console.error(e)
+      error:(e) => {
+        this.message = e.error.message;
+        this.messageModal.nativeElement.showModal();
+      }
     });
   }
 
@@ -96,4 +96,9 @@ export class EmployeSalaryPdfComponent {
   onClosePreviewDetailModal(): void {
     this.previewSalaryPdf.nativeElement.close();
   }
+
+  ngOnInit(): void {
+    this.sharedService.updatePdf();
+  }
+
 }
