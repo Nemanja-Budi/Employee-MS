@@ -4,8 +4,6 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { EmployeSalaryService } from '../employe-salary.service';
 import { BankAccount, CustomBank } from '../types/employe.salary.types';
 
-
-
 @Component({
   selector: 'app-employe-salary-bank-pdf',
   templateUrl: './employe-salary-bank-pdf.component.html',
@@ -31,7 +29,7 @@ export class EmployeSalaryBankPdfComponent implements OnInit {
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfBankTemplate);
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
-      this.sharedService.generatePdf(htmlContent).subscribe({
+      this.sharedService.generatePdfForBanks(htmlContent, this.plateZa).subscribe({
         next: (blob) => {
           this.sharedService.pdfForDownload(blob,this.plateZa);
         },

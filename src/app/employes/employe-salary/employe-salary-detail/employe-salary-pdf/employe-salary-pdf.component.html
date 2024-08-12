@@ -7,7 +7,7 @@
 
 <div *ngIf="getPdf | async as pdf; else preview">
   <div class="grid grid-cols-3 gap-5">
-    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="previewPdf(pdf)">Platni listic</button>
+    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="previewPdf(pdf)">Preview</button>
     <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="sendEmail(pdf)">Send</button>
     <button class="bg-rose-600 text-white px-4 py-2 rounded-md" (click)="deletePdf(pdf)">Delete</button>
   </div>

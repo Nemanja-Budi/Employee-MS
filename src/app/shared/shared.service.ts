@@ -44,32 +44,23 @@ export class SharedService {
     return container;
   }
 
-  generatePdf(htmlContent: string): Observable<Blob> {
-    return this.http.post(`http://localhost:5000/api/pdf/generate`, { HtmlContent: htmlContent }, { responseType: 'blob' });
+  generatePdfForBanks(htmlContent: string, fileName: string): Observable<Blob> {
+    return this.http.post(`http://localhost:5000/api/pdf/generate-for-banks`, { HtmlContent: htmlContent, FileName: fileName }, { responseType: 'blob' });
   }
 
-  
-  generatePdf2(htmlContent: string, fileName: string): Observable<Blob> {
-    return this.http.post(`http://localhost:5000/api/pdf/generate`, { HtmlContent: htmlContent, FileName: fileName}, { responseType: 'blob'});
+  generatePdfForSalary(htmlContent: string, fileName: string): Observable<Blob> {
+    return this.http.post(`http://localhost:5000/api/pdf/generate`, { HtmlContent: htmlContent, FileName: fileName }, { responseType: 'blob'});
   }
   
   sendPdf(fileName: string, email: string): Observable<any> {
     return this.http.post(`http://localhost:5000/api/pdf/send`, { FileName: fileName, Email: email });
   }
 
-  getPdfList(): Observable<PdfType[]> {
-    return this.http.get<PdfType[]>(`http://localhost:5000/api/pdf/list`);
-  }
-
   getPdfItem(fileName: string): Observable<PdfType> {
     return this.http.get<PdfType>(`http://localhost:5000/api/pdf/item/${fileName}`);
   }
-
-  getPdf(fileName: string): Observable<PdfType> {
-    return this.http.get<PdfType>(`http://localhost:5000/api/pdf/get-pdf/${fileName}`);
-  }
   
-  getPdf2(fileName: string): Observable<Blob> {
+  getPdf(fileName: string): Observable<Blob> {
     const url = `http://localhost:5000/api/pdf/get-pdf/${fileName}`;
     return this.http.get(url, { responseType: 'blob' });
   }

@@ -26,18 +26,12 @@ export class EmployeSalaryPdfComponent {
   @ViewChild('previewSalaryPdf', { static: true }) previewSalaryPdf!: ElementRef<HTMLDialogElement>;
   @ViewChild('messageModal', { static: true }) messageModal!: ElementRef<HTMLDialogElement>;
 
-
-  onCloseMessageModal(): void {
-    this.messageModal.nativeElement.close();
-  }
-
-
   generatePdf(): void {
     if (this.imeIprz === '') return;
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfTemplate);
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
-      this.sharedService.generatePdf2(htmlContent, this.imeIprz).subscribe({
+      this.sharedService.generatePdfForSalary(htmlContent, this.imeIprz).subscribe({
         next: (response) => {
           this.getPdf = this.sharedService.getPdfItem(this.sharedService.pdfName.value)
           // this.sharedService.pdfForDownload(new Blob([htmlContent], { type: 'application/pdf' }), this.imeIprz);
@@ -67,7 +61,7 @@ export class EmployeSalaryPdfComponent {
 
   previewPdf(pdf: PdfType): void {
     console.log(pdf);
-    this.sharedService.getPdf2(pdf.name).subscribe({
+    this.sharedService.getPdf(pdf.name).subscribe({
       next: (response) => {
         const blob = new Blob([response], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
@@ -89,6 +83,10 @@ export class EmployeSalaryPdfComponent {
       },
       error:(e) => console.error(e)
     });
+  }
+
+  onCloseMessageModal(): void {
+    this.messageModal.nativeElement.close();
   }
 
   onOpenPreview(): void {
