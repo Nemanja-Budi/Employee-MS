@@ -46,23 +46,28 @@
               [showClass]="true">
             </app-employe-salary-detail-soe>
           </div>
-          <div *ngIf="employeSalaryData.employeSalarySO">
-            <app-employe-salary-detail-so 
-              [employeSalarySO]="employeSalaryData.employeSalarySO"
-              [showClass]="true">
-            </app-employe-salary-detail-so>
+          <div class="grid grid-rows-[auto,1fr]">
+            <div *ngIf="employeSalaryData.employeSalarySO">
+              <app-employe-salary-detail-so 
+                [employeSalarySO]="employeSalaryData.employeSalarySO"
+                [showClass]="true">
+              </app-employe-salary-detail-so>
+            </div>
+            <div class="grid justify-end items-center">
+              <div class="">
+                <app-employe-salary-pdf 
+                  [employeSalaryData]="employeSalaryData" 
+                  [hourlyRate]="hourlyRate"
+                  [imeIprz]="nazivPdfa">
+                </app-employe-salary-pdf>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="grid justify-center">
-        <div class="bg-indigo-600 text-white p-2 rounded-md">
-          <app-employe-salary-pdf 
-            [employeSalaryData]="employeSalaryData" 
-            [hourlyRate]="hourlyRate"
-            [imeIprz]="nazivPdfa">
-          </app-employe-salary-pdf>
-        </div>
-      </div>
+     <div>
+      Viseci
+     </div>
     </div>
   </div>
 </div>

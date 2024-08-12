@@ -65,6 +65,7 @@ export class EmployeSalaryDetailComponent {
       if (month >= 1 && month <= 12) {
         const mesec = months[month - 1];
         this.nazivPdfa = `${employe.lastName} ${employe.firstName} plata ${mesec} ${year}.pdf`;
+        this.sharedService.pdfName.next(this.nazivPdfa);
         console.log(this.nazivPdfa);
       } else {
         throw new Error("Nepoznat mesec");

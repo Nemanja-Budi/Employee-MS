@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { DeleteMessage } from '../employes/annual-leaves/types/annual-leave.types';
+import { PdfType } from './types/shared.types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class SharedService {
 
   witchType: BehaviorSubject<string> = new BehaviorSubject<string>('text');
   isChange: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
-
+  pdfName: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   getMonths(): string[] {
     return this.months.slice();
@@ -44,6 +46,36 @@ export class SharedService {
 
   generatePdf(htmlContent: string): Observable<Blob> {
     return this.http.post(`http://localhost:5000/api/pdf/generate`, { HtmlContent: htmlContent }, { responseType: 'blob' });
+  }
+
+  
+  generatePdf2(htmlContent: string, fileName: string): Observable<Blob> {
+    return this.http.post(`http://localhost:5000/api/pdf/generate`, { HtmlContent: htmlContent, FileName: fileName}, { responseType: 'blob'});
+  }
+  
+  sendPdf(fileName: string, email: string): Observable<any> {
+    return this.http.post(`http://localhost:5000/api/pdf/send`, { FileName: fileName, Email: email });
+  }
+
+  getPdfList(): Observable<PdfType[]> {
+    return this.http.get<PdfType[]>(`http://localhost:5000/api/pdf/list`);
+  }
+
+  getPdfItem(fileName: string): Observable<PdfType> {
+    return this.http.get<PdfType>(`http://localhost:5000/api/pdf/item/${fileName}`);
+  }
+
+  getPdf(fileName: string): Observable<PdfType> {
+    return this.http.get<PdfType>(`http://localhost:5000/api/pdf/get-pdf/${fileName}`);
+  }
+  
+  getPdf2(fileName: string): Observable<Blob> {
+    const url = `http://localhost:5000/api/pdf/get-pdf/${fileName}`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  deletePdf(fileName: string): Observable<DeleteMessage> {
+    return this.http.delete<DeleteMessage>(`http://localhost:5000/api/pdf/delete-pdf/${fileName}`);
   }
 
   pdfForDownload(blob: Blob, pdfName: string): void {

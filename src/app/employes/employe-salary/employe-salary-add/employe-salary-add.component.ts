@@ -1,12 +1,13 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, Subject, takeUntil } from 'rxjs';
+import { concatMap, map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { EmployeSalaryService } from '../employe-salary.service';
 import { Employe } from 'src/app/models/employe/employe.model';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-employe-salary-add',
@@ -18,7 +19,7 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
   employeService: EmployeService = inject(EmployeService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   router: Router = inject(Router);
-  
+  sharedService: SharedService = inject(SharedService);
   employes: Observable<Employe[]> = this.employeService.getEmployes().pipe(map((employe) => employe.employes));
   
   employeSalaryForm: FormGroup;
@@ -55,10 +56,25 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
         id: this.employeSalaryID,
         employeId: this.currentEmployeIdValue
       };
-      this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
-        next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
-        error: () => console.log("Error")
+      this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(
+        concatMap((salary) => 
+          this.sharedService.deletePdf(this.sharedService.pdfName.value).pipe(
+            map(() => salary) // Prosleđivanje salary objekta za dalje korišćenje ako je potrebno
+          )
+        )
+      ).subscribe({
+        next: (salary) => {
+          this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]);
+          console.log('PDF successfully deleted');
+        },
+        error: (error) => {
+          console.error('An error occurred:', error);
+        }
       });
+      // this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
+      //   next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
+      //   error: () => console.log("Error")
+      // });
     } else if(this.isEditing == false) {
       console.log("add mode");
       if(this.currentEmployeIdValue !== "") {
