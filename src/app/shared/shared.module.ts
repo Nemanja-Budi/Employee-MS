@@ -11,6 +11,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { SearchComponent } from './components/search/search.component';
 import { ChangeInputTypeDirective } from './directives/change-input-type.directive';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   exports: [
     ValidationMessagesComponent, 
@@ -41,6 +43,7 @@ import { UserInfoComponent } from './components/user-info/user-info.component';
     PaganationComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
+    NgSelectModule
   ]
 })
 export class SharedModule { }
