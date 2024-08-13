@@ -16,14 +16,29 @@
     </div>
     <div class="flex flex-col gap-5">
         <div>
-            <app-admin-user-search></app-admin-user-search>
+            <app-search 
+                [queryParamsSubject]="this.adminService.memberQuearyParamsSubject" 
+                [filterParams]="this.adminService.getMemberCheckBoxs()"
+                [searchSubject]="this.adminService.memberSearchSubject"
+                [currentSubject]="this.adminService.memberCurrentSubject">
+            </app-search>
         </div>
+        <app-filter 
+            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
+            [filterParams]="this.adminService.getMemberCheckBoxs()"
+            [searchSubject]="this.adminService.memberSearchSubject"
+            [currentSubject]="this.adminService.memberCurrentSubject">
+        </app-filter>
         <div class="flex flex-col w-full  rounded-2xl">
             <app-admin-user-table></app-admin-user-table>
         </div>
     </div>
     <div>
-        <app-admin-user-paganation></app-admin-user-paganation>
+        <app-paganation 
+            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
+            [currentSize]="this.adminService.currentSize"
+            [isNula]="adminService.isNula">
+        </app-paganation>
     </div>
 </div>
 

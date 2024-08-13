@@ -6,24 +6,29 @@ import { CustomQueryParamas } from '../shared/models/custom-queryparams.model';
 import { environment } from 'src/environments/environment.development.ts';
 import { MemberAddEdit } from './models/member-add-edit';
 import { MemberList } from './models/member-list.model';
+import { getDefaultMemberFilter, GetMember, getMemberCheckBox, GetMemberParams } from './types/admin.types';
+import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from '../shared/types/shared.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
 
-  memberQuearyParams: CustomQueryParamas = {
-    filterOn: 'firstname',
-    filterQuery: '',
-    sortBy: 'firstname',
-    isAscending: true,
-    pageNumber: 1,
-    pageSize: 10
+  defaultMemberFilter: GetMemberParams = getDefaultMemberFilter();
+  memberCheckBoxs: CheckBoxFilter[] = getMemberCheckBox();
+  checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
+  defaultCommonFilter: CommonFilter = getDefaultCommonFilter('userName', 15);
+  
+  memberFilterSubject: GetMember = {
+    employeFilterDto: this.defaultMemberFilter,
+    commonFilter: this.defaultCommonFilter
   }
 
-  memberQuearyParamsSubject: BehaviorSubject<CustomQueryParamas> = new BehaviorSubject<CustomQueryParamas>(this.memberQuearyParams);
-  currentSizeMember: BehaviorSubject<number> = new BehaviorSubject<number>(0)
-  isNulaMember: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  memberQuearyParamsSubject: BehaviorSubject<GetMember> = new BehaviorSubject<GetMember>(this.memberFilterSubject);
+  memberCurrentSubject: BehaviorSubject<CheckBoxFilter> = new BehaviorSubject<CheckBoxFilter>(this.checkBoxSubject);
+  memberSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
@@ -32,26 +37,36 @@ export class AdminService {
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap(params => {
-        const options = {
-          params: new HttpParams()
-            .set('filterOn', params.filterOn || "")
-            .set('filterQuery', params.filterQuery || "")
-            .set('sortBy', params.sortBy || "")
-            .set('isAscending', params.isAscending)
-            .set('pageNumber', params.pageNumber || 1)
-            .set('pageSize', params.pageSize || 5) 
-        };
-        return this.http.get<MemberList>(`${environment.appUrl}/admin/get-members`, options).pipe(map((members) => {
-          this.currentSizeMember.next(Math.ceil(members.totalCount/params.pageSize));
+        let httpParams = new HttpParams();
+        const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
+        const { isAscending } = params.commonFilter;
+
+        Object.keys(allFilters).forEach(key => {
+          const value = allFilters[key];
+          if (key !== 'isAscending' && value) {
+            httpParams = httpParams.append(key, value);
+          }
+        });
+
+        if (isAscending !== undefined && isAscending!== null) {
+          httpParams = httpParams.append('isAscending', isAscending.toString());
+        }
+        
+        return this.http.get<MemberList>(`${environment.appUrl}/admin/get-members`,{ params: httpParams }).pipe(map((members) => {
+          this.currentSize.next(Math.ceil(members.totalCount/params.commonFilter.pageSize));
           if(members.totalCount == 0) {
-            this.isNulaMember.next(true);
+            this.isNula.next(true);
           } else {
-            this.isNulaMember.next(false);
+            this.isNula.next(false);
           }
           return members;
         }));
       })
     );
+  }
+
+  getMemberCheckBoxs(): CheckBoxFilter[] {
+    return this.memberCheckBoxs.slice();
   }
 
   getMember(id: string) {

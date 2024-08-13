@@ -17,7 +17,7 @@
       <ng-container
         *ngFor="let member of members | async; let i = index">
         <tr class="group  md:hover:bg-[#BB4430]/10 shadow shadow-black ">
-            <td data-cell="br" class="td-custom2 md:text-[#BB4430] font-bold p-3 text-start md:text-center w-9">{{ (adminService.memberQuearyParamsSubject.value.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.pageSize + i + 1 }}.</td>
+            <td data-cell="br" class="td-custom2 md:text-[#BB4430] font-bold p-3 text-start md:text-center w-9">{{ (adminService.memberQuearyParamsSubject.value.commonFilter.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.commonFilter.pageSize + i + 1 }}.</td>
             <td data-cell="ime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.firstName| titlecase }}</td>
             <td data-cell="prezime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.lastName | titlecase }}</td>
             <td data-cell="username" class="td-custom2 px-1 py-1 break-words break-letters">{{ member.userName }}</td>
