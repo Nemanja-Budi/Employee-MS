@@ -1,44 +1,58 @@
-<div class="p-5 flex flex-col gap-5">
-    <div class="grid md:grid md:grid-cols-2 gap-5">
-        <div class="grid grid-cols-2 gap-3">
-            <button routerLink="/admin" class="flex items-center  bg-transparent/20 shadow shadow-black gap-2 px-3 py-2 rounded-md text-[#fff8]"><span class="flex items-center"><i class="fa-solid fa-arrow-left"></i></span>Contacts</button>
-            <button routerLink="/admin/add-new-user" class="bg-transparent/20 shadow shadow-black gap-2 px-3 py-2 rounded-md text-[#fff8]"><span class="font-bold">+</span> Add User</button>
+<div class="grid grid-rows-[auto,1fr] h-full">
+    <h2 class="text-center text-xl pt-5">Svi registrovani korisnici</h2>
+    <div class="grid grid-rows-[auto,1fr,auto] h-full p-5 gap-5">
+        <div class="grid md:grid md:grid-cols-2 gap-5">
+            <button 
+                routerLink="/admin" 
+                class="w-full h-full px-3 py-1.5 border rounded-md bg-indigo-600 text-white">
+                Go back
+            </button>
+            <button 
+                routerLink="/admin/add-new-user" 
+                class="w-full h-full px-3 py-1.5 border rounded-md bg-indigo-600 text-white">
+                Add User
+            </button>
+        </div>
+        <div class="flex flex-col gap-5">
+            <div class="grid grid-cols-4 gap-5">
+                <div>
+                    <app-filter 
+                        [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
+                        [filterParams]="this.adminService.getMemberCheckBoxs()"
+                        [searchSubject]="this.adminService.memberSearchSubject"
+                        [currentSubject]="this.adminService.memberCurrentSubject">
+                    </app-filter>
+                </div>
+                <div class="col-span-2">
+                    <app-search 
+                        [queryParamsSubject]="this.adminService.memberQuearyParamsSubject" 
+                        [filterParams]="this.adminService.getMemberCheckBoxs()"
+                        [searchSubject]="this.adminService.memberSearchSubject"
+                        [currentSubject]="this.adminService.memberCurrentSubject">
+                    </app-search>
+                </div>
+                <div>
+                    <app-show-items-per-page
+                        [itemsPerPage]="[8,16,32]" 
+                        [textColor]="'white'" 
+                        [bgButton]="'indigo-600'"
+                        [hbutton]="8"
+                        [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
+                        [valueAfterReset]="8">
+                    </app-show-items-per-page>
+                </div>
+            </div>
+            <div class="flex flex-col w-full  rounded-2xl">
+                <app-admin-user-table></app-admin-user-table>
+            </div>
         </div>
         <div>
-            <app-show-items-per-page 
-                [itemsPerPage]="[5,10,15]" 
-                [textColor]="'white'" 
-                [bgButton]="'indigo-600'"
+            <app-paganation 
                 [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
-                [valueAfterReset]="10">
-            </app-show-items-per-page>
+                [currentSize]="this.adminService.currentSize"
+                [isNula]="adminService.isNula">
+            </app-paganation>
         </div>
-    </div>
-    <div class="flex flex-col gap-5">
-        <div>
-            <app-search 
-                [queryParamsSubject]="this.adminService.memberQuearyParamsSubject" 
-                [filterParams]="this.adminService.getMemberCheckBoxs()"
-                [searchSubject]="this.adminService.memberSearchSubject"
-                [currentSubject]="this.adminService.memberCurrentSubject">
-            </app-search>
-        </div>
-        <app-filter 
-            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
-            [filterParams]="this.adminService.getMemberCheckBoxs()"
-            [searchSubject]="this.adminService.memberSearchSubject"
-            [currentSubject]="this.adminService.memberCurrentSubject">
-        </app-filter>
-        <div class="flex flex-col w-full  rounded-2xl">
-            <app-admin-user-table></app-admin-user-table>
-        </div>
-    </div>
-    <div>
-        <app-paganation 
-            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
-            [currentSize]="this.adminService.currentSize"
-            [isNula]="adminService.isNula">
-        </app-paganation>
     </div>
 </div>
 
