@@ -16,12 +16,12 @@
         </div>
         <div *ngIf="isDetail === true" class="grid grid-cols-2 gap-5">
             <div>
-                <p class="flex justify-between">Is Paid: <strong>{{al.isPaid}}</strong></p>
-                <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver}}</strong></p>
+                <p class="flex justify-between">Is Paid: <strong>{{al.isPaid == true ? 'Da' : 'Ne' }}</strong></p>
+                <p class="flex justify-between">Is Carry Over: <strong>{{al.isCarryOver == true ? 'Da' : 'Ne' }}</strong></p>
             </div>
             <div class="">
-                <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave}}</strong></p>
-                <p class="flex justify-between">Is Approval: <strong>{{al.approved}}</strong></p>    
+                <p class="flex justify-between">Is Sick Leave: <strong>{{al.isSickLeave == true ? 'Da' : 'Ne' }}</strong></p>
+                <p class="flex justify-between">Is Approval: <strong>{{al.approved == true ? 'Da' : 'Ne' }}</strong></p>    
             </div>
         </div>
     </div>

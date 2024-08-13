@@ -15,7 +15,7 @@
         </app-employe-salary-action>
       </div>
     </div>
-    <div class="grid grid-rows-[auto,1fr,auto]">
+    <div class="grid grid-rows-[auto,1fr]">
       <div *ngIf="employeSalarys | async as es">
         <app-employe-salarys-select 
           [employeSalarys]="es" 
@@ -65,9 +65,6 @@
           </div>
         </div>
       </div>
-     <div>
-      Viseci
-     </div>
     </div>
   </div>
 </div>
