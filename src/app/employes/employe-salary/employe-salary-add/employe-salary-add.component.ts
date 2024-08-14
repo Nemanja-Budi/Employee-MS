@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { concatMap, map, Observable, Subject, takeUntil } from 'rxjs';
+import { catchError, concatMap, finalize, map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 
 import { EmployeService } from 'src/app/employes/employe/employe.service';
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
@@ -56,25 +56,7 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
         id: this.employeSalaryID,
         employeId: this.currentEmployeIdValue
       };
-      this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(
-        concatMap((salary) => 
-          this.sharedService.deletePdf(this.sharedService.pdfName.value).pipe(
-            map(() => salary) // Prosleđivanje salary objekta za dalje korišćenje ako je potrebno
-          )
-        )
-      ).subscribe({
-        next: (salary) => {
-          this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]);
-          console.log('PDF successfully deleted');
-        },
-        error: (error) => {
-          console.error('An error occurred:', error);
-        }
-      });
-      // this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
-      //   next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
-      //   error: () => console.log("Error")
-      // });
+      this.onUpdateSalary(employeSalary);
     } else if(this.isEditing == false) {
       console.log("add mode");
       if(this.currentEmployeIdValue !== "") {
@@ -90,30 +72,72 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
     }
   }
 
+  private onUpdateSalary(employeSalary: EmployeSalary): void {
+    this.employeSalaryService.updateEmployeSalary(employeSalary).pipe(
+      concatMap((salary) => 
+        this.sharedService.deletePdf(this.sharedService.pdfName.value).pipe(
+          catchError((error) => {
+            console.error('Error deleting PDF, but continuing:', error);
+            return of(null); // Nastavljamo dalje, čak i u slučaju greške
+          }),
+          map(() => salary) // Nastavljamo sa salary objektom
+        )
+      ),
+      tap(() => this.router.navigate([`/employes/salary/detail-salary/${employeSalary.id}`]))
+    ).subscribe({
+      next: () => console.log('Operation completed successfully'),
+      error: (error) => console.error('An error occurred:', error)
+    });
+  }
+
+  private onAddEmployeSalary(employeId: string): void {
+    this.employeSalaryForm.patchValue({ employeId: employeId });
+    this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
+      this.currentEmployeIdValue = employeId;
+      console.log(employe);
+      this.employeSalaryForm.get('employeId')?.disable();
+      this.isEditing = false;
+    });
+  }
+
+  private onEditEmployeSalary(salaryId: string): void {
+    this.isEditing = true;
+    this.employeSalaryID = salaryId;
+    this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
+      this.employeSalaryForm.patchValue(salary);
+      this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
+      this.employeSalaryForm.get('employeId')?.disable();
+      console.log(this.currentEmployeIdValue);
+    });
+  }
+
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroy)).subscribe((params) => {
       const employeId = params.get('employeId');
       const salaryId = params.get('id');
       if (employeId) {
-        this.employeSalaryForm.patchValue({ employeId: employeId });
-        this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
-          this.currentEmployeIdValue = employeId;
-          console.log(employe);
-          this.employeSalaryForm.get('employeId')?.disable();
-          this.isEditing = false;
-        });
+        this.onAddEmployeSalary(employeId);
+        // this.employeSalaryForm.patchValue({ employeId: employeId });
+        // this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
+        //   this.currentEmployeIdValue = employeId;
+        //   console.log(employe);
+        //   this.employeSalaryForm.get('employeId')?.disable();
+        //   this.isEditing = false;
+        // });
       }
       else if (salaryId) {
-        this.isEditing = true;
-        this.employeSalaryID = salaryId;
-        this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
-          this.employeSalaryForm.patchValue(salary);
-          this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
-          this.employeSalaryForm.get('employeId')?.disable();
-          console.log(this.currentEmployeIdValue);
-        });
+        this.onEditEmployeSalary(salaryId);
+        // this.isEditing = true;
+        // this.employeSalaryID = salaryId;
+        // this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
+        //   this.employeSalaryForm.patchValue(salary);
+        //   this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
+        //   this.employeSalaryForm.get('employeId')?.disable();
+        //   console.log(this.currentEmployeIdValue);
+        // });
       }
     });
+    console.log('treba uvel')
   }
 
   ngOnDestroy(): void {

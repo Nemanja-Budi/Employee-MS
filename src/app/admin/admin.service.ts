@@ -34,8 +34,8 @@ export class AdminService {
 
   getMembers(): Observable<MemberList> {
     return this.memberQuearyParamsSubject.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
+      // debounceTime(1000),
+      // distinctUntilChanged(),
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
