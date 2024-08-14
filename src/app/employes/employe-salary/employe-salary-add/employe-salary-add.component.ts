@@ -67,7 +67,7 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
       }
       this.employeSalaryService.createEmployeSalary(employeSalary).pipe(takeUntil(this.destroy)).subscribe({
         next: (salary) => this.router.navigate([`/employes/salary/detail-salary/${salary.id}`]),
-        error: () => console.log("Error")
+        error: () => console.error("Error")
       });
     }
   }
@@ -78,9 +78,9 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
         this.sharedService.deletePdf(this.sharedService.pdfName.value).pipe(
           catchError((error) => {
             console.error('Error deleting PDF, but continuing:', error);
-            return of(null); // Nastavljamo dalje, čak i u slučaju greške
+            return of(null);
           }),
-          map(() => salary) // Nastavljamo sa salary objektom
+          map(() => salary)
         )
       ),
       tap(() => this.router.navigate([`/employes/salary/detail-salary/${employeSalary.id}`]))
@@ -94,7 +94,6 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
     this.employeSalaryForm.patchValue({ employeId: employeId });
     this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
       this.currentEmployeIdValue = employeId;
-      console.log(employe);
       this.employeSalaryForm.get('employeId')?.disable();
       this.isEditing = false;
     });
@@ -107,7 +106,6 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
       this.employeSalaryForm.patchValue(salary);
       this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
       this.employeSalaryForm.get('employeId')?.disable();
-      console.log(this.currentEmployeIdValue);
     });
   }
 
@@ -117,27 +115,11 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
       const salaryId = params.get('id');
       if (employeId) {
         this.onAddEmployeSalary(employeId);
-        // this.employeSalaryForm.patchValue({ employeId: employeId });
-        // this.employeService.getEmploye(employeId).pipe(takeUntil(this.destroy)).subscribe(employe => {
-        //   this.currentEmployeIdValue = employeId;
-        //   console.log(employe);
-        //   this.employeSalaryForm.get('employeId')?.disable();
-        //   this.isEditing = false;
-        // });
       }
       else if (salaryId) {
         this.onEditEmployeSalary(salaryId);
-        // this.isEditing = true;
-        // this.employeSalaryID = salaryId;
-        // this.employeSalaryService.getEmployeSalaryById(salaryId).pipe(takeUntil(this.destroy)).subscribe(salary => {
-        //   this.employeSalaryForm.patchValue(salary);
-        //   this.currentEmployeIdValue = this.employeSalaryForm.get('employeId')?.value;
-        //   this.employeSalaryForm.get('employeId')?.disable();
-        //   console.log(this.currentEmployeIdValue);
-        // });
       }
     });
-    console.log('treba uvel')
   }
 
   ngOnDestroy(): void {
