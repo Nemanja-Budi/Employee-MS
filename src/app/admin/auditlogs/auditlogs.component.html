@@ -16,15 +16,22 @@
         [currentSubject]="this.auditLogService.auditLogCurrentSubject">
       </app-search>
     </div>
-    <div>
-      <app-show-items-per-page
-        [itemsPerPage]="[5,10,15]" 
-        [textColor]="'white'" 
-        [bgButton]="'indigo-600'"
-        [hbutton]="8"
-        [queryParamsSubject]="this.auditLogService.auditLogQuearyParamsSubject"
-        [valueAfterReset]="5">
-      </app-show-items-per-page>
+    <div class="grid grid-cols-2">
+      <div>
+        <app-show-items-per-page
+          [itemsPerPage]="[5,10,15]" 
+          [textColor]="'white'" 
+          [bgButton]="'indigo-600'"
+          [hbutton]="8"
+          [queryParamsSubject]="this.auditLogService.auditLogQuearyParamsSubject">
+        </app-show-items-per-page>
+      </div>
+      <div>
+        <app-enter-per-page 
+          [queryParamsSubject]="this.auditLogService.auditLogQuearyParamsSubject"
+          [valueAfterReset]="5">
+        </app-enter-per-page>
+      </div>
     </div>
   </div>
   <div class="flex flex-col gap-5 h-full">

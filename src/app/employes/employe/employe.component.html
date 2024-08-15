@@ -7,15 +7,15 @@
       [currentSubject]="this.employeService.employeCurrentSubject">
     </app-filter>
   </div>
-  <div class="grid grid-cols-4 gap-5">
-    <div class="w-full h-full">
+  <div class="md:grid md:grid-cols-10 md:gap-1.5 xl:grid xl:grid-cols-4 xl:gap-5">
+    <div class="w-full h-full md:col-span-3 xl:col-auto">
       <button 
         class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
         routerLink="/employes/employe/add-employe">
         Add Employe
       </button>
     </div>
-    <div class="col-span-2 gap-5">
+    <div class="md:col-span-4 xl:col-span-3 ">
       <app-search 
         [queryParamsSubject]="this.employeService.employeQuearyParamsSubject" 
         [filterParams]="this.employeService.getEmployeCheckBoxes()"
@@ -23,15 +23,21 @@
         [currentSubject]="this.employeService.employeCurrentSubject">
       </app-search>
     </div>
-    <div>
-      <app-show-items-per-page
-        [itemsPerPage]="[8,16,32]" 
-        [textColor]="'white'" 
-        [bgButton]="'indigo-600'"
-        [hbutton]="8"
-        [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
-        [valueAfterReset]="8">
-      </app-show-items-per-page>
+    <div class="md:grid md:grid-cols-5 md:col-span-3 md:gap-1.5 xl:grid xl:grid-cols-2 xl:col-auto xl:gap-5">
+      <div class="md:col-span-3 xl:col-auto">
+        <app-show-items-per-page
+          [itemsPerPage]="[8,16,32]" 
+          [textColor]="'white'" 
+          [bgButton]="'indigo-600'"
+          [hbutton]="8"
+          [queryParamsSubject]="this.employeService.employeQuearyParamsSubject">
+        </app-show-items-per-page>
+      </div>
+      <div class="md:col-span-2 xl:col-auto">
+        <app-enter-per-page 
+          [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
+          [valueAfterReset]="8"></app-enter-per-page>
+      </div>
     </div>
   </div>
   <div class="w-full h-full">

@@ -13,6 +13,7 @@ import { ChangeInputTypeDirective } from './directives/change-input-type.directi
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { EnterPerPageComponent } from './components/enter-per-page/enter-per-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ChangeInputTypeDirective,
     UserInfoComponent,
     SpinnerComponent,
+    EnterPerPageComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ChangeInputTypeDirective,
     UserInfoComponent,
     NgSelectModule,
-    SpinnerComponent
+    SpinnerComponent,
+    EnterPerPageComponent
   ]
 })
 export class SharedModule { }

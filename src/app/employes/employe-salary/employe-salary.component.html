@@ -28,14 +28,21 @@
           </app-search>
         </div>
         <div>
-          <app-show-items-per-page
-            [itemsPerPage]="[5,10,15]" 
-            [textColor]="'white'" 
-            [bgButton]="'indigo-600'"
-            [hbutton]="8"
-            [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
-            [valueAfterReset]="15">
-          </app-show-items-per-page>
+          <div>
+            <app-show-items-per-page
+              [itemsPerPage]="[5,10,15]" 
+              [textColor]="'white'" 
+              [bgButton]="'indigo-600'"
+              [hbutton]="8"
+              [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject">
+            </app-show-items-per-page>
+          </div>
+          <div>
+            <app-enter-per-page 
+              [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"  
+              [valueAfterReset]="15">
+            </app-enter-per-page>
+          </div>
         </div>
       </div>
     </div>

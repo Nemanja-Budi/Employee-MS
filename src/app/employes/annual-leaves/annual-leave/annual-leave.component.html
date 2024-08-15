@@ -27,15 +27,22 @@
                     [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
                 </app-search>
             </div>
-            <div>
-                <app-show-items-per-page
-                    [itemsPerPage]="[9,18,36]" 
-                    [textColor]="'white'" 
-                    [bgButton]="'indigo-600'"
-                    [hbutton]="8"
-                    [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
-                    [valueAfterReset]="9">
-                </app-show-items-per-page>
+            <div class="grid grid-cols-2 gap-5">
+                <div>
+                    <app-show-items-per-page
+                        [itemsPerPage]="[9,18,36]" 
+                        [textColor]="'white'" 
+                        [bgButton]="'indigo-600'"
+                        [hbutton]="8"
+                        [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject">
+                    </app-show-items-per-page>
+                </div>
+                <div class="h-full">
+                    <app-enter-per-page 
+                      [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"  
+                      [valueAfterReset]="15">
+                    </app-enter-per-page>
+                </div>
             </div>
         </div>
         <div class="grid grid-cols-3 gap-x-3 h-fit">

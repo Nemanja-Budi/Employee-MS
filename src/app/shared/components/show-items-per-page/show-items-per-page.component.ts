@@ -13,7 +13,7 @@ export class ShowItemsPerPageComponent {
   @Input() bgButton: string = '';
   @Input() hbutton: number = 0;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
-  @Input({required: true}) valueAfterReset: number = 0;
+  // @Input({required: true}) valueAfterReset: number = 0;
 
   isAscending: boolean = true;
 
@@ -32,9 +32,9 @@ export class ShowItemsPerPageComponent {
     }
   }
 
-  getCurrentPageSize(): number {
-    return this.queryParamsSubject ? this.queryParamsSubject.value.commonFilter.pageSize : -1;
-  }
+  // getCurrentPageSize(): number {
+  //   return this.queryParamsSubject ? this.queryParamsSubject.value.commonFilter.pageSize : -1;
+  // }
 
   onChangeSortDirection(): void {
     this.isAscending = !this.isAscending;
@@ -46,13 +46,13 @@ export class ShowItemsPerPageComponent {
     this.updateQueryParams({ pageNumber: 1, pageSize: item });
   }
 
-  showItemsPerPage(itemsPerPage: string): void {
-    const pageSize = itemsPerPage === '' ? this.valueAfterReset : Number(itemsPerPage);
-    this.updateQueryParams({ pageNumber: 1, pageSize: pageSize });
-  }
+  // showItemsPerPage(itemsPerPage: string): void {
+  //   const pageSize = itemsPerPage === '' ? this.valueAfterReset : Number(itemsPerPage);
+  //   this.updateQueryParams({ pageNumber: 1, pageSize: pageSize });
+  // }
 
-  updateParam(paramName: string, value: any): void {
-    const params = { [paramName]: value };
-    this.updateQueryParams(params);
-  }
+  // updateParam(paramName: string, value: any): void {
+  //   const params = { [paramName]: value };
+  //   this.updateQueryParams(params);
+  // }
 }

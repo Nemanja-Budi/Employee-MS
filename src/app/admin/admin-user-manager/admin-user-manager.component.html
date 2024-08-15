@@ -31,15 +31,22 @@
                         [currentSubject]="this.adminService.memberCurrentSubject">
                     </app-search>
                 </div>
-                <div>
-                    <app-show-items-per-page
-                        [itemsPerPage]="[8,16,32]" 
-                        [textColor]="'white'" 
-                        [bgButton]="'indigo-600'"
-                        [hbutton]="8"
-                        [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
-                        [valueAfterReset]="8">
-                    </app-show-items-per-page>
+                <div class="grid grid-cols-2">
+                    <div>
+                        <app-show-items-per-page
+                            [itemsPerPage]="[8,16,32]" 
+                            [textColor]="'white'" 
+                            [bgButton]="'indigo-600'"
+                            [hbutton]="8"
+                            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject">
+                        </app-show-items-per-page>
+                    </div>
+                    <div>
+                        <app-enter-per-page 
+                            [queryParamsSubject]="this.adminService.memberQuearyParamsSubject"
+                            [valueAfterReset]="8">
+                        </app-enter-per-page>
+                    </div>
                 </div>
             </div>
             <div class="flex flex-col w-full  rounded-2xl">
