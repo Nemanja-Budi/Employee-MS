@@ -17,6 +17,8 @@ export class EmployeAddComponent implements OnInit, OnDestroy {
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
+  naslov: string = '';
+
   employeForm: FormGroup;
   employe: Employe | null = null;
   private destroy = new Subject<void>();
@@ -135,6 +137,9 @@ export class EmployeAddComponent implements OnInit, OnDestroy {
       if (employe) {
         this.employe = employe;
         this.populateEmployeForm(employe);
+        this.naslov = `Promeni podatke o zaposlenom`;
+      } else {
+        this.naslov = `Dodaj zaposlenog`;
       }
     });
   }

@@ -14,7 +14,13 @@
         </div>
         <div class="">
           <div class="flex justify-between p-1" *ngFor="let key of onGetKeysWithoutFirstAndLast(employeData)">
-            <strong>{{ onFormatKey(key) }}:</strong> {{ employeData[key] }}
+            <strong>{{ onFormatKey(key) }}:</strong>
+            <ng-container *ngIf="key === 'dateOfBirth' || key === 'dateOfEmployment'; else defaultFormat">
+              {{ employeData[key] | date:'dd.MM.yyyy' }}
+            </ng-container>
+            <ng-template #defaultFormat>
+              {{ employeData[key] }}
+            </ng-template>
           </div>
         </div>
       </div>
