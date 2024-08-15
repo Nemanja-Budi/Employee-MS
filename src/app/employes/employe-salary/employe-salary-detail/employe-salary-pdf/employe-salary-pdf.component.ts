@@ -15,7 +15,6 @@ export class EmployeSalaryPdfComponent implements OnInit {
 
   email: string = 'dobrikasi@gmail.com'
   message: string = ``;
-  isLoading: boolean = false;
   showLoading: boolean = false;
 
   @Input() employeSalaryData!: EmployeSalary;
@@ -29,15 +28,17 @@ export class EmployeSalaryPdfComponent implements OnInit {
 
   generatePdf(): void {
     if (this.imeIprz === '') return;
-    this.isLoading = true;
+    this.showLoading = true;
+    this.previewSalaryPdf.nativeElement.close();
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfTemplate);
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
       this.sharedService.generatePdfForSalary(htmlContent, this.imeIprz).subscribe({
         next: () => {
+          this.message = 'PDF created successfully';
+          this.messageModal.nativeElement.showModal();
           this.sharedService.updatePdf();
-          this.previewSalaryPdf.nativeElement.close();
-          this.isLoading = false;
+          this.showLoading = false;
         },
         error: (e) => console.error('Error generating PDF', e)
       });
@@ -56,7 +57,6 @@ export class EmployeSalaryPdfComponent implements OnInit {
         this.messageModal.nativeElement.showModal();
         this.sharedService.updatePdf();
         this.showLoading = false;
-        // this.isLoading2 = false;
       },
       error: (e) => {
         console.error('Error sending email:', e);
@@ -79,11 +79,13 @@ export class EmployeSalaryPdfComponent implements OnInit {
   }
 
   deletePdf(pdf: PdfType): void {
+    this.showLoading = true;
     this.sharedService.deletePdf(pdf.name).subscribe({
       next:(response) => {
         this.sharedService.updatePdf();
         this.message = response.message;
         this.messageModal.nativeElement.showModal();
+        this.showLoading = false;
       },
       error:(e) => {
         this.message = e.error.message;

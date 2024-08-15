@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ChangeInputTypeDirective } from './directives/change-input-type.directive';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SearchComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PaganationComponent,
     ChangeInputTypeDirective,
     UserInfoComponent,
-    NgSelectModule
+    NgSelectModule,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }

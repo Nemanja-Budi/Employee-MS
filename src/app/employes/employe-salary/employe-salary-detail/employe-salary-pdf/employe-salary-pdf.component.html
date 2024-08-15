@@ -11,17 +11,14 @@
     <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="sendEmail(this.sharedService.pdf.value)">Send</button>
     <button class="bg-rose-600 text-white px-4 py-2 rounded-md" (click)="deletePdf(this.sharedService.pdf.value)">Delete</button>
   </div>
-  <ng-container *ngIf="showLoading == true">
-    LOADING WHEN SENDING...
-  </ng-container>
 </div>
 <ng-template #preview>
   <button class="bg-indigo-600 text-white px-4 py-2 rounded-md"  (click)="onOpenPreview()">Preview</button>
 </ng-template>
 
 
-<dialog #previewSalaryPdf class="previewSalaryPdfModal" [ngClass]="{'w-[20.3%]': isLoading == true, 'w-[70%]': isLoading == false }">
-  <div *ngIf="isLoading == false; else loading" class="flex flex-col gap-4 p-2 md:px-5 pt-5 relative">
+<dialog #previewSalaryPdf class="previewSalaryPdfModal">
+  <div class="flex flex-col gap-4 p-2 md:px-5 pt-5 relative">
     <button 
       (click)="onClosePreviewDetailModal()" 
       class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
@@ -36,10 +33,7 @@
       <div class="flex justify-center items-center">
         <button class="bg-indigo-600 text-white px-4 py-2 rounded-md" (click)="generatePdf()">Generate PDF</button>
       </div>
-  </div>
-  <ng-template #loading>
-    loading...
-  </ng-template>  
+  </div> 
 </dialog>
 
 <dialog #messageModal class="modal">
@@ -50,3 +44,7 @@
       </div>
   </div>
 </dialog>
+
+<ng-container *ngIf="showLoading == true">
+  <app-spinner [loading]="true"></app-spinner>
+</ng-container>

@@ -15,8 +15,8 @@
         </app-employe-salary-action>
       </div>
     </div>
-    <div *ngIf="employeSalarys | async as es; else loading2" class="grid grid-rows-[auto,1fr]">
-      <div>
+    <div  class="grid grid-rows-[auto,1fr]">
+      <div *ngIf="employeSalarys | async as es">
         <app-employe-salarys-select 
           [employeSalarys]="es" 
           [employeSalaryId]="employeSalaryId"
@@ -66,11 +66,8 @@
         </div>
       </div>
     </div>
-    <ng-template #loading2>
-      <p class="fixed top-[50%] left-[60%] text-xl text-center">Loading 2</p>
-    </ng-template>
   </div>
 </div>
 <ng-template #loading>
-  <p class="fixed top-[50%] left-[50%] text-xl text-center">Loading ...</p>
+  <app-spinner [loading]="true"></app-spinner>
 </ng-template>

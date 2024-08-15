@@ -149,7 +149,7 @@
     left: 50%; 
     height: fit-content;
     min-width: fit-content;
-    /* min-width: 70%; */
+    min-width: 70%;
     transform: translate(-50%, -50%);
     background-color: rgb(255, 255, 255);
     /* padding: 20px; */
