@@ -18,51 +18,39 @@ export class SearchComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   sharedService: SharedService = inject(SharedService);
 
+  currentPage: number = 1;
+
   @Input({required: true}) filterParams: CheckBoxFilter[] = [];
   @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
   
-  currentPage: number = 1;
-  
   onChangeSearch(changeSearch: string): void {
     this.searchSubject.next(changeSearch);
     
-    const currentEmploye = this.currentSubject.value;
-    const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
+    const currentSubject = this.currentSubject.value;
+    const filterDto = { ...this.queryParamsSubject.value.employeFilterDto };
     const commonFilter = { ...this.queryParamsSubject.value.commonFilter }
     const employeParams = { ...this.filterParams };
     
-    if(currentEmploye.name == '') {
-      employeFilterDto[employeParams[0].name] = changeSearch;
+    if(currentSubject.name == '') {
+      filterDto[employeParams[0].name] = changeSearch;
     } else {
-      employeFilterDto[currentEmploye.name] = changeSearch;
+      filterDto[currentSubject.name] = changeSearch;
     }
 
     if(this.queryParamsSubject.value.commonFilter.pageNumber > 1) {
       this.currentPage = this.queryParamsSubject.value.commonFilter.pageNumber;
     }
     
-    if(changeSearch == "") {
-      this.queryParamsSubject.next({
-        ...this.queryParamsSubject.value,
-        employeFilterDto: employeFilterDto,
-        commonFilter: {
-          ...commonFilter,
-          pageNumber: this.currentPage
-        }
-      });
-      console.log(this.currentPage)
-    } else {
-      this.queryParamsSubject.next({
-        ...this.queryParamsSubject.value,
-        employeFilterDto: employeFilterDto,
-        commonFilter: {
-          ...commonFilter,
-          pageNumber: 1 
-        }
-      });
-    }
-  }
+    this.queryParamsSubject.next({
+      ...this.queryParamsSubject.value,
+      employeFilterDto: filterDto,
+      commonFilter: {
+        ...commonFilter,
+        pageNumber: changeSearch == "" ? this.currentPage : 1
+      }
+    });
 
+  }
 }

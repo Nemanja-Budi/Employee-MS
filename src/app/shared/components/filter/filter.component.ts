@@ -66,26 +66,14 @@ export class FilterComponent {
       this.currentPage = this.queryParamsSubject.value.commonFilter.pageNumber;
     }
 
-    if(changeSearch == "") {
-      this.queryParamsSubject.next({
-        ...this.queryParamsSubject.value,
-        employeFilterDto: employeFilterDto,
-        commonFilter: {
-          ...commonFilter,
-          sortBy: sortBy,
-          pageNumber: this.currentPage
-        }
-      });
-    } else {
-      this.queryParamsSubject.next({
-        ...this.queryParamsSubject.value,
-        employeFilterDto: employeFilterDto,
-        commonFilter: {
-          ...commonFilter,
-          sortBy: sortBy,
-          pageNumber: 1
-        }
-      });
-    }
+    this.queryParamsSubject.next({
+      ...this.queryParamsSubject.value,
+      employeFilterDto: employeFilterDto,
+      commonFilter: {
+        ...commonFilter,
+        sortBy: sortBy,
+        pageNumber: changeSearch == '' ? this.currentPage : 1
+      }
+    });
   }
 }
