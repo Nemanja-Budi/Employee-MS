@@ -87,4 +87,9 @@ export class BankModalComponent {
   onCloseModal(): void {
     this.employeSalaryService.isModalOpen.next(false);
   }
+
+  onClosePreviewModal(wrongDate?: boolean): void {
+    this.onCloseNetoSalaryModal(wrongDate);
+    this.preview.nativeElement.close();
+  }
 }

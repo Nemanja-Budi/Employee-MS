@@ -47,7 +47,7 @@
   </div>
   <ng-template #netoSalaryElse>
     <div class="p-5 flex flex-col gap-5">
-      <h2 class="text-xl"><span class="text-rose-600">No available</span> salaries for this <strong>{{month}}.{{year}}</strong> period</h2>
+      <h2 class="text-xl text-center"><span class="text-rose-600">No available</span> salaries for this <strong>{{month}}.{{year}}</strong> period</h2>
       <div class="flex justify-center">
         <button class="bg-rose-600 rounded-md text-white px-4 py-2" (click)="onCloseNetoSalaryModal(true)">Close</button>
       </div>
@@ -55,10 +55,12 @@
   </ng-template>
 </dialog>
 
-<dialog #preview class="previewModal">
-  <div class="flex flex-col gap-2 p-10 relative">
+<dialog #preview class="previewModal" [ngClass]="{'w-[20.3%]': platePoBankama.length == 0, 'w-[60%]': platePoBankama.length > 0}">
+  <div 
+    *ngIf="platePoBankama.length > 0; else previewElse" 
+    class="flex flex-col gap-2 p-10 relative">
     <button 
-      (click)="onCloseNetoSalaryModal()" 
+      (click)="onClosePreviewModal()" 
       class="absolute top-2 right-2 bg-rose-600 text-white rounded-md w-8 aspect-square border-2 border-black flex items-center justify-center" >
       <span class="font-bold">X</span>
     </button>
@@ -72,4 +74,12 @@
       </div>
     <!-- <button class="bg-rose-600 rounded-md text-white" (click)="onCloseNetoSalaryModal()">Close</button> -->
   </div>
+  <ng-template #previewElse>
+    <div class="p-5 flex flex-col gap-5">
+      <h2 class="text-xl text-center"><span class="text-rose-600">No available</span> salaries for this <strong>{{month}}.{{year}}</strong> period</h2>
+      <div class="flex justify-center">
+        <button class="bg-rose-600 rounded-md text-white px-4 py-2" (click)="onClosePreviewModal(true)">Close</button>
+      </div>
+    </div>
+  </ng-template>
 </dialog>
