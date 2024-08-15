@@ -80,7 +80,10 @@ export class AnnualLeaveCreateComponent {
   }
 
   onSubmit(): void {
-    if (this.annualLeaveForm.valid) {
+    if (!this.annualLeaveForm.valid) {
+      this.annualLeaveForm.markAllAsTouched(); // Obeleži sva polja kao touched
+      return;
+    }
       let newAnnualLeave: AnnualLeave = this.annualLeaveForm.value;
       console.log(newAnnualLeave);
       console.log(this.currentEmployeIdValue);
@@ -118,5 +121,5 @@ export class AnnualLeaveCreateComponent {
       }
 
     }
-  }
 }
+

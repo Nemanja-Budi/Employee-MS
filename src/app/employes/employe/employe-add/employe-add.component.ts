@@ -40,14 +40,14 @@ export class EmployeAddComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       placeOfBirth: ['', Validators.required],
       dateOfEmployment: ['', Validators.required],
-      pio: [0, [Validators.required, Validators.pattern(/^\d+$/)]],
+      pio: [null, [Validators.required, Validators.pattern(/^\d{10}$/)]],
       school: [undefined],
       college: [undefined],
       position: ['', Validators.required],
       employmentContract: ['', Validators.required],
       amendmentContract: ['', Validators.required],
       bankName: ['', Validators.required],
-      currentAccount: [0, [Validators.required]],
+      currentAccount: [null, [Validators.required]],
       employeChild: this.fb.array([])
     });
   }
@@ -68,7 +68,10 @@ export class EmployeAddComponent implements OnInit, OnDestroy {
   }
   
   onSubmit(): void {
-    if (!this.employeForm.valid) return;
+    if (!this.employeForm.valid) {
+      this.employeForm.markAllAsTouched(); // Obeleži sva polja kao touched
+      return;
+    }
     
     const employeToSave: Employe = this.employeForm.value;
 

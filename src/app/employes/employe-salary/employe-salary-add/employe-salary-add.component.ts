@@ -46,7 +46,10 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (!this.employeSalaryForm.valid) return;
+    if (!this.employeSalaryForm.valid) {
+      this.employeSalaryForm.markAllAsTouched(); // Obeleži sva polja kao touched
+      return;
+    }
     let employeSalary: EmployeSalary = this.employeSalaryForm.value;
 
     if(this.isEditing == true) {

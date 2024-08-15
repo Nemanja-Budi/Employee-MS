@@ -1,139 +1,383 @@
 <div class="container mx-auto py-8">
-    <form [formGroup]="employeForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
-          <input id="firstName" type="text" formControlName="firstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('firstName')?.invalid && employeForm.get('firstName')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
-          <input id="lastName" type="text" formControlName="lastName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('lastName')?.invalid && employeForm.get('lastName')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="nameOfParent" class="block text-sm font-medium text-gray-700">Name Of Parent</label>
-          <input id="nameOfParent" type="text" formControlName="nameOfParent" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('nameOfParent')?.invalid && employeForm.get('nameOfParent')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Date Of Birth</label>
-          <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('dateOfBirth')?.invalid && employeForm.get('dateOfBirth')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="jmbg" class="block text-sm font-medium text-gray-700">JMBG</label>
-          <input id="jmbg" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('jmbg')?.invalid && employeForm.get('jmbg')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="hourlyRate" class="block text-sm font-medium text-gray-700">Hourly Rate</label>
-          <input id="hourlyRate" type="number" formControlName="hourlyRate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('hourlyRate')?.invalid && employeForm.get('hourlyRate')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-          <input id="gender" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('gender')?.invalid && employeForm.get('gender')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="identityCardNumber" class="block text-sm font-medium text-gray-700">Identity Card Number</label>
-          <input id="identityCardNumber" type="text" formControlName="identityCardNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('identityCardNumber')?.invalid && employeForm.get('identityCardNumber')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-          <input id="phone" type="text" formControlName="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('phone')?.invalid && employeForm.get('phone')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-          <input id="address" type="text" formControlName="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('address')?.invalid && employeForm.get('address')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input id="email" type="email" formControlName="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('email')?.invalid && employeForm.get('email')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="placeOfBirth" class="block text-sm font-medium text-gray-700">Place Of Birth</label>
-          <input id="placeOfBirth" type="text" formControlName="placeOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('placeOfBirth')?.invalid && employeForm.get('placeOfBirth')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="dateOfEmployment" class="block text-sm font-medium text-gray-700">Date Of Employment</label>
-          <input id="dateOfEmployment" type="date" formControlName="dateOfEmployment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('dateOfEmployment')?.invalid && employeForm.get('dateOfEmployment')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="pio" class="block text-sm font-medium text-gray-700">PIO</label>
-          <input id="pio" type="text" formControlName="pio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('pio')?.invalid && employeForm.get('pio')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="school" class="block text-sm font-medium text-gray-700">School</label>
-          <input id="school" type="text" formControlName="school" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('school')?.invalid && employeForm.get('school')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="college" class="block text-sm font-medium text-gray-700">College</label>
-          <input id="college" type="text" formControlName="college" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('college')?.invalid && employeForm.get('college')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
-          <input id="position" type="text" formControlName="position" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('position')?.invalid && employeForm.get('position')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="employmentContract" class="block text-sm font-medium text-gray-700">Employment Contract</label>
-          <input id="employmentContract" type="text" formControlName="employmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('employmentContract')?.invalid && employeForm.get('employmentContract')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="amendmentContract" class="block text-sm font-medium text-gray-700">Amendment Contract</label>
-          <input id="amendmentContract" type="text" formControlName="amendmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('amendmentContract')?.invalid && employeForm.get('amendmentContract')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="bankName" class="block text-sm font-medium text-gray-700">Bank Name</label>
-          <input id="bankName" type="text" formControlName="bankName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('bankName')?.invalid && employeForm.get('bankName')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="currentAccount" class="block text-sm font-medium text-gray-700">Current Account</label>
-          <input id="currentAccount" type="text" formControlName="currentAccount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeForm.get('currentAccount')?.invalid && employeForm.get('currentAccount')?.touched" class="text-red-600">Invalid input</div>
+  <form [formGroup]="employeForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- First Name -->
+      <div>
+        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+        <input id="firstName" type="text" formControlName="firstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('firstName')?.invalid && employeForm.get('firstName')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('firstName')?.errors?.['required']">First Name is required.</span>
         </div>
       </div>
-  
-      <div formArrayName="employeChild" class="mt-6 space-y-6">
-        <div *ngFor="let child of employeChild.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="child-name-{{i}}" class="block text-sm font-medium text-gray-700">Child Name</label>
-              <input id="child-name-{{i}}" type="text" formControlName="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-              <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-red-600">Invalid input</div>
-            </div>
-            <div>
-              <label for="child-jmbg-{{i}}" class="block text-sm font-medium text-gray-700">Child JMBG</label>
-              <input id="child-jmbg-{{i}}" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-              <div *ngIf="child.get('jmbg')?.invalid && child.get('jmbg')?.touched" class="text-red-600">Invalid input</div>
-            </div>
-            <div>
-              <label for="child-gender-{{i}}" class="block text-sm font-medium text-gray-700">Child Gender</label>
-              <input id="child-gender-{{i}}" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-              <div *ngIf="child.get('gender')?.invalid && child.get('gender')?.touched" class="text-red-600">Invalid input</div>
+
+      <!-- Last Name -->
+      <div>
+        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input id="lastName" type="text" formControlName="lastName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('lastName')?.invalid && employeForm.get('lastName')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('lastName')?.errors?.['required']">Last Name is required.</span>
+        </div>
+      </div>
+
+      <!-- Name Of Parent -->
+      <div>
+        <label for="nameOfParent" class="block text-sm font-medium text-gray-700">Name Of Parent</label>
+        <input id="nameOfParent" type="text" formControlName="nameOfParent" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('nameOfParent')?.invalid && employeForm.get('nameOfParent')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('nameOfParent')?.errors?.['required']">Name of Parent is required.</span>
+        </div>
+      </div>
+
+      <!-- Date Of Birth -->
+      <div>
+        <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Date Of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('dateOfBirth')?.invalid && employeForm.get('dateOfBirth')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('dateOfBirth')?.errors?.['required']">Date of Birth is required.</span>
+        </div>
+      </div>
+
+      <!-- JMBG -->
+      <div>
+        <label for="jmbg" class="block text-sm font-medium text-gray-700">JMBG</label>
+        <input id="jmbg" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('jmbg')?.invalid && employeForm.get('jmbg')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('jmbg')?.errors?.['required']">JMBG is required.</span>
+          <span *ngIf="employeForm.get('jmbg')?.errors?.['pattern']">JMBG must be exactly 13 digits.</span>
+        </div>
+      </div>
+
+      <!-- Hourly Rate -->
+      <div>
+        <label for="hourlyRate" class="block text-sm font-medium text-gray-700">Hourly Rate</label>
+        <input id="hourlyRate" type="number" formControlName="hourlyRate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('hourlyRate')?.invalid && employeForm.get('hourlyRate')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('hourlyRate')?.errors?.['required']">Hourly Rate is required.</span>
+          <span *ngIf="employeForm.get('hourlyRate')?.errors?.['min']">Hourly Rate cannot be negative.</span>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div>
+        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+        <input id="gender" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('gender')?.invalid && employeForm.get('gender')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('gender')?.errors?.['required']">Gender is required.</span>
+          <span *ngIf="employeForm.get('gender')?.errors?.['pattern']">Gender must be 'M' or 'F'.</span>
+        </div>
+      </div>
+
+      <!-- Identity Card Number -->
+      <div>
+        <label for="identityCardNumber" class="block text-sm font-medium text-gray-700">Identity Card Number</label>
+        <input id="identityCardNumber" type="text" formControlName="identityCardNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('identityCardNumber')?.invalid && employeForm.get('identityCardNumber')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('identityCardNumber')?.errors?.['required']">Identity Card Number is required.</span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+        <input id="phone" type="text" formControlName="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('phone')?.invalid && employeForm.get('phone')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('phone')?.errors?.['required']">Phone is required.</span>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+        <input id="address" type="text" formControlName="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('address')?.invalid && employeForm.get('address')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('address')?.errors?.['required']">Address is required.</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input id="email" type="email" formControlName="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('email')?.invalid && employeForm.get('email')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="employeForm.get('email')?.errors?.['email']">Please enter a valid email address.</span>
+        </div>
+      </div>
+
+      <!-- Place Of Birth -->
+      <div>
+        <label for="placeOfBirth" class="block text-sm font-medium text-gray-700">Place Of Birth</label>
+        <input id="placeOfBirth" type="text" formControlName="placeOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('placeOfBirth')?.invalid && employeForm.get('placeOfBirth')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('placeOfBirth')?.errors?.['required']">Place of Birth is required.</span>
+        </div>
+      </div>
+
+      <!-- Date Of Employment -->
+      <div>
+        <label for="dateOfEmployment" class="block text-sm font-medium text-gray-700">Date Of Employment</label>
+        <input id="dateOfEmployment" type="date" formControlName="dateOfEmployment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('dateOfEmployment')?.invalid && employeForm.get('dateOfEmployment')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('dateOfEmployment')?.errors?.['required']">Date Of Employment is required.</span>
+        </div>
+      </div>
+
+      <!-- PIO -->
+      <div>
+        <label for="pio" class="block text-sm font-medium text-gray-700">PIO</label>
+        <input id="pio" type="text" formControlName="pio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('pio')?.invalid && employeForm.get('pio')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('pio')?.errors?.['required']">PIO is required.</span>
+          <span *ngIf="employeForm.get('pio')?.errors?.['pattern']">PIO must be a 10-digit number.</span>
+        </div>
+      </div>
+
+      <!--School-->
+      <div>
+        <label for="school" class="block text-sm font-medium text-gray-700">School</label>
+        <input id="school" type="text" formControlName="school" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('school')?.invalid && employeForm.get('school')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+
+      <!--College-->
+      <div>
+        <label for="college" class="block text-sm font-medium text-gray-700">College</label>
+        <input id="college" type="text" formControlName="college" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('college')?.invalid && employeForm.get('college')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+
+       <!-- Position -->
+       <div>
+        <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+        <input id="position" type="text" formControlName="position" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('position')?.invalid && employeForm.get('position')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('position')?.errors?.['required']">Position is required.</span>
+        </div>
+      </div>
+
+      <!-- Employment Contract -->
+      <div>
+        <label for="employmentContract" class="block text-sm font-medium text-gray-700">Employment Contract</label>
+        <input id="employmentContract" type="text" formControlName="employmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('employmentContract')?.invalid && employeForm.get('employmentContract')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('employmentContract')?.errors?.['required']">Employment Contract is required.</span>
+        </div>
+      </div>
+
+        <!-- Amendment Contract -->
+      <div>
+        <label for="amendmentContract" class="block text-sm font-medium text-gray-700">Amendment Contract</label>
+        <input id="amendmentContract" type="text" formControlName="amendmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('amendmentContract')?.invalid && employeForm.get('amendmentContract')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('amendmentContract')?.errors?.['required']">Amendment Contract is required.</span>
+        </div>
+      </div>
+
+      <!-- Bank Name -->
+      <div>
+        <label for="bankName" class="block text-sm font-medium text-gray-700">Bank Name</label>
+        <input id="bankName" type="text" formControlName="bankName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('bankName')?.invalid && employeForm.get('bankName')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('bankName')?.errors?.['required']">Bank Name is required.</span>
+        </div>
+      </div>
+
+      <!-- Current Account -->
+      <div>
+        <label for="currentAccount" class="block text-sm font-medium text-gray-700">Current Account</label>
+        <input id="currentAccount" type="text" formControlName="currentAccount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('currentAccount')?.invalid && employeForm.get('currentAccount')?.touched" class="text-red-600">
+          <span *ngIf="employeForm.get('currentAccount')?.errors?.['required']">Current Account is required.</span>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div formArrayName="employeChild" class="mt-6 space-y-6">
+      <div *ngFor="let child of employeChild.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Child Name -->
+          <div>
+            <label for="child-name-{{i}}" class="block text-sm font-medium text-gray-700">Child Name</label>
+            <input id="child-name-{{i}}" type="text" formControlName="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-red-600">
+              <span *ngIf="child.get('name')?.errors?.['required']">Child Name is required.</span>
             </div>
           </div>
-          <button type="button" (click)="removeEmployeChild(i)" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Remove Child</button>
+    
+          <!-- Child JMBG -->
+          <div>
+            <label for="child-jmbg-{{i}}" class="block text-sm font-medium text-gray-700">Child JMBG</label>
+            <input id="child-jmbg-{{i}}" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('jmbg')?.invalid && child.get('jmbg')?.touched" class="text-red-600">
+              <span *ngIf="child.get('jmbg')?.errors?.['required']">JMBG is required.</span>
+              <span *ngIf="child.get('jmbg')?.errors?.['pattern']">JMBG must be exactly 13 digits.</span>
+            </div>
+          </div>
+    
+          <!-- Child Gender -->
+          <div>
+            <label for="child-gender-{{i}}" class="block text-sm font-medium text-gray-700">Child Gender</label>
+            <input id="child-gender-{{i}}" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('gender')?.invalid && child.get('gender')?.touched" class="text-red-600">
+              <span *ngIf="child.get('gender')?.errors?.['required']">Gender is required.</span>
+              <span *ngIf="child.get('gender')?.errors?.['pattern']">Gender must be 'M' or 'F'.</span>
+            </div>
+          </div>
         </div>
-        <button type="button" (click)="addEmployeChild()" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add Child</button>
+    
+        <!-- Remove Child Button -->
+        <button type="button" (click)="removeEmployeChild(i)" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Remove Child</button>
       </div>
-      <div class="flex justify-end mt-6">
-        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
+    
+      <!-- Add Child Button -->
+      <button type="button" (click)="addEmployeChild()" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add Child</button>
+    </div>
+
+    <div class="flex justify-end">
+      <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- <div class="container mx-auto py-8">
+  <form [formGroup]="employeForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+        <input id="firstName" type="text" formControlName="firstName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('firstName')?.invalid && employeForm.get('firstName')?.touched" class="text-red-600">Invalid input</div>
       </div>
-    </form>
-  </div>
-  
+      <div>
+        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input id="lastName" type="text" formControlName="lastName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('lastName')?.invalid && employeForm.get('lastName')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="nameOfParent" class="block text-sm font-medium text-gray-700">Name Of Parent</label>
+        <input id="nameOfParent" type="text" formControlName="nameOfParent" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('nameOfParent')?.invalid && employeForm.get('nameOfParent')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Date Of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('dateOfBirth')?.invalid && employeForm.get('dateOfBirth')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="jmbg" class="block text-sm font-medium text-gray-700">JMBG</label>
+        <input id="jmbg" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('jmbg')?.invalid && employeForm.get('jmbg')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="hourlyRate" class="block text-sm font-medium text-gray-700">Hourly Rate</label>
+        <input id="hourlyRate" type="number" formControlName="hourlyRate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('hourlyRate')?.invalid && employeForm.get('hourlyRate')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+        <input id="gender" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('gender')?.invalid && employeForm.get('gender')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="identityCardNumber" class="block text-sm font-medium text-gray-700">Identity Card Number</label>
+        <input id="identityCardNumber" type="text" formControlName="identityCardNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('identityCardNumber')?.invalid && employeForm.get('identityCardNumber')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+        <input id="phone" type="text" formControlName="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('phone')?.invalid && employeForm.get('phone')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+        <input id="address" type="text" formControlName="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('address')?.invalid && employeForm.get('address')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input id="email" type="email" formControlName="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('email')?.invalid && employeForm.get('email')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="placeOfBirth" class="block text-sm font-medium text-gray-700">Place Of Birth</label>
+        <input id="placeOfBirth" type="text" formControlName="placeOfBirth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('placeOfBirth')?.invalid && employeForm.get('placeOfBirth')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="dateOfEmployment" class="block text-sm font-medium text-gray-700">Date Of Employment</label>
+        <input id="dateOfEmployment" type="date" formControlName="dateOfEmployment" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('dateOfEmployment')?.invalid && employeForm.get('dateOfEmployment')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="pio" class="block text-sm font-medium text-gray-700">PIO</label>
+        <input id="pio" type="text" formControlName="pio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('pio')?.invalid && employeForm.get('pio')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="school" class="block text-sm font-medium text-gray-700">School</label>
+        <input id="school" type="text" formControlName="school" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('school')?.invalid && employeForm.get('school')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="college" class="block text-sm font-medium text-gray-700">College</label>
+        <input id="college" type="text" formControlName="college" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('college')?.invalid && employeForm.get('college')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="position" class="block text-sm font-medium text-gray-700">Position</label>
+        <input id="position" type="text" formControlName="position" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('position')?.invalid && employeForm.get('position')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="employmentContract" class="block text-sm font-medium text-gray-700">Employment Contract</label>
+        <input id="employmentContract" type="text" formControlName="employmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('employmentContract')?.invalid && employeForm.get('employmentContract')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="amendmentContract" class="block text-sm font-medium text-gray-700">Amendment Contract</label>
+        <input id="amendmentContract" type="text" formControlName="amendmentContract" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('amendmentContract')?.invalid && employeForm.get('amendmentContract')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="bankName" class="block text-sm font-medium text-gray-700">Bank Name</label>
+        <input id="bankName" type="text" formControlName="bankName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('bankName')?.invalid && employeForm.get('bankName')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+      <div>
+        <label for="currentAccount" class="block text-sm font-medium text-gray-700">Current Account</label>
+        <input id="currentAccount" type="text" formControlName="currentAccount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <div *ngIf="employeForm.get('currentAccount')?.invalid && employeForm.get('currentAccount')?.touched" class="text-red-600">Invalid input</div>
+      </div>
+    </div>
+
+    <div formArrayName="employeChild" class="mt-6 space-y-6">
+      <div *ngFor="let child of employeChild.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="child-name-{{i}}" class="block text-sm font-medium text-gray-700">Child Name</label>
+            <input id="child-name-{{i}}" type="text" formControlName="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-red-600">Invalid input</div>
+          </div>
+          <div>
+            <label for="child-jmbg-{{i}}" class="block text-sm font-medium text-gray-700">Child JMBG</label>
+            <input id="child-jmbg-{{i}}" type="text" formControlName="jmbg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('jmbg')?.invalid && child.get('jmbg')?.touched" class="text-red-600">Invalid input</div>
+          </div>
+          <div>
+            <label for="child-gender-{{i}}" class="block text-sm font-medium text-gray-700">Child Gender</label>
+            <input id="child-gender-{{i}}" type="text" formControlName="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="child.get('gender')?.invalid && child.get('gender')?.touched" class="text-red-600">Invalid input</div>
+          </div>
+        </div>
+        <button type="button" (click)="removeEmployeChild(i)" class="mt-4 px-4 py-2 bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Remove Child</button>
+      </div>
+      <button type="button" (click)="addEmployeChild()" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add Child</button>
+    </div>
+    <div class="flex justify-end mt-6">
+      <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Submit</button>
+    </div>
+  </form>
+</div> -->
