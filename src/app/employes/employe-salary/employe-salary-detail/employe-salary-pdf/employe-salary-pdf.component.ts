@@ -15,6 +15,8 @@ export class EmployeSalaryPdfComponent implements OnInit {
 
   email: string = 'dobrikasi@gmail.com'
   message: string = ``;
+  isLoading: boolean = false;
+  showLoading: boolean = false;
 
   @Input() employeSalaryData!: EmployeSalary;
   @Input() hourlyRate: number = 0;
@@ -27,6 +29,7 @@ export class EmployeSalaryPdfComponent implements OnInit {
 
   generatePdf(): void {
     if (this.imeIprz === '') return;
+    this.isLoading = true;
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfTemplate);
     if (pdfElement) {
       const htmlContent = pdfElement.innerHTML;
@@ -34,6 +37,7 @@ export class EmployeSalaryPdfComponent implements OnInit {
         next: () => {
           this.sharedService.updatePdf();
           this.previewSalaryPdf.nativeElement.close();
+          this.isLoading = false;
         },
         error: (e) => console.error('Error generating PDF', e)
       });
@@ -44,12 +48,15 @@ export class EmployeSalaryPdfComponent implements OnInit {
 
   sendEmail(pdf: PdfType): void {
     if(this.sharedService.pdfName.value === '') return;
+    this.showLoading = true;
     console.log(pdf.url.toString());
     this.sharedService.sendPdf(this.sharedService.pdfName.value, this.email).subscribe({
       next: (response) => {
         this.message = response.message;
         this.messageModal.nativeElement.showModal();
         this.sharedService.updatePdf();
+        this.showLoading = false;
+        // this.isLoading2 = false;
       },
       error: (e) => {
         console.error('Error sending email:', e);

@@ -20,7 +20,7 @@ export class EmployeSalaryDetailComponent {
   employeService: EmployeService = inject(EmployeService);
   sharedService: SharedService = inject(SharedService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-
+  showLoading: boolean = false;
   hourlyRate: number = 0;
   employeSalarys!: Observable<EmployeSalary[]>;
   employeSalaryId: string | undefined = '';
@@ -71,5 +71,12 @@ export class EmployeSalaryDetailComponent {
         throw new Error("Nepoznat mesec");
       }
     }
+  }
+
+  onShowLoadin(eventLoading: boolean): void {
+    console.log("****************************");
+    console.log("event loading");
+    console.log("****************************");
+    this.showLoading = eventLoading;
   }
 }
