@@ -1,4 +1,4 @@
-<div class="grid grid-rows-[auto,auto,1fr,auto] h-full  p-5 gap-5">
+<div *ngIf="employes | async as e; else loading" class="grid grid-rows-[auto,auto,1fr,auto] h-full  p-5 gap-5">
   <div row>
     <app-filter 
       [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
@@ -35,17 +35,15 @@
     </div>
   </div>
   <div class="w-full h-full">
-    <div>
-      <div class="h-full flex flex-col md:grid md:grid-cols-2 xl:grid xl:grid-cols-4 gap-4">
-        <ng-container *ngFor="let employe of employes | async">
-          <app-employe-item 
-            [employe]="employe" 
-            [forImageHeight]="true" 
-            [showModalInDetail]="true">
-          </app-employe-item>
-        </ng-container>
-      </div>   
-    </div>
+    <div class="h-full flex flex-col md:grid md:grid-cols-2 xl:grid xl:grid-cols-4 gap-4">
+      <ng-container *ngFor="let employe of e">
+        <app-employe-item 
+          [employe]="employe" 
+          [forImageHeight]="true" 
+          [showModalInDetail]="true">
+        </app-employe-item>
+      </ng-container>
+    </div>   
   </div>
   <div>
     <app-paganation 
@@ -59,3 +57,7 @@
 <ng-container *ngIf="this.employeService.employeSubject.value !== null">
   <app-employe-modal [isDetail]="true"></app-employe-modal>
 </ng-container>
+
+<ng-template #loading>
+  <app-spinner [loading]="true"></app-spinner>
+</ng-template>

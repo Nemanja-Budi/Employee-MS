@@ -1,4 +1,4 @@
-<div class="overflow-x-auto">
+<div *ngIf="employeSalarys | async as es; else loading" class="overflow-x-auto">
   <table class="min-w-full border border-indigo-600">
     <thead class="bg-indigo-600 text-white">
       <tr>
@@ -14,10 +14,10 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let salary of employeSalarys | async; let i = index;">
+      <ng-container *ngFor="let salary of es; let i = index;">
         <tr routerLink="/employes/salary/detail-salary/{{salary.id}}" class="even:bg-indigo-100 hover:bg-indigo-400 hover:cursor-pointer">
           <td class="py-1.5 px-4">{{ (employeSalaryService.employeSalaryQuearyParamsSubject.value.commonFilter.pageNumber - 1) * employeSalaryService.employeSalaryQuearyParamsSubject.value.commonFilter.pageSize + i + 1 }}.</td>
-          <td *ngIf="salary.employeId">
+          <td *ngIf="salary.employeId;">
             <app-employe-salary-employe-detail 
               [employeId]="salary.employeId" 
               [isPdf]="false" 
@@ -38,5 +38,7 @@
     </tbody>
   </table>
 </div>
-
+<ng-template #loading>
+  <app-spinner [loading]="true"></app-spinner>
+</ng-template>
   

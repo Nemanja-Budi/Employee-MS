@@ -17,7 +17,7 @@ export class AnnualLeaveComponent implements OnDestroy{
   sharedService: SharedService = inject(SharedService);
   
   message: string = ``;
-  annualleave: Observable<AnnualLeave[]> = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
+  annualleaves: Observable<AnnualLeave[]> = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
   @ViewChild('messageModal', { static: true }) messageModal!: ElementRef<HTMLDialogElement>;
 
   onGetKeysWithoutFirstAndLast(obj: any): Array<string> {
@@ -36,7 +36,7 @@ export class AnnualLeaveComponent implements OnDestroy{
     if(deleteEventMessage === '' ) return;
     this.message = deleteEventMessage;
     this.messageModal.nativeElement.showModal();
-    this.annualleave = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
+    this.annualleaves = this.annualleaveService.getAllAnnualLeave().pipe(map((al) => al.annualLeaves));
 
   }
 

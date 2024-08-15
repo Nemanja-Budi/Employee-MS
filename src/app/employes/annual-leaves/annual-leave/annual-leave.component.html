@@ -1,4 +1,4 @@
-<div class="grid grid-rows-[auto,1fr] gap-3 h-full">
+<div *ngIf="annualleaves | async as al; else loading" class="grid grid-rows-[auto,1fr] gap-3 h-full">
     <h2 class="text-xl text-center pt-3">Svi godisnji odmori</h2>
     <div class="grid grid-rows-[auto,1fr,auto] h-full gap-3 px-4 pb-4">
         <div class="grid grid-cols-4 gap-3">
@@ -40,12 +40,12 @@
         </div>
         <div class="grid grid-cols-3 gap-x-3 h-fit">
             <fieldset 
-                (click)="onOpenAlModal(al)"
-                *ngFor="let al of (annualleave | async)" 
+                (click)="onOpenAlModal(annualleave)"
+                *ngFor="let annualleave of al " 
                 class="bg-white shadow-md border border-indigo-600 rounded-md px-3 pt-3 hover:bg-indigo-400 hover:cursor-pointer hover:shadow-black hover:shadow hover:scale-105 group transition-all duration-700 ease-in-out">
                 <legend class="text-xl font-bold text-center text-indigo-600 group-hover:text-black">
                     <app-employe-salary-employe-detail 
-                        [employeId]="al.employeId" 
+                        [employeId]="annualleave.employeId" 
                         [isPdf]="false" 
                         [isDetail]="false"
                         [showBankInfo]="false">
@@ -53,7 +53,7 @@
                 </legend>
                <div>
                     <app-annual-leave-item 
-                        [annualLeave]="al"
+                        [annualLeave]="annualleave"
                         [isDetail]="false">
                     </app-annual-leave-item>
                </div>
@@ -72,6 +72,10 @@
 <ng-container *ngIf="annualleaveService.currentAnnualLeaveSubject.value !== null">
     <app-annual-leave-modal (deletedAction)="onUpdateAL($event)"></app-annual-leave-modal>
 </ng-container>
+
+<ng-template #loading>
+    <app-spinner [loading]="true"></app-spinner>
+</ng-template>
 
 <dialog #messageModal class="modal">
     <div class="flex flex-col gap-3 p-3">

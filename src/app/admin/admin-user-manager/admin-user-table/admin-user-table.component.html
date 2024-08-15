@@ -1,4 +1,4 @@
-<table class="w-full md:bg-transparent/20 md:shadow md:shadow-black rounded-xl text-[#fff8]">
+<table *ngIf="members | async as memberData; else loading" class="w-full md:bg-transparent/20 md:shadow md:shadow-black rounded-xl text-[#fff8]">
     <thead class="text-[#BB4430] rounded-2xl md:border-b-2 md:border-b-[#BB4430]">
       <tr class="">
         <th class="th-custom2 p-3 text-left ">Br.</th>
@@ -15,7 +15,7 @@
     <tbody class=" ">
       <td colspan="8" *ngIf="membersLength == 0"><p class="text-center text-[#BB4430] font-bold p-2">Nema rezultata za zadatu pretragu</p></td>
       <ng-container
-        *ngFor="let member of members | async; let i = index">
+        *ngFor="let member of memberData; let i = index">
         <tr class="group  md:hover:bg-[#BB4430]/10 shadow shadow-black ">
             <td data-cell="br" class="td-custom2 md:text-[#BB4430] font-bold p-3 text-start md:text-center w-9">{{ (adminService.memberQuearyParamsSubject.value.commonFilter.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.commonFilter.pageSize + i + 1 }}.</td>
             <td data-cell="ime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.firstName| titlecase }}</td>
@@ -63,3 +63,7 @@
         </div>
     </div>
 </dialog>
+
+<ng-template #loading>
+  <app-spinner [loading]="true"></app-spinner>
+</ng-template>

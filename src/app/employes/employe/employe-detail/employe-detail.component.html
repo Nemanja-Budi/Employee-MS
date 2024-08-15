@@ -1,6 +1,6 @@
-<div class="grid grid-rows-[auto,1fr] h-full">
+<div *ngIf="employe | async as employeData; else loading" class="grid grid-rows-[auto,1fr] h-full">
   <h2 class="text-center text-xl p-5">Detalji o zaposlenom</h2>
-  <div class="grid grid-cols-[0.6fr,1fr] h-full justify-center gap-5 px-5"  *ngIf="employe | async as employeData">
+  <div class="grid grid-cols-[0.6fr,1fr] h-full justify-center gap-5 px-5">
     <div>
       <app-employe-item 
         [employe]="employeData" 
@@ -34,3 +34,7 @@
 <ng-container *ngIf="this.employeService.employeSubject.value !== null">
   <app-employe-modal [isDetail]="false"></app-employe-modal>
 </ng-container>
+
+<ng-template #loading>
+  <app-spinner [loading]="true"></app-spinner>
+</ng-template>
