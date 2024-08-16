@@ -1,4 +1,4 @@
-<button *ngIf="showFilter == false" class="text-sm block md:hidden bg-indigo-600 px-3 py-1 text-white rounded-md" (click)="toggleFilter(true)">Open Filters</button>
+<button *ngIf="showFilter == false" class="text-sm block md:hidden bg-indigo-600 px-3 py-1.5 text-white rounded-md" (click)="toggleFilter(true)">Open Filters</button>
 <div *ngIf="showFilter == true" class="grid grid-cols-2 gap-1.5 md:hidden bg-indigo-600 text-black text-sm rounded-md p-2 md:gap-3">
     <button (click)="toggleFilter(false)" class="text-rose-600 flex justify-start md:hidden">Close filters</button>
     <div *ngFor="let cb of filterParams; let i = index;">

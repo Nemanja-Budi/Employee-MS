@@ -1,7 +1,7 @@
-<div *ngIf="annualleaves | async as al; else loading" class="grid grid-rows-[auto,1fr] gap-3 h-full">
+<div *ngIf="annualleaves | async as al; else loading" class="grid grid-rows-[auto,1fr] gap-3 h-full ">
     <h2 class="text-xl text-center pt-3">Svi godisnji odmori</h2>
     <div class="grid grid-rows-[auto,1fr,auto] h-full gap-3 px-4 pb-4">
-        <div class="grid grid-cols-4 gap-3">
+        <div class="grid grid-cols-4 gap-3 items-center">
             <div class="grid grid-cols-2 gap-3">
                 <div class="w-full h-full">
                     <button 
@@ -30,7 +30,7 @@
             <div class="grid grid-cols-2 gap-5">
                 <div>
                     <app-show-items-per-page
-                        [itemsPerPage]="[9,18,36]" 
+                        [itemsPerPage]="[12,24,36]" 
                         [textColor]="'white'" 
                         [bgButton]="'indigo-600'"
                         [hbutton]="8"
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-3 gap-x-3 h-fit">
+        <div class="grid md:grid md:grid-cols-2 xl:grid xl:grid-cols-3 gap-x-3 h-fit">
             <fieldset 
                 (click)="onOpenAlModal(annualleave)"
                 *ngFor="let annualleave of al " 
