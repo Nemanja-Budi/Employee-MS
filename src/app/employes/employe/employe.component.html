@@ -1,4 +1,4 @@
-<div *ngIf="employes | async as e; else loading" class="grid grid-rows-[auto,auto,1fr,auto] h-full  p-5 gap-5">
+<div *ngIf="employes | async as e; else loading" class="grid grid-rows-[auto,auto,1fr,auto] h-full gap-2.5  p-5 md:gap-5">
   <div row>
     <app-filter 
       [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
@@ -7,15 +7,15 @@
       [currentSubject]="this.employeService.employeCurrentSubject">
     </app-filter>
   </div>
-  <div class="md:grid md:grid-cols-10 md:gap-1.5 xl:grid xl:grid-cols-4 xl:gap-5">
-    <div class="w-full h-full md:col-span-3 xl:col-auto">
+  <div class="grid grid-rows-2 gap-2.5 md:grid-rows-1 md:grid md:grid-cols-10 md:gap-1.5 xl:grid xl:grid-cols-4 xl:gap-5">
+    <div class="hidden md:block order-2 md:order-1 w-full h-full md:col-span-3 xl:col-auto">
       <button 
         class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
         routerLink="/employes/employe/add-employe">
         Add Employe
       </button>
     </div>
-    <div class="md:col-span-4 xl:col-span-3 ">
+    <div class="order-1 md:order-2 md:col-span-4 xl:col-span-2">
       <app-search 
         [queryParamsSubject]="this.employeService.employeQuearyParamsSubject" 
         [filterParams]="this.employeService.getEmployeCheckBoxes()"
@@ -23,8 +23,8 @@
         [currentSubject]="this.employeService.employeCurrentSubject">
       </app-search>
     </div>
-    <div class="md:grid md:grid-cols-5 md:col-span-3 md:gap-1.5 xl:grid xl:grid-cols-2 xl:col-auto xl:gap-5">
-      <div class="md:col-span-3 xl:col-auto">
+    <div class="order-3 grid grid-cols-9 gap-2.5 md:grid md:grid-cols-5 md:col-span-3 md:gap-1.5 xl:grid xl:grid-cols-2 xl:col-auto xl:gap-5">
+      <div class="col-span-4 md:col-span-3 xl:col-auto">
         <app-show-items-per-page
           [itemsPerPage]="[8,16,32]" 
           [textColor]="'white'" 
@@ -33,10 +33,17 @@
           [queryParamsSubject]="this.employeService.employeQuearyParamsSubject">
         </app-show-items-per-page>
       </div>
-      <div class="md:col-span-2 xl:col-auto">
+      <div class="col-span-2 md:col-span-2 xl:col-auto">
         <app-enter-per-page 
           [queryParamsSubject]="this.employeService.employeQuearyParamsSubject"
           [valueAfterReset]="8"></app-enter-per-page>
+      </div>
+      <div class="col-span-3 block md:hidden order-2 md:order-1 w-full h-full md:col-span-3 xl:col-auto">
+        <button 
+          class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
+          routerLink="/employes/employe/add-employe">
+          Add Employe
+        </button>
       </div>
     </div>
   </div>

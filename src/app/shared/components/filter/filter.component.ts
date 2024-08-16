@@ -18,11 +18,16 @@ export class FilterComponent {
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
   sharedService: SharedService = inject(SharedService);
   currentPage: number = 1;
+  showFilter: boolean = false;
 
   @Input({required: true}) filterParams: CheckBoxFilter[] = [];
   @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
+
+  toggleFilter(visibility: boolean): void {
+    this.showFilter = visibility;
+  }
 
   onChangeInput(changeInput: CheckBoxFilter): void {
     const employeFilterDto = { ...this.queryParamsSubject.value.employeFilterDto };
