@@ -1,25 +1,26 @@
 <div *ngIf="annualleaves | async as al; else loading" class="grid grid-rows-[auto,1fr] gap-3 h-full ">
     <h2 class="text-xl text-center pt-3">Svi godisnji odmori</h2>
     <div class="grid grid-rows-[auto,1fr,auto] h-full gap-3 px-4 pb-4">
-        <div class="grid grid-cols-4 gap-3 items-center">
-            <div class="grid grid-cols-2 gap-3">
-                <div class="w-full h-full">
-                    <button 
-                        class="w-full h-full border rounded-md  bg-indigo-600 text-white" 
-                        routerLink="/employes/annual-leave/create-annual-leave">
-                        Add Annual Leave
-                    </button>
-                </div>
-                <div>
+        <div class="grid gap-3 md:grid md:grid-cols-3 md:gap-2.5 xl:grid xl:grid-cols-4 xl:gap-3 items-center">
+            <div class="flex justify-between md:grid md:grid-cols-2 gap-3">
+                <div class="h-full">
                     <app-filter 
                         [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"
                         [filterParams]="this.annualleaveService.getAnnualLeaveCheckBox()"
                         [searchSubject]="this.annualleaveService.annualleaveSearchSubject"
-                        [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
+                        [currentSubject]="this.annualleaveService.annualleaveCurrentSubject"
+                        [showDiv]="true">
                     </app-filter>
                 </div>
+                <div class="md:w-full flex items-center">
+                    <button 
+                        class="w-full py-1.5 px-1 border rounded-md  bg-indigo-600 text-white" 
+                        routerLink="/employes/annual-leave/create-annual-leave">
+                        Add Annual Leave
+                    </button>
+                </div>
             </div>
-            <div class="col-span-2">
+            <div class="md:col-auto xl:col-span-2">
                 <app-search 
                     [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject" 
                     [filterParams]="this.annualleaveService.getAnnualLeaveCheckBox()"
@@ -27,8 +28,8 @@
                     [currentSubject]="this.annualleaveService.annualleaveCurrentSubject">
                 </app-search>
             </div>
-            <div class="grid grid-cols-2 gap-5">
-                <div>
+            <div class="grid grid-cols-2 gap-5 md:grid md:grid-cols-5 md:gap-2.5 xl:grid xl:grid-cols-2 xl:gap-5">
+                <div class="md:col-span-3 xl:col-auto">
                     <app-show-items-per-page
                         [itemsPerPage]="[12,24,36]" 
                         [textColor]="'white'" 
@@ -37,7 +38,7 @@
                         [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject">
                     </app-show-items-per-page>
                 </div>
-                <div class="h-full">
+                <div class="md:col-span-2 xl:col-auto">
                     <app-enter-per-page 
                       [queryParamsSubject]="this.annualleaveService.annualleaveQuearyParamsSubject"  
                       [valueAfterReset]="15">

@@ -24,6 +24,7 @@ export class FilterComponent {
   @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
   @Input({required: true}) queryParamsSubject!: BehaviorSubject<any>;
   @Input({required: true}) searchSubject!: BehaviorSubject<string>;
+  @Input({required: true}) showDiv: boolean = false;
 
   toggleFilter(visibility: boolean): void {
     this.showFilter = visibility;

@@ -2,21 +2,15 @@
   <h2 class="text-center text-xl pt-5">{{naslov}}</h2>
   <div class="grid grid-rows-[auto,1fr,auto] h-full p-5 gap-5">
     <div *ngIf="!selectedEmployeId" class="grid grid-rows-[auto,1fr] gap-5">
-      <div class="grid grid-cols-2 gap-5 h-full">
-        <div class="w-full h-full">
-          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
-        </div>
-        <div class="w-full h-full">
-          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
-        </div>
-      </div>
+
       <div class="grid gap-2.5 md:grid md:grid-cols-6 md:gap-2.5 xl:grid xl:grid-cols-4 xl:gap-5 h-fit items-center">
         <div>
           <app-filter 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
             [filterParams]="this.employeSalaryService.getEmployeSalaryCheckBox()"
             [searchSubject]="this.employeSalaryService.employeSalarySearchSubject"
-            [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
+            [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject"
+            [showDiv]="true">
           </app-filter>
         </div>
         <div class="md:col-span-3 xl:col-span-2">
@@ -43,6 +37,14 @@
               [valueAfterReset]="15">
             </app-enter-per-page>
           </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-5 h-full">
+        <div class="w-full h-full">
+          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+        </div>
+        <div class="w-full h-full">
+          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
         </div>
       </div>
     </div>
