@@ -1,16 +1,16 @@
 <div class="grid grid-rows-[auto,1fr] h-full">
   <h2 class="text-center text-xl pt-5">{{naslov}}</h2>
   <div class="grid grid-rows-[auto,1fr,auto] h-full p-5 gap-5">
-    <div *ngIf="!selectedEmployeId" class="grid grid-rows-2 gap-5">
+    <div *ngIf="!selectedEmployeId" class="grid grid-rows-[auto,1fr] gap-5">
       <div class="grid grid-cols-2 gap-5 h-full">
         <div class="w-full h-full">
-          <button class="w-full h-full border rounded-md bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
+          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" routerLink="/employes/salary/create-salary">Dodaj plate</button>
         </div>
         <div class="w-full h-full">
-          <button class="w-full h-full border rounded-md bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
+          <button class="w-full h-full py-1.5 border rounded-md bg-indigo-600 text-white" (click)="openBankModal()">Po bankama</button>
         </div>
       </div>
-      <div class="grid grid-cols-4 gap-5">
+      <div class="grid gap-2.5 md:grid md:grid-cols-6 md:gap-2.5 xl:grid xl:grid-cols-4 xl:gap-5 h-fit items-center">
         <div>
           <app-filter 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"
@@ -19,7 +19,7 @@
             [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-filter>
         </div>
-        <div class="col-span-2">
+        <div class="md:col-span-3 xl:col-span-2">
           <app-search 
             [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject" 
             [filterParams]="this.employeSalaryService.getEmployeSalaryCheckBox()"
@@ -27,8 +27,8 @@
             [currentSubject]="this.employeSalaryService.employeSalaryCurrentSubject">
           </app-search>
         </div>
-        <div>
-          <div>
+        <div class="grid grid-cols-2  gap-5 md:grid md:grid-cols-6 md:gap-2.5 md:col-span-2 xl:grid xl:grid-cols-2 xl:gap-5 xl:col-auto">
+          <div class="md:col-span-4 xl:col-auto">
             <app-show-items-per-page
               [itemsPerPage]="[5,10,15]" 
               [textColor]="'white'" 
@@ -37,7 +37,7 @@
               [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject">
             </app-show-items-per-page>
           </div>
-          <div>
+          <div class="md:col-span-2 xl:col-auto">
             <app-enter-per-page 
               [queryParamsSubject]="this.employeSalaryService.employeSalaryQuearyParamsSubject"  
               [valueAfterReset]="15">
