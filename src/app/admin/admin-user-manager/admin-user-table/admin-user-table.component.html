@@ -1,5 +1,5 @@
-<table *ngIf="members | async as memberData; else loading" class="w-full md:bg-transparent/20 md:shadow md:shadow-black rounded-xl text-[#fff8]">
-    <thead class="text-[#BB4430] rounded-2xl md:border-b-2 md:border-b-[#BB4430]">
+<table *ngIf="members | async as memberData; else loading" class="border border-indigo-600 min-w-full">
+    <thead class="bg-indigo-600 text-white">
       <tr class="">
         <th class="th-custom2 p-3 text-left ">Br.</th>
         <th class="th-custom2 px-0 py-1 text-left ">Ime</th>
@@ -16,13 +16,13 @@
       <td colspan="8" *ngIf="membersLength == 0"><p class="text-center text-[#BB4430] font-bold p-2">Nema rezultata za zadatu pretragu</p></td>
       <ng-container
         *ngFor="let member of memberData; let i = index">
-        <tr class="group  md:hover:bg-[#BB4430]/10 shadow shadow-black ">
-            <td data-cell="br" class="td-custom2 md:text-[#BB4430] font-bold p-3 text-start md:text-center w-9">{{ (adminService.memberQuearyParamsSubject.value.commonFilter.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.commonFilter.pageSize + i + 1 }}.</td>
-            <td data-cell="ime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.firstName| titlecase }}</td>
-            <td data-cell="prezime" class="td-custom2 px-1 py-1 text-left break-words break-letters">{{ member.lastName | titlecase }}</td>
-            <td data-cell="username" class="td-custom2 px-1 py-1 break-words break-letters">{{ member.userName }}</td>
-            <td data-cell="date created" class="td-custom2 px-1 py-1 items-center break-words">{{ member.dateCreated | date }}</td>
-            <td data-cell="uloge" class="td-custom2 px-1 py-1 ">
+        <tr class="group  even:bg-indigo-100 hover:bg-indigo-400 hover:cursor-pointer">
+            <td data-cell="br" class="td-custom2 px-4 py-1.5">{{ (adminService.memberQuearyParamsSubject.value.commonFilter.pageNumber - 1) * adminService.memberQuearyParamsSubject.value.commonFilter.pageSize + i + 1 }}.</td>
+            <td data-cell="ime" class="td-custom2 px-4 py-1.5 text-left break-words break-letters">{{ member.firstName| titlecase }}</td>
+            <td data-cell="prezime" class="td-custom2 px-4 py-1.5 text-left break-words break-letters">{{ member.lastName | titlecase }}</td>
+            <td data-cell="username" class="td-custom2 px-4 py-1.5 break-words break-letters">{{ member.userName }}</td>
+            <td data-cell="date created" class="td-custom2 px-4 py-1.5 items-center break-words">{{ member.dateCreated | date }}</td>
+            <td data-cell="uloge" class="td-custom2 px-4 py-1.5 ">
                 <div class="block">
                     <span *ngFor="let role of member.roles; let i = index">
                         {{role}}<span *ngIf="i+1 < member.roles.length">, </span>
