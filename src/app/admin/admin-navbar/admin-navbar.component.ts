@@ -36,6 +36,10 @@ export class AdminNavbarComponent implements OnDestroy {
     this.accountService.logout();
   }
 
+  close(): void {
+    this.adminService.isOpen.next(false);
+  }
+
   ngOnDestroy(): void {
     this.adminService.isOpen.next(false); 
   }

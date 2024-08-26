@@ -10,13 +10,14 @@ export class AdminComponent {
 
   adminService: AdminService = inject(AdminService);
 
-  isOpen: boolean = false;
+  // isOpen: boolean = false;
 
   constructor(private elementRef: ElementRef) {}
 
   toggle(): void {
-    this.isOpen = !this.isOpen;
-    this.adminService.isOpen.next(this.isOpen);
+    // this.isOpen = !this.isOpen;
+    const isOpen = this.adminService.isOpen.value
+    this.adminService.isOpen.next(!isOpen);
   }
 
  
