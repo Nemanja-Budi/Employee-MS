@@ -5,13 +5,15 @@ import { AdminComponent } from './admin.component';
 import { AdminEditMemberComponent } from './admin-user-manager/admin-edit-member/admin-edit-member.component';
 import { AdminGuard } from '../shared/guards/admin.guard';
 import { AuditlogsComponent } from './auditlogs/auditlogs.component';
+import { AdminLandingPageComponent } from './admin-landing-page/admin-landing-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'users', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: '',
     component: AdminComponent, // Komponenta koja sadrži poseban `router-outlet`
     children: [
+      { path: 'dashboard', component: AdminLandingPageComponent },
       { path: 'users', component: AdminUserManagerComponent },
       { path: 'add-new-user', component: AdminEditMemberComponent },
       { path: 'edit-user/:id', component: AdminEditMemberComponent },

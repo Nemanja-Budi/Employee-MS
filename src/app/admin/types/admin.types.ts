@@ -32,6 +32,11 @@ export function getMemberCheckBox(): CheckBoxFilter[] {
 export function getAdminRoutes(): Links[] {
   const adminLinks: Links[] = [
     {
+      linkName: 'Dashboard',
+      linkRoute: 'admin/dashboard',
+      imgName: 'dashboard.png'
+    },
+    {
       linkName: 'Users',
       linkRoute: 'admin/users',
       imgName: 'group.png'
@@ -49,3 +54,4 @@ export function getAdminRoutes(): Links[] {
   ];
   return adminLinks
 }
+
