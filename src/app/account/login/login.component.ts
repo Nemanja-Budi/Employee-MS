@@ -8,6 +8,7 @@ import { AccountService } from '../account.service';
 import { Login } from '../models/login.model';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ import { jwtDecode } from 'jwt-decode';
 export class LoginComponent {
 
   accountService: AccountService = inject(AccountService);
+  sharedService: SharedService = inject(SharedService);
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
@@ -68,9 +70,8 @@ export class LoginComponent {
             map((user) => {
               if (user) {
                 const decodedToken: any = jwtDecode(user.jwt);
-                const route = this.getRoles(decodedToken);
+                const route = this.sharedService.getRoles(decodedToken);
                 this.router.navigate([`/${route}`]);
-                this.accountService.witchUser.next(route);
               }
             })
           );
@@ -82,23 +83,4 @@ export class LoginComponent {
       }
     });
   }
-
-  private getRoles(decodedToken: any): string {
-    let route = '';
-    if (Array.isArray(decodedToken.role)) {
-      route = 'admin';
-      console.log(route)
-    } else if (typeof decodedToken.role === 'string') {
-      route = decodedToken.role.toLowerCase();
-      if(route == 'manager') {
-        route = 'employes'
-      } else if (route == 'player') {
-        route = 'employes/salary'
-      }
-    }
-    return route;
-  }
-
-
-
 }

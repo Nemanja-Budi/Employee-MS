@@ -100,4 +100,20 @@ export class SharedService {
     }
   }
 
+  getRoles(decodedToken: any): string {
+    let route = '';
+    if (Array.isArray(decodedToken.role)) {
+      route = 'admin';
+      console.log(route)
+    } else if (typeof decodedToken.role === 'string') {
+      route = decodedToken.role.toLowerCase();
+      if(route == 'manager') {
+        route = 'employes'
+      } else if (route == 'player') {
+        route = 'employes/salary'
+      }
+    }
+    return route;
+  }
+
 }
