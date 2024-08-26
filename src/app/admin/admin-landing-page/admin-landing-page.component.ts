@@ -1,5 +1,8 @@
 import { Component, ElementRef, inject } from '@angular/core';
 import { AdminService } from '../admin.service';
+import { Links } from 'src/app/shared/types/shared.types';
+import { getEmployesRoutes, getMPRoutes } from 'src/app/employes/types/employes.type';
+import { getAdminRoutes } from '../types/admin.types';
 
 @Component({
   selector: 'app-admin-landing-page',
@@ -10,13 +13,8 @@ export class AdminLandingPageComponent {
 
   adminService: AdminService = inject(AdminService);
 
-  isOpen: boolean = false;
-
-  constructor(private elementRef: ElementRef) {}
-
-  toggle(): void {
-    this.isOpen = !this.isOpen;
-    this.adminService.isOpen.next(this.isOpen);
-  }
-
+  allRoutes: Links[] = [ ...getAdminRoutes(), ...getEmployesRoutes(), ...getMPRoutes()];
+  // adminLinks: Links[] = getAdminRoutes();
+  // employeLinks: Links[] = getEmployesRoutes();
+  // mpLinks: Links[] = getMPRoutes();
 }

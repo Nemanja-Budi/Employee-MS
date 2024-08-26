@@ -1,1 +1,16 @@
-<p>admin-landing-page works!</p>
+<div class="grid grid-rows-[auto,1fr] h-full w-[80%] mx-auto p-5 gap-5">
+    <h2 class="text-center text-xl xl:text-3xl font-bold flex items-center justify-center p-5">Explore all existing pages</h2>
+    <div class="grid grid-rows-9 gap-5">
+        <ng-container *ngFor="let p of allRoutes">
+            <ng-container *ngIf="p.linkName !== 'Dashboard'">
+                <div routerLink="/{{p.linkRoute}}" class="shadow shadow-indigo-600 hover:shadow-2xl  border border-indigo-600 rounded-md flex  items-center justify-between p-3 h-full w-full cursor-pointer hover:bg-indigo-400 hover:scale-105 transition duration-700">
+                    <div class="flex items-center gap-5">
+                        <img class="bg-indigo-600 p-2 rounded-md" src="../../../assets/images/{{p.imgName}}" alt="{{p.linkName}}">
+                        <p class="font-bold text-indigo-600">{{p.linkName}}</p>
+                    </div>
+                    <img src="../../../assets/images/right-arrow.png" alt="arrow">
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
