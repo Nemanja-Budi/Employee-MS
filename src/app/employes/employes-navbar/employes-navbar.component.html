@@ -1,0 +1,13 @@
+<nav>
+    <ul class="flex justify-between">
+        <div class="flex gap-5 justify-center items-center mx-auto text-sm">
+            <li routerLinkActive="text-white"><a routerLink="/employes/employe">Employes</a></li>
+            <li routerLinkActive="text-white"><a routerLink="/employes/salary">Salarys</a></li>
+            <li routerLinkActive="text-white"><a routerLink="/employes/annual-leave">Vacation</a></li>
+            <li routerLinkActive="text-white"><a (click)="logout()">Logout</a></li>
+        </div>
+        <div *appUserHasRole="['Admin']">
+            <li routerLinkActive="text-white"><a routerLink="/admin">Admin</a></li>
+        </div>
+    </ul>
+</nav>

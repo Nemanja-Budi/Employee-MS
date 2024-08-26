@@ -1,3 +1,5 @@
+//PREGLEDANO OKE
+
 export type CheckBoxFilter = {
     showName: string;
     name: string;
@@ -16,6 +18,12 @@ export type PdfType = {
     name: string, 
     url: string; 
 }
+
+export type Links = {
+    linkName: string;
+    linkRoute: string;
+    imgName: string;
+}  
 
 export function getDefaultCheckBoxFilter(): CheckBoxFilter {
     return {

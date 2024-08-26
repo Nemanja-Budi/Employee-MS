@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
 
+//PREGLEDANO OKE
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

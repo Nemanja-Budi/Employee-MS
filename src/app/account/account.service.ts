@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable, ReplaySubject, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development.ts';
 
 import { User } from '../account/models/user.model';
 import { Login } from '../account/models/login.model';
 import { Register } from '../account/models/register.model';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Injectable({
@@ -17,6 +18,11 @@ export class AccountService {
 
   private userSource = new ReplaySubject<User | null>(1);
   user$ = this.userSource.asObservable();
+
+  currentUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+
+  roles: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  witchUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   router: Router = inject(Router);
 
@@ -35,6 +41,7 @@ export class AccountService {
       map((user: User) => {
         if(user) {
           this.setUser(user);
+          this.currentUser.next(user);
         }
       })
     );
@@ -49,6 +56,7 @@ export class AccountService {
       map((user: User) => {
         if(user) {
           this.setUser(user)
+          this.currentUser.next(user);
         }
       })
     );
@@ -58,6 +66,8 @@ export class AccountService {
   logout(): void {
     localStorage.removeItem(environment.userKey);
     this.userSource.next(null);
+    this.witchUser.next('');
+    this.currentUser.next(null);
     this.router.navigateByUrl('/account/login');
   }
 
@@ -65,6 +75,8 @@ export class AccountService {
     const key = localStorage.getItem(environment.userKey);
     if(key) {
       const user: User = JSON.parse(key);
+      const decodedToken: any = jwtDecode(user.jwt);
+      this.roles.next(decodedToken.role);
       return user.jwt
     }
     else {

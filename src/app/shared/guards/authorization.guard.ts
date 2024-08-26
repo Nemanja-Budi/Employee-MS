@@ -6,6 +6,8 @@ import { Observable, map } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
 import { User } from '../../account/models/user.model';
 
+//PROVERENO OKE
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +18,14 @@ export class AuthorizationGuard {
   router: Router = inject(Router);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.userExist(state);
+  }
+
+  canMatch(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.userExist(state);
+  }
+
+  private userExist(state: RouterStateSnapshot): Observable<boolean> {
     return this.accountService.user$.pipe(
       map((user: User | null) => {
         if(user) {

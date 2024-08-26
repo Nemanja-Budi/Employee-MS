@@ -10,10 +10,7 @@ import { User } from 'src/app/account/models/user.model';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(
-    private accountService: AccountService,
-    private router: Router
-  ) {}
+  constructor(private accountService: AccountService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
     return this.accountService.user$.pipe(
@@ -21,20 +18,31 @@ export class AdminGuard implements CanActivate {
       map(user => {
         if (user) {
           const decodedToken: any = jwtDecode(user.jwt);
-          if (decodedToken && decodedToken.role && Array.isArray(decodedToken.role)) {
-            const isAdmin = decodedToken.role.some((role:string) => role.toLowerCase() === 'admin');
-            if (isAdmin) {
-              return true;
-            } else {
-              this.router.navigate(['/admin']);
-              return false;
+          console.log(`ulazim u gard`)
+          let route = '';
+          if (Array.isArray(decodedToken.role)) {
+            route = 'admin';
+            console.log(route)
+          } else if (typeof decodedToken.role === 'string') {
+            route = decodedToken.role.toLowerCase();
+            console.log(`${route}`)
+            if(route == 'manager') {
+              route = 'employes'
+              this.router.navigate([`/${route}`]); 
+              console.log(`${route}`)
+            } else if (route == 'player') {
+              route = 'employes/salary'
+              this.router.navigate([`/${route}`]); 
+              console.log(`${route}`)
+              
             }
-          } else {
-            this.router.navigate(['/admin']);
-            return false;
           }
+          console.log(`RUTA JE ${route}`);
+              
+          return true;
         } else {
           this.router.navigate(['/account/login']);
+          console.log('u elseeeeeeeeeeeeeeeeeeeeeee')
           return false; 
         }
       })

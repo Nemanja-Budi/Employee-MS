@@ -1,13 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
-import { Member } from './models/member.model';
-import { CustomQueryParamas } from '../shared/models/custom-queryparams.model';
+import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+
 import { environment } from 'src/environments/environment.development.ts';
 import { MemberAddEdit } from './models/member-add-edit';
 import { MemberList } from './models/member-list.model';
 import { getDefaultMemberFilter, GetMember, getMemberCheckBox, GetMemberParams } from './types/admin.types';
 import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from '../shared/types/shared.types';
+
+//PREGLEDANO OKE
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +30,12 @@ export class AdminService {
   memberSearchSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
   currentSize: BehaviorSubject<number> = new BehaviorSubject<number>(0)
   isNula: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
   getMembers(): Observable<MemberList> {
     return this.memberQuearyParamsSubject.pipe(
-      // debounceTime(1000),
-      // distinctUntilChanged(),
       switchMap(params => {
         let httpParams = new HttpParams();
         const allFilters = { ...params.employeFilterDto, ...params.commonFilter };
