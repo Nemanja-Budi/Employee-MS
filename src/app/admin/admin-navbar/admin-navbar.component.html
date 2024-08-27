@@ -1,39 +1,58 @@
 <div class="grid grid-rows-[auto,1fr] h-[100dvh]">
-    <div (click)="close()" class="flex justify-end pt-5 px-5" *ngIf="adminService.isOpen.value == true">
-        <img class="cursor-pointer p-1 rounded bg-rose-600 hover:bg-rose-800 hover:scale-110 transition-all duration-1000 ease-in-out aspect-square w-10 " src="../../../assets/images/close.png" alt="X">
+    <div  class="flex justify-end pt-3 px-1" *ngIf="adminService.isOpen.value == true">
+        <img 
+            class="cursor-pointer p-1 rounded aspect-square w-10 hover:bg-rose-600 hover:scale-105 hover:p-0 transition-all duration-1000 ease-in-out" 
+            src="../../../assets/images/close.png" 
+            alt="X"
+            (click)="close()">
     </div>
     <div *ngIf="adminService.isOpen.value == false"></div>
-    <div class="flex flex-col justify-between ">
-        <div [ngClass]="{'py-5': adminService.isOpen.value == true}" class="flex flex-col gap-5 py-16 px-3 ">
-            <div>
-                <ul class="flex flex-col gap-3 py-5 justify-center text-sm">                
-                    <ng-container *ngFor="let al of getFilteredLinks()">
-                        <ng-container>
-                            <li routerLinkActive="bg-rose-600 border-slate-100 hover:border-rose-600"
-                                class="p-1 rounded border border-slate-100 hover:bg-rose-600 hover:border-rose-600 transition-colors duration-700 ease-in-out">
-                                <a routerLink="/{{al.linkRoute}}">
-                                <div *ngIf="adminService.isOpen.value === false" class="flex flex-col items-center">
-                                    <span class="w-8 mx-auto">
-                                    <img src="../../../assets/images/{{al.imgName}}" alt="">
-                                    </span>
-                                    <span>{{al.linkName}}</span>
-                                </div>
-                                <div *ngIf="adminService.isOpen.value === true" class="grid grid-cols-4 items-center gap-3">
-                                    <span class="w-8 mx-auto col-span-1">
-                                    <img src="../../../assets/images/{{al.imgName}}" alt="">
-                                    </span>
-                                    <span class="col-span-3">{{al.linkName}}</span>
-                                </div>
-                                </a>
-                            </li>
-                        </ng-container>
-                    </ng-container>
-                </ul>   
+    <div 
+        class="flex flex-col justify-between"
+        [ngClass]="{'items-center': !adminService.isOpen.value}">
+        <ul class="flex flex-col gap-3 py-5 justify-center text-sm"
+            [ngClass]="
+            {
+                'py-[4rem]': adminService.isOpen.value == false, 
+                'px-5': adminService.isOpen.value,
+            }">                
+            <ng-container *ngFor="let al of getFilteredLinks()">
+                <ng-container *ngIf="adminService.isOpen.value == false; else isClose">
+                    <li
+                        class="flex justify-center items-center p-1 rounded hover:bg-rose-600 hover:border-rose-600 transition-colors duration-700 ease-in-out"
+                        routerLinkActive="bg-rose-600">
+                        <a class="flex flex-col justify-center items-center gap-1" routerLink="/{{al.linkRoute}}">
+                            <span class="w-8 mx-auto"><img src="../../../assets/images/{{al.imgName}}" alt=""></span>
+                            <span class="text-[11px] text-center">{{al.linkName}}</span>
+                        </a>
+                    </li>
+                </ng-container>
+                <ng-template #isClose>
+                    <li
+                        [ngClass]="{'mt-8' : al.linkName === 'Employes' || al.linkName == 'Products'}"  
+                        class="p-1 rounded border border-slate-100 hover:bg-rose-600 hover:border-rose-600 transition-colors duration-700 ease-in-out"
+                        routerLinkActive="bg-rose-600 border-none" >
+                        <a class="grid grid-cols-4 items-center" routerLink="/{{al.linkRoute}}">
+                            <span class="w-8 mx-auto col-span-1"><img src="../../../assets/images/{{al.imgName}}" alt=""></span>
+                            <span class="col-span-3">{{al.linkName}}</span>
+                        </a>
+                    </li>
+                </ng-template>
+            </ng-container>
+        </ul>
+        <div class="p-5">
+            <div *ngIf="adminService.isOpen.value" (click)="logout()" class="cursor-pointer p-1 rounded border border-slate-100 hover:bg-rose-600 hover:border-rose-600 transition-colors duration-700 ease-in-out">
+                <div class="grid grid-cols-4 items-center">
+                    <img class="mx-auto" src="../../../assets/images/logout.png" alt="logout">
+                    <p class="text-sm flex-1">Logout</p>
+                </div>
             </div>
-        </div>
-        <div (click)="logout()" class="grid items-center justify-center pb-3">
-            <img class="mx-auto" src="../../../assets/images/logout.png" alt="logout">
-            <p class="text-[12px] text-center">Logout</p>
+        </div>   
+        <div *ngIf="!adminService.isOpen.value" (click)="logout()" class="pb-1.5 cursor-pointer">
+            <div class=" hover:bg-rose-600 rounded hover:border-rose-600 transition-colors duration-500 ease-in-out px-3.5 py-1.5 flex flex-col gap-1">
+                <img class="mx-auto" src="../../../assets/images/logout.png" alt="logout">
+                <p class="text-[11px] text-center">Logout</p>
+            </div>
         </div>
     </div>    
 </div>

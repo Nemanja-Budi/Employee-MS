@@ -1,6 +1,6 @@
 <div class="relative h-[100dvh] flex">
     <div class="bg-indigo-600 text-white transition-all duration-300 ease-in-out z-20 hidden lg:block"
-        [ngClass]="{'w-[8rem]': !adminService.isOpen.value,'w-[18rem]': adminService.isOpen.value}">
+        [ngClass]="{'w-[5rem]': !adminService.isOpen.value,'w-[18rem]': adminService.isOpen.value}">
         <div>
             <app-admin-navbar></app-admin-navbar>
         </div>
@@ -16,13 +16,13 @@
     <button
         *ngIf="!adminService.isOpen.value"
         (click)="toggle()"
-        class="hidden lg:block fixed top-5 left-11 z-30 p-1 rounded bg-rose-600 hover:bg-rose-800 hover:scale-110 transition-all duration-1000 ease-in-out aspect-square w-10 text-white focus:outline-none ">
+        class="hidden lg:block fixed top-3 left-5 z-30  rounded  hover:bg-rose-600 hover:scale-110 transition-all duration-1000 ease-in-out aspect-square w-10 text-white focus:outline-none ">
         <img src="../../assets/images/menu.png" alt="">
     </button>
     <button
         *ngIf="!adminService.isOpen.value"
         (click)="toggle()"
-        class="block lg:hidden fixed top-5 left-5 z-30 p-1 rounded bg-indigo-600 hover:bg-indigo-900 hover:scale-110 transition-all duration-1000 ease-in-out aspect-square w-10 text-white focus:outline-none ">
+        class="block lg:hidden fixed top-3 left-5 z-30 p-1 rounded bg-indigo-600 hover:bg-indigo-900 hover:scale-110 transition-all duration-1000 ease-in-out aspect-square w-10 text-white focus:outline-none ">
         <img src="../../assets/images/menu.png" alt="menu">
     </button>
     <div class="flex-1  bg-slate-100">
