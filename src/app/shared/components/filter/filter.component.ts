@@ -19,6 +19,7 @@ export class FilterComponent {
   sharedService: SharedService = inject(SharedService);
   currentPage: number = 1;
   showFilter: boolean = false;
+  zaset: boolean = false;
 
   @Input({required: true}) filterParams: CheckBoxFilter[] = [];
   @Input({required: true}) currentSubject!: BehaviorSubject<CheckBoxFilter>;
@@ -81,5 +82,10 @@ export class FilterComponent {
         pageNumber: changeSearch == '' ? this.currentPage : 1
       }
     });
+  }
+
+  setuj():void {
+    this.zaset = !this.zaset;
+    console.log(this.zaset);
   }
 }
