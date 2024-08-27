@@ -25,17 +25,17 @@ export function getMPRoutes(): Links[] {
     const mpLinks: Links[] = [
         {
           linkName: 'Products',
-          linkRoute: 'admin',
+          linkRoute: '#',
           imgName: 'in-stock.png'
         },
         {
           linkName: 'Warehouse',
-          linkRoute: 'admin',
+          linkRoute: '#',
           imgName: 'warehouse.png'
         },
         {
           linkName: 'Calculation',
-          linkRoute: 'admin',
+          linkRoute: '#',
           imgName: 'calculator.png'
         }
     ];

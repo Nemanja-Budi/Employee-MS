@@ -18,16 +18,17 @@ export class AdminNavbarComponent implements OnDestroy {
   adminService: AdminService = inject(AdminService);
   router: Router = inject(Router);
 
-  adminLinks: Links[] = getAdminRoutes();
-  employeLinks: Links[] = getEmployesRoutes();
-  mpLinks: Links[] = getMPRoutes();
+  allLinks: Links[] = [ ...getAdminRoutes(), ...getEmployesRoutes(), ...getMPRoutes() ];
 
    getFilteredLinks() {
     if (this.adminService.isOpen.value) {
-      return this.adminLinks;
+      return this.allLinks;
     } else {
-      return this.adminLinks.filter(link =>
-        link.linkRoute === 'admin/dashboard' || this.router.url.includes(link.linkRoute)
+      return this.allLinks.filter(link =>
+        link.linkRoute === 'admin/dashboard' || 
+        this.router.url.includes(link.linkRoute) || 
+        link.linkRoute.includes('employes') || 
+        link.linkRoute.includes('#')
       );
     }
   }
