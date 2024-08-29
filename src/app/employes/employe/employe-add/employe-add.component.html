@@ -176,22 +176,18 @@
               <span *ngIf="employeForm.get('amendmentContract')?.errors?.['required']">Amendment Contract is required.</span>
             </div>
           </div>
-    
-          <!-- Bank Name -->
+
+          <!-- Banks -->
           <div>
-            <label for="bankName" class="block text-sm font-medium text-gray-700">Bank Name</label>
-            <input id="bankName" type="text" formControlName="bankName" class="mt-1 p-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="employeForm.get('bankName')?.invalid && employeForm.get('bankName')?.touched" class="text-red-600">
-              <span *ngIf="employeForm.get('bankName')?.errors?.['required']">Bank Name is required.</span>
-            </div>
+            <app-banks-for-employe label="Select bank" controlName="bank"></app-banks-for-employe>
           </div>
-    
+
           <!-- Current Account -->
           <div>
-            <label for="currentAccount" class="block text-sm font-medium text-gray-700">Current Account</label>
-            <input id="currentAccount" type="text" formControlName="currentAccount" class="mt-1 p-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            <div *ngIf="employeForm.get('currentAccount')?.invalid && employeForm.get('currentAccount')?.touched" class="text-red-600">
-              <span *ngIf="employeForm.get('currentAccount')?.errors?.['required']">Current Account is required.</span>
+            <label for="employeBankAccount" class="block text-sm font-medium text-gray-700">Bank Account</label>
+            <input id="employeBankAccount" type="text" formControlName="employeBankAccount" class="mt-1 p-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <div *ngIf="employeForm.get('employeBankAccount')?.invalid && employeForm.get('employeBankAccount')?.touched" class="text-red-600">
+              <span *ngIf="employeForm.get('employeBankAccount')?.errors?.['required']">Bank Account is required.</span>
             </div>
           </div>
     
@@ -207,6 +203,14 @@
                 <input id="child-name-{{i}}" type="text" formControlName="name" class="mt-1 p-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <div *ngIf="child.get('name')?.invalid && child.get('name')?.touched" class="text-red-600">
                   <span *ngIf="child.get('name')?.errors?.['required']">Child Name is required.</span>
+                </div>
+              </div>
+
+              <div>
+                <label for="child-dateOfBirth-{{i}}" class="block text-sm font-medium text-gray-700">Date of birth</label>
+                <input id="child-dateOfBirth-{{i}}" type="date" formControlName="dateOfBirth" class="mt-1 p-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <div *ngIf="child.get('dateOfBirth')?.invalid && child.get('dateOfBirth')?.touched" class="text-red-600">
+                  <span *ngIf="child.get('dateOfBirth')?.errors?.['required']">Date of birth is required.</span>
                 </div>
               </div>
         

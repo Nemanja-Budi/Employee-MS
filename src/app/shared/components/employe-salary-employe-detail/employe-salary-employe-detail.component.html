@@ -2,15 +2,15 @@
   <div *ngIf="employe$ | async as employe">
     <div *ngIf="showBankInfo === true" class="grid grid-cols-2">
       <p>{{ employe.firstName}} {{ employe.lastName}}</p>
-      <p>{{employe.bankName}}</p>
+      <p>{{employe.bank.bankName}}</p>
     </div>
     <div *ngIf="showBankInfo === false" class="flex gap-3">
       <p>{{ employe.firstName}} {{ employe.lastName}}</p>
     </div>
     <div *ngIf="isDetail">
       <p>{{employe.jmbg}}</p>
-      <p>{{employe.bankName}}</p>
-      <p>{{employe.currentAccount}}</p>
+      <p>{{employe.bank.bankName}}</p>
+      <p>{{employe.employeBankAccount}}</p>
       <p>{{employe.email}}</p>
     </div>
   </div>
@@ -21,8 +21,8 @@
     <p>{{ employe.firstName}} {{ employe.lastName}}</p>
     <div *ngIf="isDetail">
       <p>{{employe.jmbg}}</p>
-      <p>{{employe.bankName}}</p>
-      <p>{{employe.currentAccount}}</p>
+      <p>{{employe.bank.bankName}}</p>
+      <p>{{employe.employeBankAccount}}</p>
       <p>{{employe.email}}</p>
     </div>
   </div>

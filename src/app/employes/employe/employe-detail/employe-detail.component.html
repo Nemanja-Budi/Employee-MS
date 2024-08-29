@@ -19,7 +19,12 @@
               {{ employeData[key] | date:'dd.MM.yyyy' }}
             </ng-container>
             <ng-template #defaultFormat>
-              {{ employeData[key] }}
+              <ng-container *ngIf="employeData[key] !== employeData['bank']; else bankData">
+                {{ employeData[key] }}
+              </ng-container>
+              <ng-template #bankData>
+                {{employeData['bank'].bankName}}
+              </ng-template>
             </ng-template>
           </div>
         </div>

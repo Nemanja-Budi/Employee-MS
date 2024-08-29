@@ -3,8 +3,12 @@
     <h3 class="text-center bg-indigo-600 text-white text-lg">Podaci o deci</h3>
   </div>
   <div *ngIf="employeChild && employeChild.length > 0; else childElse">
-    <div class="odd:border-b-indigo-600 odd:border-b p-1" *ngFor="let child of employeChild">
+    <div 
+      class="p-1" 
+      [ngClass]="{'odd:border-b-indigo-600': employeChild.length > 1,'odd:border-b': employeChild.length > 1}" 
+      *ngFor="let child of employeChild">
       <p class="flex justify-between"><strong class="font-bold">Ime deteta: </strong>{{ child.name }}</p>
+      <p class="flex justify-between"><strong class="font-bold">Datum rodjenja deteta: </strong>{{ child.dateOfBirth | date:'dd.MM.yyyy' }}</p>
       <p class="flex justify-between"><strong class="font-bold">JMBG deteta: </strong>{{ child.jmbg }}</p>
       <p class="flex justify-between"><strong>Pol deteta: </strong>{{ child.gender }}</p>
     </div>

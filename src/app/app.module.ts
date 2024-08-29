@@ -10,6 +10,7 @@ import { LandingPageComponent } from './core/landing-page/landing-page.component
 import { AdminModule } from './admin/admin.module';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { BanksComponent } from './banks/banks.component';
 
 //PREGLEDANO OKE
 
@@ -17,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     LandingPageComponent,
+    BanksComponent,
   ],
   imports: [
     BrowserModule,

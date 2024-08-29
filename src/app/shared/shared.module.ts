@@ -19,6 +19,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { EnterPerPageComponent } from './components/enter-per-page/enter-per-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserHasRoleDirective } from './directives/user-has-role.directive';
+import { BanksForEmployeComponent } from './components/banks-for-employe/banks-for-employe.component';
 
 //PREGLEDANO OKE
 
@@ -37,7 +38,8 @@ import { UserHasRoleDirective } from './directives/user-has-role.directive';
     SpinnerComponent,
     EnterPerPageComponent,
     FooterComponent,
-    UserHasRoleDirective
+    UserHasRoleDirective,
+    BanksForEmployeComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { UserHasRoleDirective } from './directives/user-has-role.directive';
     SpinnerComponent,
     EnterPerPageComponent,
     FooterComponent,
-    UserHasRoleDirective
+    UserHasRoleDirective,
+    BanksForEmployeComponent
   ]
 })
 export class SharedModule { }

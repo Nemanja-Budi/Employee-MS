@@ -1,3 +1,4 @@
+import { EmployeBank } from "../bank/employe.bank.model";
 import { EmployeChild } from "./employe.child.model";
 
 export interface Employe {
@@ -21,8 +22,8 @@ export interface Employe {
     position: string;
     employmentContract: string;
     amendmentContract: string;
-    bankName: string;
-    currentAccount: number;
+    employeBankAccount: number;
+    bank: EmployeBank;
     employeChild?: EmployeChild[];
     [key: string]: any;
 }

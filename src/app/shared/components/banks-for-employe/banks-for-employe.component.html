@@ -1,0 +1,15 @@
+<div [formGroup]="parentFormGroup">
+    <label [for]="controlName" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+    <ng-select
+      [dropdownPosition]="'bottom'"
+      [appendTo]="'body'" 
+      [id]="controlName" 
+      [formControlName]="controlName"
+      [compareWith]="compareFn" 
+      class="bg-white mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <ng-option value="">-- Select an bank --</ng-option>
+        <ng-option *ngFor="let bank of banks | async" [value]="bank">{{ bank.bankName }} </ng-option>
+    </ng-select>
+    <div *ngIf="parentFormGroup.get(controlName)?.invalid && parentFormGroup.get(controlName)?.touched" class="text-red-600">Please select an bank</div>
+</div>
+  
