@@ -51,6 +51,11 @@ export function getAdminRoutes(): Links[] {
       linkRoute: 'admin/audit-logs',
       imgName: 'log.png'
     },
+    {
+      linkName: 'Bank',
+      linkRoute: 'banks/bank',
+      imgName: 'bank.png'
+    },
   ];
   return adminLinks
 }
