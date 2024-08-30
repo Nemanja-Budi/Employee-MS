@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Bank } from '../models/bank/bank.model';
+import { BankService } from './bank.service';
 
 @Component({
   selector: 'app-banks',
@@ -7,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class BanksComponent {
 
+  bankService: BankService = inject(BankService);
+
+  banks: Observable<Bank[]> = this.bankService.getAllBanks();
 }

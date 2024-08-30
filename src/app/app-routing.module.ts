@@ -10,6 +10,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
 const routes: Routes = [
   { path: 'account', loadChildren: () => import('./account/account.module').then(module => module.AccountModule) },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule), canActivate: [AdminGuard] },
+  { path: 'banks', loadChildren: () => import('./banks/bank.module').then(module => module.BankModule) },
   { path: 'employes', loadChildren: () => import('./employes/employes.module').then(module => module.EmployesModule), canActivate: [AuthorizationGuard], canMatch: [AuthorizationGuard] },
   { path: '', component: LandingPageComponent, pathMatch: 'full', canMatch: [AuthorizationGuard] },
   { path: '**', component: LandingPageComponent, redirectTo: '' }

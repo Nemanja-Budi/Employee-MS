@@ -1,1 +1,11 @@
-<p>banks works!</p>
+<div class="grid grid-rows-[auto,1fr,auto] h-[100dvh]">
+    <div class="bg-indigo-600 p-3 text-center text-white">Banks Header</div>
+    <div class="bg-slate-100 grid grid-cols-3 w-[80%] mx-auto p-5 gap-5">
+        <div class="border border-indigo-600 p-2 flex flex-col justify-between" *ngFor="let bank of banks | async">
+            <p class="flex justify-between"><strong>Ime banke</strong>{{bank.bankName}}</p>
+            <p class="flex justify-between"><strong>Broj racuna</strong>{{bank.bankAccount}}</p>
+            <p class="flex justify-between"><strong>Email adresa</strong>{{bank.bankEmail}}</p>
+        </div>
+    </div>
+    <div class="bg-indigo-600 p-3 text-center text-white">Banks Footer</div>
+</div>
