@@ -112,6 +112,29 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
     });
   }
 
+  onGetCalculationMonth(date: string): void {
+    let fullDate = date.split("-");
+    const year = fullDate[0];
+    const month = fullDate[1];
+    let c = this.calculateWorkingDaysInMonth(Number(year), Number(month)) * 8;
+    this.employeSalaryForm.get("totalNumberOfHours")?.patchValue(c);
+    console.log(c);
+  }
+
+  calculateWorkingDaysInMonth(year: number, month: number): number {
+    const firstDay = new Date(year, month - 1, 1);
+    const numberOfDaysInMonth = new Date(year, month, 0).getDate();
+    let numberOfWorkingDays = 0;
+    for (let i = 0; i < numberOfDaysInMonth; i++) {
+      const currentDay = new Date(firstDay.getFullYear(), firstDay.getMonth(), firstDay.getDate() + i);
+      const dayOfWeek = currentDay.getDay();
+      if (dayOfWeek >= 1 && dayOfWeek <= 5) { 
+        numberOfWorkingDays++;
+      }
+    }
+    return numberOfWorkingDays;
+  } 
+
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntil(this.destroy)).subscribe((params) => {
       const employeId = params.get('employeId');
@@ -129,5 +152,4 @@ export class EmployeSalaryAddComponent implements OnInit, OnDestroy {
     this.destroy.next();
     this.destroy.complete();
   }
- 
 }

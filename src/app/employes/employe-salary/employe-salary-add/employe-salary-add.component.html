@@ -5,6 +5,11 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
+          <label for="calculationMonth" class="block text-sm font-medium text-gray-700">Calculation Month</label>
+          <input (input)="onGetCalculationMonth(cm.value)" #cm id="calculationMonth" type="date" formControlName="calculationMonth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+          <div *ngIf="employeSalaryForm.get('calculationMonth')?.invalid && employeSalaryForm.get('calculationMonth')?.touched" class="text-red-600">Invalid input</div>
+        </div>
+        <div>
           <label for="totalNumberOfHours" class="block text-sm font-medium text-gray-700">Total Number of Hours</label>
           <input id="totalNumberOfHours" type="number" formControlName="totalNumberOfHours" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('totalNumberOfHours')?.invalid && employeSalaryForm.get('totalNumberOfHours')?.touched" class="text-red-600">Invalid input</div>
@@ -48,11 +53,6 @@
           <label for="damageCompensation" class="block text-sm font-medium text-gray-700">Damage Compensation</label>
           <input id="damageCompensation" type="number" formControlName="damageCompensation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
           <div *ngIf="employeSalaryForm.get('damageCompensation')?.invalid && employeSalaryForm.get('damageCompensation')?.touched" class="text-red-600">Invalid input</div>
-        </div>
-        <div>
-          <label for="calculationMonth" class="block text-sm font-medium text-gray-700">Calculation Month</label>
-          <input id="calculationMonth" type="date" formControlName="calculationMonth" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-          <div *ngIf="employeSalaryForm.get('calculationMonth')?.invalid && employeSalaryForm.get('calculationMonth')?.touched" class="text-red-600">Invalid input</div>
         </div>
       </div>
       <div class="flex justify-end">
