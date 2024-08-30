@@ -13,4 +13,10 @@ export class BanksComponent {
   bankService: BankService = inject(BankService);
 
   banks: Observable<Bank[]> = this.bankService.getAllBanks();
+
+  showDetails: boolean = false;
+
+  prikaziDetalje(): void {
+    this.showDetails = !this.showDetails;
+  }
 }
