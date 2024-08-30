@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CustomBank } from '../../types/employe.salary.types';
+import { CustomBank } from 'src/app/banks/types/custom.bank.type';
 
 @Component({
   selector: 'app-employe-salary-bank-pdf-preview',

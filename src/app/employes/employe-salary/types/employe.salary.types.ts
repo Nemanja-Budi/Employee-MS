@@ -18,12 +18,6 @@ export type BankAccount = {
   racun: string;
 } 
 
-export type CustomBank = {
-  bankName: string;
-  totalNetSalary: number;
-  racun: string;
-}
-  
 export function getDefaultEmployeSalaryFilter(): GetEmployeSalaryParams {
   return {
     firstName: '',

@@ -1,15 +1,16 @@
-import { Component, inject, Input, OnInit,TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, Input, TemplateRef, ViewChild } from '@angular/core';
 
 import { SharedService } from 'src/app/shared/shared.service';
 import { EmployeSalaryService } from '../employe-salary.service';
-import { BankAccount, CustomBank } from '../types/employe.salary.types';
+import { BankAccount } from '../types/employe.salary.types';
+import { CustomBank } from 'src/app/banks/types/custom.bank.type';
 
 @Component({
   selector: 'app-employe-salary-bank-pdf',
   templateUrl: './employe-salary-bank-pdf.component.html',
   styleUrls: ['./employe-salary-bank-pdf.component.css']
 })
-export class EmployeSalaryBankPdfComponent implements OnInit {
+export class EmployeSalaryBankPdfComponent {
 
   sharedService: SharedService = inject(SharedService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
@@ -40,16 +41,4 @@ export class EmployeSalaryBankPdfComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.updateBankData();
-  }
-
-  updateBankData() {
-    this.bankData.forEach(bank => {
-      const bankItem = this.bankAccounts.find(bankAccounts => bankAccounts.bankName === bank.bankName);
-      if (bankItem) {
-        bank.racun = bankItem.racun; 
-      }
-    });
-  }
 }

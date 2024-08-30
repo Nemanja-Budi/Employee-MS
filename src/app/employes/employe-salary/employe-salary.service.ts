@@ -6,10 +6,11 @@ import { environment } from 'src/environments/environment.development.ts';
 
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { BankAccount, CustomBank, getBankAccounts, getDefaultEmployeSalaryFilter, GetEmployeSalary, getEmployeSalaryCheckBoxes, GetEmployeSalaryParams } from './types/employe.salary.types';
+import { BankAccount, getBankAccounts, getDefaultEmployeSalaryFilter, GetEmployeSalary, getEmployeSalaryCheckBoxes, GetEmployeSalaryParams } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { SharedService } from 'src/app/shared/shared.service';
 import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
+import { CustomBank } from 'src/app/banks/types/custom.bank.type';
 
 @Injectable({
   providedIn: 'root'
