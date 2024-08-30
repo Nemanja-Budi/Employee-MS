@@ -38,6 +38,13 @@ export class SharedService {
   }
 
   formatKey(key: string): string {
+    // console.log(key);
+    // console.log('kljucenzi bite')
+    if(key == "identityCardNumber") {
+      key = 'id';
+    } else if (key == "employeBankAccount") {
+      key = 'bank account'
+    }
     return key.replace(/([A-Z])/g, ' $1') // Razdvoji reči
               .replace(/^./, (str) => str.toUpperCase()) // Prvo slovo veliko
               .replace(/\b\w+\b/g, (word, index) => index === 0 ? word : word.toLowerCase()) // Samo prva reč veliko slovo
