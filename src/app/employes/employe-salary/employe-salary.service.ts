@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.development.ts';
 
 import { EmployeSalary } from 'src/app/models/employe-salary/employe.salary.model';
 import { Employe } from 'src/app/models/employe/employe.model';
-import { BankAccount, getBankAccounts, getDefaultEmployeSalaryFilter, GetEmployeSalary, getEmployeSalaryCheckBoxes, GetEmployeSalaryParams } from './types/employe.salary.types';
+import { getDefaultEmployeSalaryFilter, GetEmployeSalary, getEmployeSalaryCheckBoxes, GetEmployeSalaryParams } from './types/employe.salary.types';
 import { EmployeSalaryList } from 'src/app/models/employe-salary/employe.salary.list.model';
 import { SharedService } from 'src/app/shared/shared.service';
 import { CheckBoxFilter, CommonFilter, getDefaultCheckBoxFilter, getDefaultCommonFilter } from 'src/app/shared/types/shared.types';
@@ -21,7 +21,6 @@ export class EmployeSalaryService {
   checkBoxSubject: CheckBoxFilter = getDefaultCheckBoxFilter();
   defaultCommonFilter: CommonFilter = getDefaultCommonFilter('firstName', 15);
   employeSalaryCheckBox: CheckBoxFilter[] = getEmployeSalaryCheckBoxes();
-  bankAccounts: BankAccount[] = getBankAccounts();
   
   employeSalaryFilterSubject: GetEmployeSalary = {
     employeFilterDto: this.defaultEmployeSalaryFilter,
@@ -103,10 +102,6 @@ export class EmployeSalaryService {
 
   getEmployeSalaryCheckBox(): CheckBoxFilter[] {
     return this.employeSalaryCheckBox.slice();
-  }
-
-  getBankAccounts(): BankAccount[] {
-    return this.bankAccounts.slice();
   }
 
   resetFilters(): void {

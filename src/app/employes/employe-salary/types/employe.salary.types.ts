@@ -13,10 +13,10 @@ export type GetEmployeSalaryParams = {
   [key: string]: string | any;
 }
 
-export type BankAccount = {
-  bankName: string;
-  racun: string;
-} 
+// export type BankAccount = {
+//   bankName: string;
+//   racun: string;
+// } 
 
 export function getDefaultEmployeSalaryFilter(): GetEmployeSalaryParams {
   return {
@@ -35,19 +35,5 @@ export function getEmployeSalaryCheckBoxes(): CheckBoxFilter[]  {
     { showName: 'Mesec', name: 'calculationMonth', chacked: false }
   ];
   return employeSalaryCheckBox.slice();
-}
-
-export function getBankAccounts(): BankAccount[] {
-  const bankAccounts = [
-    { bankName: 'Komercijalna Banka', racun: '908-20501-70' },
-    { bankName: 'Raiffeisen Banka', racun: '908-26501-15' },
-    { bankName: 'Aik Banka', racun: '908-10501-97'},
-    { bankName: 'Yettel Banka', racun: '908-11501-07' },
-    { bankName: 'Euro Bank Direktna', racun: '908-15001-80' },
-    { bankName: 'Banka Intesa', racun: '908-16001-87' },
-    { bankName: 'OTP Banka', racun: '908-32501-57' },
-  ];
-   
-  return bankAccounts.slice();
 }
   

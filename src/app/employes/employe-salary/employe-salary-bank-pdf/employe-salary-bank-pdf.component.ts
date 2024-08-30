@@ -2,7 +2,6 @@ import { Component, inject, Input, TemplateRef, ViewChild } from '@angular/core'
 
 import { SharedService } from 'src/app/shared/shared.service';
 import { EmployeSalaryService } from '../employe-salary.service';
-import { BankAccount } from '../types/employe.salary.types';
 import { CustomBank } from 'src/app/banks/types/custom.bank.type';
 
 @Component({
@@ -14,8 +13,6 @@ export class EmployeSalaryBankPdfComponent {
 
   sharedService: SharedService = inject(SharedService);
   employeSalaryService: EmployeSalaryService = inject(EmployeSalaryService);
-
-  bankAccounts: BankAccount[] = this.employeSalaryService.getBankAccounts();
 
   @Input({required: true}) bankData: CustomBank[] = [];
   @Input({required: true}) total: number = 0;
