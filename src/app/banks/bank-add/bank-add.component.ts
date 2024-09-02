@@ -13,8 +13,8 @@ export class BankAddComponent implements OnInit, OnDestroy {
 
   bankService: BankService = inject(BankService);
   private destroy$ = new Subject<void>();
+  
   isEdit: boolean = false;
-
   bankForm: FormGroup;
   currentBankId: string = '';
 
@@ -31,30 +31,39 @@ export class BankAddComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (!this.bankForm.valid) return;
-      const bank: Bank = {
-        ...this.bankForm.value
-      }
+    
+    const bank: Bank = {
+      ...this.bankForm.value
+    }
 
-      if(this.isEdit == true) {
-        const bankForEdit = {
-          ...bank,
-          id: this.currentBankId
-        }
-        this.bankService.editsBank(bankForEdit).subscribe({
-          next:(response) => {
-            this.acctionEvent.emit(true);
-            this.bankService.editBank.next(null);
-          },
-          error:(e) => console.error(e)
-        });
-      } else {
-        this.bankService.addBank(bank).subscribe({
-          next:(response) => console.log(response),
-          error:(e) => console.error(e)
-        });
+    if(this.isEdit) {
+      const bankForEdit = {
+        ...bank,
+        id: this.currentBankId
       }
+      this.editBank(bankForEdit);
+    } else {
+      this.addBank(bank);
+    }
+  }
 
-      console.log(this.bankForm.value);
+  private addBank(bankForAdd: Bank): void {
+    this.bankService.addBank(bankForAdd).pipe(takeUntil(this.destroy$)).subscribe({
+      next:(response) => {
+        this.acctionEvent.emit(true);
+      },
+      error:(e) => console.error(e)
+    });
+  }
+
+  private editBank(bankForEdit: Bank): void {
+    this.bankService.editsBank(bankForEdit).pipe(takeUntil(this.destroy$)).subscribe({
+      next:(response) => {
+        this.acctionEvent.emit(true);
+        this.bankService.editBank.next(null);
+      },
+      error:(e) => console.error(e)
+    });
   }
 
   ngOnInit(): void {
