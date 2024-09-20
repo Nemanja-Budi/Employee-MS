@@ -20,3 +20,29 @@ export function getMPRoutes(): Links[] {
     ];
     return mpLinks;
 }
+
+export function getMPNAVRoutes(): Links[] {
+  const mpLinks: Links[] = [
+      {
+        linkName: 'Otpremnice',
+        linkRoute: 'mp/otpremnice',
+        imgName: 'in-stock.png'
+      },
+      {
+        linkName: 'Kalkulacije',
+        linkRoute: 'mp/kalkulacije',
+        imgName: 'warehouse.png'
+      },
+      {
+        linkName: 'Racuni',
+        linkRoute: 'mp/racuni',
+        imgName: 'calculator.png'
+      },
+      {
+        linkName: 'Prijemnice',
+        linkRoute: 'mp/prijemnice',
+        imgName: 'calculator.png'
+      }
+  ];
+  return mpLinks;
+}
