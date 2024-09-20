@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { KalkulacijeComponent } from './kalkulacije.component';
+import { RacuniComponent } from './racuni.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'all-kalkulacije', pathMatch: 'full' },
-    { path: 'all-kalkulacije', component: KalkulacijeComponent },
+  { path: '', redirectTo: 'all-racuni', pathMatch: 'full' },
+  { path: 'all-racuni', component: RacuniComponent },
 ];
 
 @NgModule({
@@ -16,4 +16,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class KalkulacijeRoutingModule { }
+export class RacuniRoutingModule { }
