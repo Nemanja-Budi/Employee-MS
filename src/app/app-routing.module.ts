@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(module => module.AdminModule), canActivate: [AdminGuard] },
   { path: 'banks', loadChildren: () => import('./banks/bank.module').then(module => module.BankModule) },
   { path: 'employes', loadChildren: () => import('./employes/employes.module').then(module => module.EmployesModule), canActivate: [AuthorizationGuard], canMatch: [AuthorizationGuard] },
+  { path: 'mp', loadChildren: () => import('./mp/mp.module').then(module => module.MpModule) },
   { path: '', component: LandingPageComponent, pathMatch: 'full', canMatch: [AuthorizationGuard] },
   { path: '**', component: LandingPageComponent, redirectTo: '' }
 ];

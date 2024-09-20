@@ -3,8 +3,9 @@ import { AccountService } from 'src/app/account/account.service';
 import { AdminService } from '../admin.service';
 import { Links } from 'src/app/shared/types/shared.types';
 import { getAdminRoutes } from '../types/admin.types';
-import { getEmployesRoutes, getMPRoutes } from 'src/app/employes/types/employes.type';
+import { getEmployesRoutes } from 'src/app/employes/types/employes.type';
 import { Router } from '@angular/router';
+import { getMPRoutes } from 'src/app/mp/types/mp.type';
 
 
 @Component({
