@@ -1,0 +1,13 @@
+<nav>
+    <ul class="flex justify-between">
+        <div class="flex gap-5 justify-center items-center mx-auto text-sm">
+            <ng-container *ngFor="let route of routes">
+                <li routerLinkActive="text-white"><a routerLink="/{{route.linkRoute}}">{{route.linkName}}</a></li>
+            </ng-container>
+            <li routerLinkActive="text-white"><a (click)="logout()">Logout</a></li>
+        </div>
+        <div *appUserHasRole="['Admin']">
+            <li routerLinkActive="text-white"><a routerLink="/admin">Admin</a></li>
+        </div>
+    </ul>
+</nav>

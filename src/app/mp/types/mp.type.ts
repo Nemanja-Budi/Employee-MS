@@ -3,8 +3,8 @@ import { Links } from "src/app/shared/types/shared.types";
 export function getMPRoutes(): Links[] {
     const mpLinks: Links[] = [
         {
-          linkName: 'Products',
-          linkRoute: '#',
+          linkName: 'MP',
+          linkRoute: 'mp',
           imgName: 'in-stock.png'
         },
         {
