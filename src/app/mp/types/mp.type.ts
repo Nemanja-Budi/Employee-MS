@@ -42,6 +42,11 @@ export function getMPNAVRoutes(): Links[] {
         linkName: 'Prijemnice',
         linkRoute: 'mp/prijemnice',
         imgName: 'calculator.png'
+      },
+      {
+        linkName: 'Izvestaji',
+        linkRoute: 'mp/izvestaji',
+        imgName: 'calculator.png'
       }
   ];
   return mpLinks;

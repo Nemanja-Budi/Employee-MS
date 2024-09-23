@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'kalkulacije', loadChildren: () => import('./kalkulacije/kalkulacije.module').then(m => m.KalkulacijeModule) },
       { path: 'racuni', loadChildren: () => import('./racuni/racuni.module').then(m => m.RacuniModule) },
       { path: 'prijemnice', loadChildren: () => import('./prijemnice/prijemnice.module').then(m => m.PrijemniceModule) },
+      { path: 'izvestaji', loadChildren: () => import('./izvestaji/izvestaji.module').then(m => m.IzvestajiModule) },
     ]
   }
 ];
