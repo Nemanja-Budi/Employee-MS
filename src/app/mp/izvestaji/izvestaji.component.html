@@ -3,19 +3,19 @@
       <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
         <form [formGroup]="datumIzvestajiForm" (ngSubmit)="onSubmit()" class="space-y-4">
           <div class="flex items-center">
-            <input type="checkbox" id="skipSifra" formControlName="skipSifra" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-            <label for="skipSifra" class="ml-2 block text-sm font-medium text-gray-700">Ne traži šifru (svi proizvodi)</label>
+            <input type="checkbox" id="skipSifraProizvoda" formControlName="skipSifraProizvoda" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+            <label for="skipSifraProizvoda" class="ml-2 block text-sm font-medium text-gray-700">Ne traži šifru (svi proizvodi)</label>
           </div>
-          <div *ngIf="!datumIzvestajiForm.get('skipSifra')?.value">
-            <label for="sifra" class="block text-sm font-medium text-gray-700">Šifra</label>
+          <div *ngIf="!datumIzvestajiForm.get('skipSifraProizvoda')?.value">
+            <label for="sifraProizvoda" class="block text-sm font-medium text-gray-700">Šifra</label>
             <input
               type="text"
-              id="sifra"
-              formControlName="sifra"
+              id="sifraProizvoda"
+              formControlName="sifraProizvoda"
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="Unesite šifru"
             />
-            <div *ngIf="datumIzvestajiForm.get('sifra')?.invalid && datumIzvestajiForm.get('sifra')?.touched" class="text-red-500 text-sm">
+            <div *ngIf="datumIzvestajiForm.get('sifraProizvoda')?.invalid && datumIzvestajiForm.get('sifraProizvoda')?.touched" class="text-red-500 text-sm">
               Unesite validnu šifru.
             </div>
           </div>

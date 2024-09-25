@@ -12,6 +12,7 @@ export class IzvestajiService {
   pojedinacniIzvestaj: BehaviorSubject<PojedinacniIzvestaj | null> = new BehaviorSubject<PojedinacniIzvestaj | null>(null);
   grupniIzvestaj: BehaviorSubject<GrupniIzvestaj | null> = new BehaviorSubject<GrupniIzvestaj | null>(null);
   endDate: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  sifraProizvoda: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) { }
 

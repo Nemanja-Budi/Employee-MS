@@ -1,8 +1,6 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GrupniIzvestaj } from 'src/app/models/mp/izvestaji/grupni.izvestaj.model';
-import { PojedinacniIzvestaj } from 'src/app/models/mp/izvestaji/pojedinacni.izvestaj.model';
 import { IzvestajiService } from './izvestaji.service';
 
 @Component({
@@ -17,12 +15,10 @@ export class IzvestajiComponent {
 
   datumIzvestajiForm: FormGroup;
   
-  @ViewChild('preview', { static: true }) preview!: ElementRef<HTMLDialogElement>;  
-
   constructor(private fb: FormBuilder) {
     this.datumIzvestajiForm = this.fb.group({
-      skipSifra: [false],
-      sifra: ['', [Validators.pattern('^[0-9]+$')]],
+      skipSifraProizvoda: [false],
+      sifraProizvoda: ['', [Validators.pattern('^[0-9]+$')]],
       startDate: [''],
       endDate: ['', Validators.required],
     });
@@ -31,8 +27,8 @@ export class IzvestajiComponent {
   onSubmit() {
     if (!this.datumIzvestajiForm.valid) return;
   
-    const skipSifra = this.datumIzvestajiForm.value['skipSifra'];
-    let sifra = this.datumIzvestajiForm.value['sifra'];
+    const skipSifra = this.datumIzvestajiForm.value['skipSifraProizvoda'];
+    let sifra = this.datumIzvestajiForm.value['sifraProizvoda'];
     let startDate = this.datumIzvestajiForm.value['startDate'];
     const endDate = this.datumIzvestajiForm.value['endDate'];
   
@@ -54,6 +50,7 @@ export class IzvestajiComponent {
         next: (response) => {
           this.izvestajiService.grupniIzvestaj.next(null);
           this.izvestajiService.pojedinacniIzvestaj.next(response);
+          this.izvestajiService.sifraProizvoda.next(sifra);
           this.setDateAndNavigate(endDate);
         },
         error: (e) => console.error(e)

@@ -18,15 +18,30 @@ export class IzvestajPdfComponent {
   generatePdf(): void {
     const pdfElement = this.sharedService.extractHtmlFromTemplate(this.pdfLagerTemplate);
     if (pdfElement) {
+      const nameOfPdf = this.createNameForPdfIzvestaj();
       const htmlContent = pdfElement.innerHTML;
-      this.sharedService.generatePdfForBanks(htmlContent, "IZVESTAJ").subscribe({
+      this.sharedService.generatePdfForBanks(htmlContent, nameOfPdf).subscribe({
         next: (blob) => {
-          this.sharedService.pdfForDownload(blob,"IZVESTAJ");
+          this.sharedService.pdfForDownload(blob, nameOfPdf);
         },
         error: (e) => console.error('Error generating PDF:', e)
       });
     } else {
       console.error('Element with id "pdf-content" not found.');
     }
+  }
+
+  private createNameForPdfIzvestaj(): string {
+    
+    let nameOfPdf = '';
+    const sifra = this.izvestajiService.sifraProizvoda.value;
+    const endDate = this.izvestajiService.endDate.value;
+
+    if(this.izvestajiService.sifraProizvoda.value !== '') {
+      nameOfPdf = `lager-lista-${sifra}-na-dan-${endDate}`;
+    } else {
+      nameOfPdf = `lager-lista-proizvoda-na-dan-${endDate}`;
+    }
+    return nameOfPdf;
   }
 }
