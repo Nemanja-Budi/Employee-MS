@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IzvestajiComponent } from './izvestaji.component';
 import { IzvestajiRoutingModule } from './izvestaji-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -11,7 +12,8 @@ import { IzvestajiRoutingModule } from './izvestaji-routing.module';
   ],
   imports: [
     CommonModule,
-    IzvestajiRoutingModule
+    IzvestajiRoutingModule,
+    SharedModule
   ]
 })
 export class IzvestajiModule { }
