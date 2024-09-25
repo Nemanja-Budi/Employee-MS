@@ -1,0 +1,12 @@
+<ng-template #pdfLagerTemplate>
+    <app-izvestaj-pdf-item [showCols]="false"></app-izvestaj-pdf-item>
+ </ng-template>
+ <ng-container>
+    <app-izvestaj-pdf-item [showCols]="true"></app-izvestaj-pdf-item>
+ </ng-container>
+ 
+ 
+ <div class="flex justify-center mt-2">
+     <button class="bg-indigo-600 rounded-md text-white px-4 py-2" (click)="generatePdf()">Kreiraj izvestaj</button>
+   </div>
+   

@@ -1,0 +1,74 @@
+<div *ngIf="pojedinacniIzvestaj || grupniIzvestaj !== null" style="display: flex; flex-direction: column; padding: 1rem;">
+    <div  style="margin-bottom: 1rem;">
+        <p>MITROSREM AD</p>
+        <p>Sremska Mitrovica</p>
+        <p>PRODAVNICA BR 1</p>
+        <p *ngIf="pojedinacniIzvestaj">Datum: {{ pojedinacniIzvestaj.vreme| date: 'dd.MM.yyyy' }}</p>
+        <p *ngIf="pojedinacniIzvestaj">Vreme: {{ pojedinacniIzvestaj.vreme | date: 'HH:mm:ss' }}</p>
+        <p *ngIf="grupniIzvestaj">Datum: {{ grupniIzvestaj.vreme| date: 'dd.MM.yyyy' }}</p>
+        <p *ngIf="grupniIzvestaj">Vreme: {{ grupniIzvestaj.vreme | date: 'HH:mm:ss' }}</p>
+    </div>
+    <h2 class=" text-xl font-bold" style="text-align: center;">LAGER LISTA <span *ngIf="pojedinacniIzvestaj">{{pojedinacniIzvestaj.izvestaj.proizvod.sifraProizvoda}}</span></h2>
+    <h4>Na dan: {{izvestajiService.endDate.value | date:'dd/MM/yyyy'}}</h4>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="font-weight: bold;">
+                <th style="padding: 8px; text-align: left;">SIFRA</th>
+                <th style="padding: 8px; text-align: left;">NAZIV</th>
+                <th style="padding: 8px; text-align: left;">JM</th>
+                <ng-container *ngIf="showCols">
+                    <th style="padding: 8px; text-align: left;">U.VREDNOST</th>
+                    <th style="padding: 8px; text-align: left;">I.VREDNOST</th>
+                    <th style="padding: 8px; text-align: left;">U.KOLICINA</th>
+                    <th style="padding: 8px; text-align: left;">I.KOLICINA</th>
+                </ng-container>
+                <th style="padding: 8px; text-align: left;">STANJE</th>
+                <th style="padding: 8px; text-align: center;">PROSECNA CENA</th>
+                <th style="padding: 8px; text-align: end;">SALDO</th>
+            </tr>
+        </thead>
+        <tbody  *ngIf="pojedinacniIzvestaj" style="border-top: 1px solid black; border-bottom: 1px solid black;">
+            <tr>
+                <td style="padding: 8px;">{{pojedinacniIzvestaj.izvestaj.proizvod.sifraProizvoda}}</td>
+                <td style="padding: 8px; text-align: start;">{{pojedinacniIzvestaj.izvestaj.proizvod.nazivProizvoda}}</td>
+                <td style="padding: 8px;">{{pojedinacniIzvestaj.izvestaj.proizvod.jm}}</td>
+                <ng-container *ngIf="showCols">
+                    <td style="padding: 8px; text-align: start;">{{pojedinacniIzvestaj.izvestaj.ukupnaUlaznaVrednost}}</td>
+                    <td style="padding: 8px; text-align: start;">{{pojedinacniIzvestaj.izvestaj.ukupnaIzlaznaVrednost.toFixed(2)}}</td>
+                    <td style="padding: 8px; text-align: start;">{{pojedinacniIzvestaj.izvestaj.ukupnaUlaznaKolicina}}</td>
+                    <td style="padding: 8px; text-align: start;">{{pojedinacniIzvestaj.izvestaj.ukupnaIzlaznaKolicina}}</td>
+                </ng-container>
+                <td style="padding: 8px;">{{pojedinacniIzvestaj.izvestaj.razlikaKolicina}}</td>
+                <td style="padding: 8px; text-align: center;">{{pojedinacniIzvestaj.izvestaj.prosecnaVrednost == null ? 0 : pojedinacniIzvestaj.izvestaj.prosecnaVrednost}}</td>
+                <td style="padding: 8px; text-align: end;">{{pojedinacniIzvestaj.izvestaj.razlikaVrednosti}}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="grupniIzvestaj" style="border-top: 1px solid black; border-bottom: 1px solid black;">
+            <tr *ngFor="let l of grupniIzvestaj.izvestaj">
+                <td style="padding: 8px;">{{l.proizvod.sifraProizvoda}}</td>
+                <td style="padding: 8px; text-align: start;">{{l.proizvod.nazivProizvoda}}</td>
+                <td style="padding: 8px;">{{l.proizvod.jm}}</td>
+                <ng-container *ngIf="showCols">
+                    <td style="padding: 8px; text-align: start;">{{l.ukupnaUlaznaVrednost}}</td>
+                    <td style="padding: 8px; text-align: start;">{{l.ukupnaIzlaznaVrednost.toFixed(2)}}</td>
+                    <td style="padding: 8px; text-align: start;">{{l.ukupnaUlaznaKolicina}}</td>
+                    <td style="padding: 8px; text-align: start;">{{l.ukupnaIzlaznaKolicina}}</td>
+                </ng-container>
+                <td style="padding: 8px;">{{l.razlikaKolicina}}</td>
+                <td style="padding: 8px; text-align: center;">{{l.prosecnaVrednost?.toFixed(2) ?? 0}}</td>
+                <td style="padding: 8px; text-align: end;">{{l.razlikaVrednosti}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <b *ngIf="grupniIzvestaj">UKUPNO {{ukupanZbir}}</b>
+    <div *ngIf="!showCols" style="display: flex; justify-content: space-between;">
+        <p style="display: flex; flex-direction: column;">
+            <span style="text-align: center;">PREDAO:</span>
+            <span>_____________________</span>
+        </p>
+        <p style="display: flex; flex-direction: column;">
+            <span style="text-align: center;">PRIMIO:</span>
+            <span>_____________________</span>
+        </p>
+    </div>
+</div>
