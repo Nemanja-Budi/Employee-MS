@@ -13,11 +13,8 @@ import { IzvestajiService } from './izvestaji.service';
 export class IzvestajiComponent {
 
   izvestajiService: IzvestajiService = inject(IzvestajiService);
-
   router: Router = inject(Router);
-  
-  // pojedinacniIzvestaj!: PojedinacniIzvestaj;
-  // grupniIzvestaj!: GrupniIzvestaj;
+
   datumIzvestajiForm: FormGroup;
   
   @ViewChild('preview', { static: true }) preview!: ElementRef<HTMLDialogElement>;  
@@ -34,7 +31,7 @@ export class IzvestajiComponent {
   onSubmit() {
     if (!this.datumIzvestajiForm.valid) return;
   
-    const skipSifra = this.datumIzvestajiForm.value['skipSifra']; // Provera da li je checkbox označen
+    const skipSifra = this.datumIzvestajiForm.value['skipSifra'];
     let sifra = this.datumIzvestajiForm.value['sifra'];
     let startDate = this.datumIzvestajiForm.value['startDate'];
     const endDate = this.datumIzvestajiForm.value['endDate'];
@@ -46,24 +43,26 @@ export class IzvestajiComponent {
     if (skipSifra) {
       this.izvestajiService.getIzvestaji(startDate, endDate).subscribe({
         next: (response) => {
-          // this.grupniIzvestaj = response;
+          this.izvestajiService.pojedinacniIzvestaj.next(null);
           this.izvestajiService.grupniIzvestaj.next(response);
-          this.izvestajiService.endDate.next(endDate);
-          this.router.navigate(['/mp/izvestaji/izvestaj']);
+          this.setDateAndNavigate(endDate);
         },
         error: (e) => console.error(e)
       });
     } else {
       this.izvestajiService.getIzvestaj(sifra, startDate, endDate).subscribe({
         next: (response) => {
-          // this.pojedinacniIzvestaj = response;
+          this.izvestajiService.grupniIzvestaj.next(null);
           this.izvestajiService.pojedinacniIzvestaj.next(response);
-          this.izvestajiService.endDate.next(endDate);
-          this.router.navigate(['/mp/izvestaji/izvestaj']);
+          this.setDateAndNavigate(endDate);
         },
         error: (e) => console.error(e)
       });
     }
   }
   
+  private setDateAndNavigate(endDate: string): void {
+    this.izvestajiService.endDate.next(endDate);
+    this.router.navigate(['/mp/izvestaji/izvestaj']);
+  }
 }
